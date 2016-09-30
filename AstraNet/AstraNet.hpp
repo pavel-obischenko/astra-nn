@@ -21,9 +21,14 @@ namespace astra {
     public:
         Output process(const Input& input);
         
+        std::vector<LayerPtr>& getLayers() { return layers; }
+        void setLayers(const std::vector<LayerPtr>& layers) { this->layers = layers; }
+        
     protected:
-        std::vector<std::shared_ptr<Layer>> layers;
+        std::vector<LayerPtr> layers;
     };
+    
+    typedef std::shared_ptr<AstraNet> AstraNetPtr;
     
 }
 

@@ -10,6 +10,7 @@
 #include <random>
 
 #include "Layer.hpp"
+#include "../Trainers/Trainer.hpp"
 
 namespace astra {
 
@@ -39,6 +40,10 @@ namespace astra {
         output = vec(result);
                 
         return output;
+    }
+    
+    void Layer::train(Trainer* trainer, double epsilon) {
+        trainer->trainLayer(this, epsilon);
     }
     
     void Layer::initWeights() {

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9D8DBDE1D9EA4D500B59CC5 /* SigLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D8DBDC1D9EA4D500B59CC5 /* SigLayer.cpp */; };
+		E9D8DBE11D9EA6C800B59CC5 /* TanhLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D8DBDF1D9EA6C800B59CC5 /* TanhLayer.cpp */; };
+		E9D8DBE51D9EA7B400B59CC5 /* Trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D8DBE31D9EA7B400B59CC5 /* Trainer.cpp */; };
 		E9DF75111D9E488C00F77E56 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9DF75101D9E488C00F77E56 /* main.cpp */; };
 		E9DF75331D9E497600F77E56 /* AstraNet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9DF752A1D9E497600F77E56 /* AstraNet.cpp */; };
 		E9DF75341D9E497600F77E56 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9DF752D1D9E497600F77E56 /* Layer.cpp */; };
@@ -25,6 +28,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E9D8DBDC1D9EA4D500B59CC5 /* SigLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SigLayer.cpp; sourceTree = "<group>"; };
+		E9D8DBDD1D9EA4D500B59CC5 /* SigLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SigLayer.hpp; sourceTree = "<group>"; };
+		E9D8DBDF1D9EA6C800B59CC5 /* TanhLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TanhLayer.cpp; sourceTree = "<group>"; };
+		E9D8DBE01D9EA6C800B59CC5 /* TanhLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TanhLayer.hpp; sourceTree = "<group>"; };
+		E9D8DBE31D9EA7B400B59CC5 /* Trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trainer.cpp; sourceTree = "<group>"; };
+		E9D8DBE41D9EA7B400B59CC5 /* Trainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Trainer.hpp; sourceTree = "<group>"; };
 		E9DF75061D9E483900F77E56 /* astra-nn */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "astra-nn"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DF75101D9E488C00F77E56 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E9DF75271D9E497600F77E56 /* ActivationFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ActivationFunction.hpp; sourceTree = "<group>"; };
@@ -50,6 +59,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E9D8DBE21D9EA73C00B59CC5 /* Trainers */ = {
+			isa = PBXGroup;
+			children = (
+				E9D8DBE31D9EA7B400B59CC5 /* Trainer.cpp */,
+				E9D8DBE41D9EA7B400B59CC5 /* Trainer.hpp */,
+			);
+			path = Trainers;
+			sourceTree = "<group>";
+		};
 		E9DF74FD1D9E483800F77E56 = {
 			isa = PBXGroup;
 			children = (
@@ -71,10 +89,11 @@
 			isa = PBXGroup;
 			children = (
 				E9DF75261D9E497600F77E56 /* ActivationFunctions */,
-				E9DF752A1D9E497600F77E56 /* AstraNet.cpp */,
-				E9DF752B1D9E497600F77E56 /* AstraNet.hpp */,
 				E9DF752C1D9E497600F77E56 /* Layers */,
 				E9DF752F1D9E497600F77E56 /* Math */,
+				E9D8DBE21D9EA73C00B59CC5 /* Trainers */,
+				E9DF752A1D9E497600F77E56 /* AstraNet.cpp */,
+				E9DF752B1D9E497600F77E56 /* AstraNet.hpp */,
 			);
 			path = AstraNet;
 			sourceTree = "<group>";
@@ -94,6 +113,10 @@
 			children = (
 				E9DF752D1D9E497600F77E56 /* Layer.cpp */,
 				E9DF752E1D9E497600F77E56 /* Layer.hpp */,
+				E9D8DBDC1D9EA4D500B59CC5 /* SigLayer.cpp */,
+				E9D8DBDD1D9EA4D500B59CC5 /* SigLayer.hpp */,
+				E9D8DBDF1D9EA6C800B59CC5 /* TanhLayer.cpp */,
+				E9D8DBE01D9EA6C800B59CC5 /* TanhLayer.hpp */,
 			);
 			path = Layers;
 			sourceTree = "<group>";
@@ -118,6 +141,7 @@
 				E9DF75021D9E483800F77E56 /* Sources */,
 				E9DF75031D9E483800F77E56 /* Frameworks */,
 				E9DF75041D9E483800F77E56 /* CopyFiles */,
+				E9DF75351D9E4B4F00F77E56 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -161,13 +185,32 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E9DF75351D9E4B4F00F77E56 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cppcheck --enable=warning,performance,portability,unusedFunction,missingInclude --suppress=missingIncludeSystem .";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E9DF75021D9E483800F77E56 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				E9DF75341D9E497600F77E56 /* Layer.cpp in Sources */,
+				E9D8DBE51D9EA7B400B59CC5 /* Trainer.cpp in Sources */,
+				E9D8DBDE1D9EA4D500B59CC5 /* SigLayer.cpp in Sources */,
 				E9DF75111D9E488C00F77E56 /* main.cpp in Sources */,
+				E9D8DBE11D9EA6C800B59CC5 /* TanhLayer.cpp in Sources */,
 				E9DF75331D9E497600F77E56 /* AstraNet.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +340,7 @@
 				E9DF750F1D9E483900F77E56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

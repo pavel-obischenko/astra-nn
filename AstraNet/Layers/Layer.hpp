@@ -17,13 +17,18 @@
 
 namespace astra {
     
+    class Trainer;
+    
     class Layer {
     private:
         Layer() : weights(1, 1) {};
         
-    public:
+    protected:
         Layer(unsigned int nInputs, unsigned int nOutputs, const std::shared_ptr<ActivationFunction> &activationFunc);
+        
+    public:
         const vec& process(const vec& inputValues);
+        void train(Trainer* trainer, double epsilon);
         
     public:
         void setWeights(const mat& newWeights) { weights = newWeights; }
@@ -41,6 +46,8 @@ namespace astra {
         
         std::shared_ptr<ActivationFunction> activation;
     };
+    
+    typedef std::shared_ptr<Layer> LayerPtr;
 }
 
 #endif /* Layer_hpp */
