@@ -24,17 +24,17 @@ namespace astra {
         Layer() : weights(1, 1) {};
         
     protected:
-        Layer(unsigned int nInputs, unsigned int nOutputs, const std::shared_ptr<ActivationFunction> &activationFunc);
+        Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr &activationFunc);
         
     public:
         const vec& process(const vec& inputValues);
-        void train(Trainer* trainer, double epsilon);
         
     public:
         void setWeights(const mat& newWeights) { weights = newWeights; }
+        const inputv& getInput() const { return input; }
         const mat& getWeights() const { return weights; }
-        
         const vec& getOutput() const { return output; }
+        const ActivationFunctionPtr& getActivationFunc() const { return activation; }
         
     protected:
         void initWeights();
@@ -44,7 +44,7 @@ namespace astra {
         vec output;
         mat weights;
         
-        std::shared_ptr<ActivationFunction> activation;
+        ActivationFunctionPtr activation;
     };
     
     typedef std::shared_ptr<Layer> LayerPtr;

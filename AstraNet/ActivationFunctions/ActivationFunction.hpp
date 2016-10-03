@@ -19,6 +19,7 @@ namespace astra {
         virtual double derivativeValue(double arg) { return 0; }
     };
 
+    typedef std::shared_ptr<ActivationFunction> ActivationFunctionPtr;
 }
 
 #endif /* IActivationFunction_h */

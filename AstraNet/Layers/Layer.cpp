@@ -14,7 +14,7 @@
 
 namespace astra {
 
-    Layer::Layer(unsigned int nInputs, unsigned int nOutputs, const std::shared_ptr<ActivationFunction>& activationFunc) : input(nInputs + 1), output(nOutputs), weights(nOutputs, nInputs + 1), activation(activationFunc) {
+    Layer::Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : input(nInputs + 1), output(nOutputs), weights(nOutputs, nInputs + 1), activation(activationFunc) {
         input[0] = 1.;
         initWeights();
     }
@@ -40,10 +40,6 @@ namespace astra {
         output = vec(result);
                 
         return output;
-    }
-    
-    void Layer::train(Trainer* trainer, double epsilon) {
-        trainer->trainLayer(this, epsilon);
     }
     
     void Layer::initWeights() {
