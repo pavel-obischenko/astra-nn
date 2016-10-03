@@ -29,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		E9AE356D1DA2695900C45683 /* TrainData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainData.h; sourceTree = "<group>"; };
+		E9AE35721DA2CF2C00C45683 /* TrainLayerWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainLayerWrapper.h; sourceTree = "<group>"; };
 		E9D8DBDC1D9EA4D500B59CC5 /* SigLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SigLayer.cpp; sourceTree = "<group>"; };
 		E9D8DBDD1D9EA4D500B59CC5 /* SigLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SigLayer.hpp; sourceTree = "<group>"; };
 		E9D8DBDF1D9EA6C800B59CC5 /* TanhLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TanhLayer.cpp; sourceTree = "<group>"; };
@@ -66,6 +67,7 @@
 				E9D8DBE31D9EA7B400B59CC5 /* Trainer.cpp */,
 				E9D8DBE41D9EA7B400B59CC5 /* Trainer.hpp */,
 				E9AE356D1DA2695900C45683 /* TrainData.h */,
+				E9AE35721DA2CF2C00C45683 /* TrainLayerWrapper.h */,
 			);
 			path = Trainers;
 			sourceTree = "<group>";

@@ -11,6 +11,7 @@
 
 #include "../AstraNet.hpp"
 #include "TrainData.h"
+#include "TrainLayerWrapper.h"
 
 #include <vector>
 

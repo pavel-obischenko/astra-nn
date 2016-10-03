@@ -7,6 +7,7 @@
 //
 
 #include "Trainer.hpp"
+#include "TrainLayerWrapper.h"
 
 namespace astra {
     
@@ -39,7 +40,20 @@ namespace astra {
         return 2 * (out - train);
     }
     
-    static Matrix weightGradient(const Vector& input, const Vector& errorGrad, Layer* layer) {
+    static Vector errorGradient(const Matrix& prevWeightGradient) {
+        std::vector<double> sumArray;
+        
+        std::vector<Vector> cols = prevWeightGradient.get_cols_const();
+        cols = std::vector<Vector>(cols.begin(), cols.end() - 1);
+        
+        std::for_each(cols.begin(), cols.end(), [&sumArray](const Vector& col) {
+            sumArray.push_back(col.sum());
+        });
+        
+        return Vector(sumArray);
+    }
+    
+    static Matrix weightGradient(const Vector& input, const Vector& errorGrad, LayerPtr layer) {
         InputVector inputVec(input);
         Matrix weights = layer->getWeights();
         
@@ -49,8 +63,8 @@ namespace astra {
         std::for_each(weights.get_rows().begin(), weights.get_rows().end(), [&inputVec, layer, &resultDelta, &currentErrorDerivative](const Vector& rowWeights) {
             ActivationFunctionPtr activation = layer->getActivationFunc();
             
-            double sum = inputVec.mul_termwise(rowWeights).sum();
-            double derivative = activation->derivativeValue(sum);
+            double rowSum = inputVec.mul_termwise(rowWeights).sum();
+            double derivative = activation->derivativeValue(rowSum);
             
             Vector dw = inputVec.mul_termwise(rowWeights * derivative) * (*currentErrorDerivative++);
             resultDelta.push_back(dw);

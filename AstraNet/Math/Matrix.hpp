@@ -110,6 +110,18 @@ namespace astra {
             return rows;
         }
         
+        const std::vector<Vector>& get_rows_const() const {
+            return rows;
+        }
+        
+        std::vector<Vector> get_cols_const() const {
+            std::vector<Vector> cols;
+            for (unsigned int i = 0; i < nCols; ++i) {
+                cols.push_back(get_col(i));
+            }
+            return cols;
+        }
+        
         Vector get_row(unsigned long index) const {
             return rows[index];
         }
@@ -130,6 +142,7 @@ namespace astra {
     };
     
     typedef Matrix mat;
+    typedef std::shared_ptr<Matrix> MatrixPtr;
 }
 
 #endif /* Matrix_h */
