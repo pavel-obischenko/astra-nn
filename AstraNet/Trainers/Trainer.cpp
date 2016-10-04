@@ -28,7 +28,7 @@ namespace astra {
         Vector dOut = Vector(*(currentTrainData->output));
         
         auto rbegin = layerWrappers->rbegin();
-        for(auto layerWr = rbegin; layerWr <= layerWrappers->rend(); ++layerWr) {
+        for(auto layerWr = rbegin; layerWr != layerWrappers->rend(); ++layerWr) {
             auto prevWr = layerWr > rbegin ? *(layerWr - 1) : nullptr;
             trainLayer(*layerWr, prevWr, Vector(out), dOut, epsilon);
         };

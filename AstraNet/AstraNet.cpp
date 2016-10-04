@@ -14,7 +14,7 @@ namespace astra {
         auto firstLayer = layers.begin();
         
         vec lastOutput;
-        for (auto layer = firstLayer; layer <= layers.end(); ++layer) {
+        for (auto layer = firstLayer; layer != layers.end(); ++layer) {
             const vec& currentInput = layer == firstLayer ? vec(input) : lastOutput;
             lastOutput = layer->get()->process(currentInput);
         }
