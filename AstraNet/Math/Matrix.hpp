@@ -58,6 +58,14 @@ namespace astra {
             return Matrix(result);
         }
         
+        Matrix mul_termwise(double arg) const {
+            std::vector<Vector> result;
+            std::for_each(rows.begin(), rows.end(), [&result, arg](const Vector& row) {
+                result.push_back(arg * row);
+            });
+            return Matrix(result);
+        }
+        
         friend Matrix operator*(const Matrix& left, const Matrix& right) {
             Matrix result(left.nCols, right.nRows);
             
@@ -85,6 +93,19 @@ namespace astra {
         
         friend Vector operator*(const Vector& left, const Matrix& right) {
             return right * left;
+        }
+        
+        friend Matrix operator*(const Matrix& left, double right) {
+            return left.mul_termwise(right);
+        }
+        
+        friend Matrix operator*(double left, const Matrix& right) {
+            return right * left;
+        }
+        
+        friend Matrix& operator*=(Matrix& left, double right) {
+            left = left * right;
+            return left;
         }
         
         friend std::ostream& operator<<(std::ostream& os, const Matrix& mat) {

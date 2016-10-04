@@ -11,36 +11,50 @@
 
 namespace astra {
     
-    static double errorSqr(const Output& out, const Output& train);
+    Trainer::Trainer(AstraNetPtr& net, TrainDataArrayPtr& trainDataArray) : net(net), epsilon(.03), trainDataArray(trainDataArray), currentEpoch(0), layerWrappers(std::make_shared<TrainLayerWrapperArray>()) {
+        initWrappers();
+    }
     
-    Trainer::Trainer(AstraNetPtr net, TrainDataArrayPtr trainDataArray) : net(net), epsilon(.03), trainDataArray(trainDataArray), currentEpoch(0) {}
+    void Trainer::initWrappers() {
+        auto layers = net->getLayers();
+        std::for_each(layers.begin(), layers.end(), [this](LayerPtr& layer) {
+            this->layerWrappers->emplace_back(layer, nullptr);
+        });
+    }
     
-    void Trainer::train(double epsilon) {
+    void Trainer::runTrainEpoch(double epsilon) {
         TrainDataPtr currentTrainData = (*trainDataArray)[currentEpoch];
+        Vector out = Vector(net->process(*currentTrainData->input));
+        Vector dOut = Vector(*(currentTrainData->output));
         
-        Output& d = *currentTrainData->output;
-        Output y = net->process(*currentTrainData->input);
-        
-        //double err = errorSqr(y, d);
+        auto rbegin = layerWrappers->rbegin();
+        for(auto layerWr = rbegin; layerWr <= layerWrappers->rend(); ++layerWr) {
+            auto prevWr = layerWr > rbegin ? *(layerWr - 1) : nullptr;
+            trainLayer(*layerWr, prevWr, Vector(out), dOut, epsilon);
+        };
         
         ++currentEpoch;
     }
     
-    void Trainer::trainLayer(Layer* currentLayer, Layer* prevLayer, double epsilon, const Error& error) {
+    void Trainer::trainLayer(TrainLayerWrapperPtr& currentWr, TrainLayerWrapperPtr& prevWr, const Vector& out, const Vector& dOut, double epsilon) {
+        const Vector& errorGrad = prevWr != nullptr ? errorGradient(*(prevWr->weightGradient)) : errorGradient(out, dOut);
+        const Vector& layerIn = currentWr->layer->getInput();
+        Matrix weightGrad = weightGradient(layerIn, errorGrad, currentWr->layer);
+        weightGrad *= epsilon;
         
     }
     
-    static double errorSqr(const Vector& out, const Vector& train) {
+    double Trainer::errorSqr(const Vector& out, const Vector& train) {
         Vector err = out - train;
         err = err.mul_termwise(err);
         return err.sum();
     }
     
-    static Vector errorGradient(const Vector& out, const Vector& train) {
+    Vector Trainer::errorGradient(const Vector& out, const Vector& train) {
         return 2 * (out - train);
     }
     
-    static Vector errorGradient(const Matrix& prevWeightGradient) {
+    Vector Trainer::errorGradient(const Matrix& prevWeightGradient) {
         std::vector<double> sumArray;
         
         std::vector<Vector> cols = prevWeightGradient.get_cols_const();
@@ -53,7 +67,7 @@ namespace astra {
         return Vector(sumArray);
     }
     
-    static Matrix weightGradient(const Vector& input, const Vector& errorGrad, LayerPtr layer) {
+    Matrix Trainer::weightGradient(const Vector& input, const Vector& errorGrad, LayerPtr layer) {
         InputVector inputVec(input);
         Matrix weights = layer->getWeights();
         

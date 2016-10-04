@@ -14,9 +14,14 @@
 namespace astra {
     
     struct TrainLayerWrapper {
+        TrainLayerWrapper(LayerPtr& layer, MatrixPtr& weightGradient) : layer(layer), weightGradient(weightGradient) {}
         LayerPtr layer;
-        Matrix weightGradient;
+        MatrixPtr weightGradient;
     };
+    
+    typedef std::shared_ptr<TrainLayerWrapper> TrainLayerWrapperPtr;
+    typedef std::vector<TrainLayerWrapperPtr> TrainLayerWrapperArray;
+    typedef std::shared_ptr<TrainLayerWrapperArray> TrainLayerWrapperArrayPtr;
 }
 
 #endif /* TrainLayerWrapper_h */
