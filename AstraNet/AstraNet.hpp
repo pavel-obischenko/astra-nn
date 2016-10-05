@@ -23,6 +23,9 @@ namespace astra {
         
         std::vector<LayerPtr>& getLayers() { return layers; }
         void setLayers(const std::vector<LayerPtr>& layers) { this->layers = layers; }
+        void addLayer(const LayerPtr& layer) {
+            layers.push_back(layer);
+        }
         
     protected:
         std::vector<LayerPtr> layers;

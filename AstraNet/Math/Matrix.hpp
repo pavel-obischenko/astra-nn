@@ -42,8 +42,8 @@ namespace astra {
             nCols = rows.front().size();
         }
     
-        unsigned long sum() const {
-            unsigned long result = 0;
+        double sum() const {
+            double result = 0;
             std::for_each(rows.begin(), rows.end(), [&result](const vec& val) {
                 result += val.sum();
             });

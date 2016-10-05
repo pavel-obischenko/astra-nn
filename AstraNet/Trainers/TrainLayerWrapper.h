@@ -15,7 +15,7 @@
 namespace astra {
     
     struct TrainLayerWrapper {
-        TrainLayerWrapper(LayerPtr& layer, VectorPtr& localGradient) : layer(layer), localGradient(localGradient) {}
+        TrainLayerWrapper(const LayerPtr& layer, const VectorPtr& localGradient) : layer(layer), localGradient(localGradient) {}
         LayerPtr layer;
         VectorPtr localGradient;
     };

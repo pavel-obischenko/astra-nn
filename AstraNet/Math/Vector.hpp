@@ -30,8 +30,8 @@ namespace astra {
             return storage.size();
         }
         
-        unsigned long sum() const {
-            unsigned long result = 0;
+        double sum() const {
+            double result = 0;
             std::for_each(storage.begin(), storage.end(), [&result](double val) {
                 result += val;
             });

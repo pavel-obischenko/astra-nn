@@ -21,17 +21,17 @@ namespace astra {
     
     class Trainer {
     public:
-        explicit Trainer(AstraNetPtr& net, TrainDataArrayPtr& trainDataVec);
+        explicit Trainer(AstraNetPtr& net, const TrainDataArrayPtr& trainDataVec);
         void runTrainEpoch(double epsilon);
         
-    protected:
+    //protected:
         void initWrappers();
         void trainLayer(TrainLayerWrapperPtr& currentWr, TrainLayerWrapperPtr& prevWr, const Vector& out, const Vector& dOut, double epsilon);
         
         double errorSqr(const Vector& out, const Vector& train);
         Vector errorFactor(const Vector& out, const Vector& train);
         Vector errorFactor(const Matrix& prevWeights, const Vector& prevLocalGradient);
-        Vector localGradient(const Vector& input, const Vector& errorGrad, const Layer& layer);
+        Vector localGradient(const InputVector& input, const Vector& errorGrad, const Layer& layer);
         Matrix calculateCorrectWeights(const Matrix& weights, const Vector& input, const Vector& localGrad, double epsilon);
         
     protected:
