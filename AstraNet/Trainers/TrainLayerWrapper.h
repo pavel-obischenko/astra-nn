@@ -10,13 +10,14 @@
 #define TrainLayerWrapper_h
 
 #include "../Layers/Layer.hpp"
+#include "../Math/Vector.hpp"
 
 namespace astra {
     
     struct TrainLayerWrapper {
-        TrainLayerWrapper(LayerPtr& layer, MatrixPtr& weightGradient) : layer(layer), weightGradient(weightGradient) {}
+        TrainLayerWrapper(LayerPtr& layer, VectorPtr& localGradient) : layer(layer), localGradient(localGradient) {}
         LayerPtr layer;
-        MatrixPtr weightGradient;
+        VectorPtr localGradient;
     };
     
     typedef std::shared_ptr<TrainLayerWrapper> TrainLayerWrapperPtr;

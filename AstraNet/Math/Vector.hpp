@@ -139,6 +139,7 @@ namespace astra {
     };
     
     typedef Vector vec;
+    typedef std::shared_ptr<Vector> VectorPtr;
 }
 
 

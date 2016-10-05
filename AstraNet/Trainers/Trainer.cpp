@@ -37,11 +37,16 @@ namespace astra {
     }
     
     void Trainer::trainLayer(TrainLayerWrapperPtr& currentWr, TrainLayerWrapperPtr& prevWr, const Vector& out, const Vector& dOut, double epsilon) {
-        const Vector& errorGrad = prevWr != nullptr ? errorGradient(*(prevWr->weightGradient)) : errorGradient(out, dOut);
-        const Vector& layerIn = currentWr->layer->getInput();
-        Matrix weightGrad = weightGradient(layerIn, errorGrad, currentWr->layer);
-        weightGrad *= epsilon;
+        const Vector& errFactor = prevWr != nullptr ? errorFactor(prevWr->layer->getWeights(), *(prevWr->localGradient)) : errorFactor(out, dOut);
         
+        LayerPtr currentLayerPtr = currentWr->layer;
+        const Vector& layerIn = currentLayerPtr->getInput();
+        Vector localGrad = localGradient(layerIn, errFactor, *currentLayerPtr);
+        
+        currentWr->localGradient = std::make_shared<Vector>(localGrad);
+        
+        Matrix correctWeights = calculateCorrectWeights(currentLayerPtr->getWeights(), layerIn, localGrad, epsilon);
+        currentLayerPtr->setWeights(correctWeights);
     }
     
     double Trainer::errorSqr(const Vector& out, const Vector& train) {
@@ -50,41 +55,56 @@ namespace astra {
         return err.sum();
     }
     
-    Vector Trainer::errorGradient(const Vector& out, const Vector& train) {
-        return 2 * (out - train);
+    Vector Trainer::errorFactor(const Vector& out, const Vector& train) {
+        return out - train;
     }
     
-    Vector Trainer::errorGradient(const Matrix& prevWeightGradient) {
+    Vector Trainer::errorFactor(const Matrix& prevWeights, const Vector& prevLocalGradient) {
         std::vector<double> sumArray;
         
-        std::vector<Vector> cols = prevWeightGradient.get_cols_const();
-        cols = std::vector<Vector>(cols.begin(), cols.end() - 1);
+        std::vector<Vector> cols = prevWeights.get_cols_const();
+        
+        // col < cols.end() - without last col, last col is bias weight
+        for (auto col = cols.begin(); col < cols.end(); ++col) {
+            sumArray.push_back(col->mul_termwise(prevLocalGradient).sum());
+        }
         
         std::for_each(cols.begin(), cols.end(), [&sumArray](const Vector& col) {
+            
             sumArray.push_back(col.sum());
         });
         
         return Vector(sumArray);
     }
     
-    Matrix Trainer::weightGradient(const Vector& input, const Vector& errorGrad, LayerPtr layer) {
+    Vector Trainer::localGradient(const Vector& input, const Vector& errorFactor, const Layer& layer) {
         InputVector inputVec(input);
-        Matrix weights = layer->getWeights();
+        Matrix weights = layer.getWeights();
         
-        auto currentErrorDerivative = errorGrad.get_storage_const().begin();
-        std::vector<Vector> resultDelta;
+        auto currentErrorFactor = errorFactor.get_storage_const().begin();
+        std::vector<double> resultDelta;
         
-        std::for_each(weights.get_rows().begin(), weights.get_rows().end(), [&inputVec, layer, &resultDelta, &currentErrorDerivative](const Vector& rowWeights) {
-            ActivationFunctionPtr activation = layer->getActivationFunc();
+        std::for_each(weights.get_rows().begin(), weights.get_rows().end(), [&inputVec, &layer, &resultDelta, &currentErrorFactor](const Vector& rowWeights) {
+            ActivationFunctionPtr activation = layer.getActivationFunc();
             
             double rowSum = inputVec.mul_termwise(rowWeights).sum();
             double derivative = activation->derivativeValue(rowSum);
             
-            Vector dw = inputVec.mul_termwise(rowWeights * derivative) * (*currentErrorDerivative++);
-            resultDelta.push_back(dw);
+            double grad = derivative * (*currentErrorFactor++);
+            resultDelta.push_back(grad);
         });
         
-        return Matrix(resultDelta);
+        return Vector(resultDelta);
     }
     
+    Matrix Trainer::calculateCorrectWeights(const Matrix& weights, const Vector& input, const Vector& localGrad, double epsilon) {
+        std::vector<Vector> resultData;
+        
+        std::for_each(weights.get_rows_const().begin(), weights.get_rows_const().end(), [&input, &localGrad, epsilon, &resultData](const Vector& rowWeights) {
+            Vector dVec = rowWeights.mul_termwise(input).mul_termwise(localGrad) * epsilon;
+            resultData.push_back(rowWeights + dVec);
+        });
+        
+        return Matrix(resultData);
+    }
 }
