@@ -21,12 +21,12 @@ using namespace astra;
 int main(int argc, const char * argv[]) {
     AstraNetPtr net = std::make_shared<AstraNet>();
     
-    LayerPtr layer0 = std::make_shared<TanhLayer>(2, 4, 1.);
-    net->addLayer(layer0);
-    LayerPtr layer1 = std::make_shared<TanhLayer>(4, 1, 1.);
-    net->addLayer(layer1);
+    LayerPtr layerFirst = std::make_shared<TanhLayer>(2, 5, 1.);
+    net->addLayer(layerFirst);
+    LayerPtr layerLast = std::make_shared<TanhLayer>(5, 1, 1.);
+    net->addLayer(layerLast);
     
-    int count = 2000;
+    int count = 3000;
     
     Vector posVec = {.5, .5};
     Vector negVec = {-.5, -.5};
