@@ -21,7 +21,7 @@ namespace astra {
     
     class Trainer {
     public:
-        explicit Trainer(AstraNetPtr& net, const TrainDataArrayPtr& trainDataVec);
+        explicit Trainer(const AstraNetPtr& netPtr, const TrainDataPtr& trainDataPtr);
         void runTrainEpoch(double epsilon);
         
     //protected:
@@ -36,8 +36,9 @@ namespace astra {
         
     protected:
         double epsilon;
-        AstraNetPtr net;
-        TrainDataArrayPtr trainDataArray;
+        
+        AstraNetPtr netPtr;
+        TrainDataPtr trainDataPtr;
         TrainLayerWrapperArrayPtr layerWrappers;
         
     protected:

@@ -15,6 +15,7 @@ namespace astra {
     
     class TanhLayer : public Layer {
     public:
+        static LayerPtr createPtr(unsigned int nInputs, unsigned int nOutputs, double activationAlpha);
         TanhLayer(unsigned int nInputs, unsigned int nOutputs, double activationAlpha = 1.);
     };
 }

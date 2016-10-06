@@ -17,8 +17,16 @@ namespace astra {
     typedef std::vector<double> Input;
     typedef std::vector<double> Output;
     
+    class AstraNet;
+    typedef std::shared_ptr<AstraNet> AstraNetPtr;
+    
     class AstraNet {
     public:
+        static AstraNetPtr createPtr();
+        static AstraNetPtr constructFeedForwardNet(unsigned int nInputs, const std::vector<int>& layerSizes);
+        
+    public:
+        
         Output process(const Input& input);
         
         std::vector<LayerPtr>& getLayers() { return layers; }
@@ -30,8 +38,6 @@ namespace astra {
     protected:
         std::vector<LayerPtr> layers;
     };
-    
-    typedef std::shared_ptr<AstraNet> AstraNetPtr;
     
 }
 

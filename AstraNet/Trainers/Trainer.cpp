@@ -11,21 +11,21 @@
 
 namespace astra {
     
-    Trainer::Trainer(AstraNetPtr& net, const TrainDataArrayPtr& trainDataArray) : net(net), epsilon(.03), trainDataArray(trainDataArray), currentEpoch(0), layerWrappers(std::make_shared<TrainLayerWrapperArray>()) {
+    Trainer::Trainer(const AstraNetPtr& netPtr, const TrainDataPtr& trainDataPtr) : netPtr(netPtr), epsilon(.03), trainDataPtr(trainDataPtr), currentEpoch(0), layerWrappers(std::make_shared<TrainLayerWrapperArray>()) {
         initWrappers();
     }
     
     void Trainer::initWrappers() {
-        auto layers = net->getLayers();
+        auto layers = netPtr->getLayers();
         std::for_each(layers.begin(), layers.end(), [this](LayerPtr& layer) {
             this->layerWrappers->push_back(std::make_shared<TrainLayerWrapper>(layer, nullptr));
         });
     }
     
     void Trainer::runTrainEpoch(double epsilon) {
-        TrainDataPtr currentTrainData = (*trainDataArray)[currentEpoch];
-        Vector out = Vector(net->process(*currentTrainData->input));
-        Vector dOut = Vector(*(currentTrainData->output));
+        TrainDataPairPtr currentTrainData = trainDataPtr->nextPair();
+        Vector out = Vector(netPtr->process(*currentTrainData->first));
+        Vector dOut = Vector(*(currentTrainData->second));
         
         auto rbegin = layerWrappers->rbegin();
         for(auto layerWr = rbegin; layerWr != layerWrappers->rend(); ++layerWr) {

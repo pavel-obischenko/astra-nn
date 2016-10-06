@@ -11,6 +11,10 @@
 
 namespace astra {
     
+    LayerPtr TanhLayer::createPtr(unsigned int nInputs, unsigned int nOutputs, double activationAlpha) {
+        return std::make_shared<TanhLayer>(nInputs, nOutputs, activationAlpha);
+    }
+    
     TanhLayer::TanhLayer(unsigned int nInputs, unsigned int nOutputs, double activationAlpha) : astra::Layer(nInputs, nOutputs, std::make_shared<TanhActivationFunction>(activationAlpha)) {
     }
 }

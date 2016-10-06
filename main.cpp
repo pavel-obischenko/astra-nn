@@ -19,14 +19,9 @@
 using namespace astra;
 
 int main(int argc, const char * argv[]) {
-    AstraNetPtr net = std::make_shared<AstraNet>();
+    AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {5, 5, 1});
     
-    LayerPtr layerFirst = std::make_shared<TanhLayer>(2, 5, 1.);
-    net->addLayer(layerFirst);
-    LayerPtr layerLast = std::make_shared<TanhLayer>(5, 1, 1.);
-    net->addLayer(layerLast);
-    
-    int count = 3000;
+    int count = 6000;
     
     Vector posVec = {.5, .5};
     Vector negVec = {-.5, -.5};
@@ -35,7 +30,7 @@ int main(int argc, const char * argv[]) {
     std::uniform_real_distribution<double> distribution(-.2, .2);
     auto rnd = std::bind(distribution, generator);
     
-    TrainDataArrayPtr trainArray = std::make_shared<std::vector<TrainDataPtr>>();
+    TrainDataPtr trainData = TrainData::createPtr();
     
     for (int i = 0; i < count; i++) {
         bool outValue = rnd() > 0;
@@ -49,26 +44,25 @@ int main(int argc, const char * argv[]) {
         TrainDataInputPtr in = std::make_shared<std::vector<double>>(inputVec.get_storage());
         TrainDataInputPtr out = std::make_shared<std::vector<double>>(outVec.get_storage());
         
-        TrainDataPtr trainData = std::make_shared<TrainData>(in, out);
-        trainArray->push_back(trainData);
+        trainData->addTrainPair(inputVec.get_storage(), outVec.get_storage());
     }
     
-    TrainerPtr trainer = std::make_shared<Trainer>(net, trainArray);
+    TrainerPtr trainer = std::make_shared<Trainer>(net, trainData);
     for (int i = 0; i < count; i++) {
-        const TrainData& data = (*(*trainArray)[i]);
-        const std::vector<double>& input = *data.input;
+        trainer->runTrainEpoch(0.1);
+        
+        TrainDataPairPtr pairPtr = trainData->currentPair();
+        const std::vector<double>& input = *pairPtr->first;
         auto out = net->process(input);
         
-        if (i > 0 && i % 100 == 0) {
-            int i = 0;
-        }
+//        if (i > 0 && i % 100 == 0) {
+//            int i = 0;
+//        }
         
         Vector inVec(input);
         Vector outVec(out);
         
         std::cout << i << " " << inVec << " " << outVec << std::endl;
-        
-        trainer->runTrainEpoch(0.05);
         
         //std::cout << i << " " << trainer->errorFactor(outVec, Vector(*data.output)) << std::endl;
     }
