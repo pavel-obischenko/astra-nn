@@ -18,6 +18,7 @@ namespace astra {
         TrainLayerWrapper(const LayerPtr& layer, const VectorPtr& localGradient) : layer(layer), localGradient(localGradient) {}
         LayerPtr layer;
         VectorPtr localGradient;
+        MatrixPtr newWeights;
     };
     
     typedef std::shared_ptr<TrainLayerWrapper> TrainLayerWrapperPtr;

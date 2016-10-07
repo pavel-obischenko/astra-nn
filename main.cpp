@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <random>
+#include <cmath>
 
 #include "AstraNet/AstraNet.hpp"
 #include "AstraNet/Layers/TanhLayer.hpp"
@@ -19,9 +20,9 @@
 using namespace astra;
 
 int main(int argc, const char * argv[]) {
-    AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {5, 5, 1});
+    AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {3, 3, 1});
     
-    int count = 6000;
+    int count = 20000;
     
     Vector posVec = {.5, .5};
     Vector negVec = {-.5, -.5};
@@ -41,28 +42,36 @@ int main(int argc, const char * argv[]) {
         
         Vector outVec = {outValue ? .5 : -.5};
         
-        TrainDataInputPtr in = std::make_shared<std::vector<double>>(inputVec.get_storage());
-        TrainDataInputPtr out = std::make_shared<std::vector<double>>(outVec.get_storage());
-        
         trainData->addTrainPair(inputVec.get_storage(), outVec.get_storage());
     }
     
+    double error = 0;
+    
     TrainerPtr trainer = std::make_shared<Trainer>(net, trainData);
     for (int i = 0; i < count; i++) {
-        trainer->runTrainEpoch(0.1);
+        trainer->runTrainEpoch(0.005);
         
         TrainDataPairPtr pairPtr = trainData->currentPair();
         const std::vector<double>& input = *pairPtr->first;
+        const std::vector<double>& dOut = *pairPtr->second
+        ;
         auto out = net->process(input);
-        
-//        if (i > 0 && i % 100 == 0) {
-//            int i = 0;
-//        }
+
+        int errCount = 500;
+        bool lastIteration = i == count-1;
+        if ((i > 0 && i % errCount == 0) || lastIteration) {
+            error *= 100. / errCount;
+            std::cout << (lastIteration ? i+1 : i) << " " << error << std::endl;
+            error = 0;
+        }
+        else {
+            error += fabs(trainer->errorFactor(Vector(out), Vector(dOut)).sum());
+        }
         
         Vector inVec(input);
         Vector outVec(out);
         
-        std::cout << i << " " << inVec << " " << outVec << std::endl;
+        //std::cout << i << " " << inVec << " " << outVec << std::endl;
         
         //std::cout << i << " " << trainer->errorFactor(outVec, Vector(*data.output)) << std::endl;
     }

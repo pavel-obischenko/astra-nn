@@ -33,6 +33,11 @@ namespace astra {
             trainLayer(*layerWr, prevWr, Vector(out), dOut, epsilon);
         };
         
+        for(auto layerWr = rbegin; layerWr != layerWrappers->rend(); ++layerWr) {
+            LayerPtr layer = (*layerWr)->layer;
+            layer->setWeights(*(*layerWr)->newWeights);
+        };
+        
         ++currentEpoch;
     }
     
@@ -45,8 +50,7 @@ namespace astra {
         
         currentWr->localGradient = std::make_shared<Vector>(localGrad);
         
-        Matrix correctWeights = calculateCorrectWeights(currentLayerPtr->getWeights(), layerIn, localGrad, epsilon);
-        currentLayerPtr->setWeights(correctWeights);
+        currentWr->newWeights = std::make_shared<Matrix>(calculateCorrectWeights(currentLayerPtr->getWeights(), layerIn, localGrad, epsilon));
     }
     
     double Trainer::errorSqr(const Vector& out, const Vector& train) {
@@ -61,7 +65,6 @@ namespace astra {
     
     Vector Trainer::errorFactor(const Matrix& prevWeights, const Vector& prevLocalGradient) {
         std::vector<double> sumArray;
-        
         std::vector<Vector> cols = prevWeights.get_cols_const();
         
         // col < cols.end() - without last col, last col is bias weight
@@ -70,7 +73,6 @@ namespace astra {
         }
         
         std::for_each(cols.begin(), cols.end(), [&sumArray](const Vector& col) {
-            
             sumArray.push_back(col.sum());
         });
         
@@ -98,22 +100,13 @@ namespace astra {
     
     Matrix Trainer::calculateCorrectWeights(const Matrix& weights, const Vector& input, const Vector& localGrad, double epsilon) {
         std::vector<Vector> resultData;
-        
-        //std::cout << "w:" << weights << " lg:" << localGrad << std::endl;
-        
         auto currentLocalGrad = localGrad.get_storage_const().begin();
         
         std::for_each(weights.get_rows_const().begin(), weights.get_rows_const().end(), [&input, &currentLocalGrad, epsilon, &resultData](const Vector& rowWeights) {
-            //Vector v0 = rowWeights.mul_termwise(input);
-            Vector v1 = (*currentLocalGrad) * input;
-            //Vector v1 = (*currentLocalGrad) * v0;
-            Vector dVec = v1 * epsilon;
-            //Vector dVec = input * (*currentLocalGrad) * epsilon;
+            Vector dVec = (*currentLocalGrad) * input * epsilon;
             resultData.push_back(rowWeights + dVec);
             ++currentLocalGrad;
         });
-        
-        //std::cout << " new:" << Matrix(resultData) << std::endl;
         
         return Matrix(resultData);
     }
