@@ -23,7 +23,7 @@ namespace astra {
             return std::tanh(alpha * arg / 2.);
         }
         
-        virtual double derivativeValue(double arg) {
+        virtual double derivativeValue(double arg) const {
             double th = value(arg);
             return alpha * (1 - th * th) / 2.;
         }

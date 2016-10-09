@@ -23,7 +23,7 @@ namespace astra {
             return 1 / (1 + std::exp(-alpha * arg));
         }
         
-        virtual double derivativeValue(double arg) {
+        virtual double derivativeValue(double arg) const {
             double s = value(arg);
             return alpha * s * (1 - s);
         }

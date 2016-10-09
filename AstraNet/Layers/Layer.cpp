@@ -28,17 +28,7 @@ namespace astra {
             // TODO: throw exception
         }
 
-        input.fill_from(inputValues);
-        
-        output = weights * input;
-        
-        std::vector<double> result;
-        std::for_each(output.get_storage().begin(), output.get_storage().end(), [this, &result](const double& val) {
-            result.push_back(this->activation->value(val));
-        });
-        
-        output = vec(result);
-                
+        output = activation->value(weights * input.fill_from(inputValues));
         return output;
     }
     
@@ -53,5 +43,4 @@ namespace astra {
             });
         });
     }
-
 }

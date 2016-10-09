@@ -21,6 +21,21 @@ namespace astra {
     
     class Matrix {
     public:
+        static Matrix oneRowMatrix(const Vector& row) {
+            std::vector<Vector> rows; rows.push_back(row);
+            return Matrix(rows);
+        }
+        
+        static Matrix oneColMatrix(const Vector& col) {
+            std::vector<Vector> rows;
+            std::for_each(col.get_storage().begin(), col.get_storage().end(), [&rows](double val) {
+                std::vector<double> row; row.push_back(val);
+                rows.push_back(Vector(row));
+            });
+            return Matrix(rows);
+        }
+        
+    public:
         Matrix(unsigned long nRows, unsigned long nCols) : nRows(nRows), nCols(nCols) {
             for (unsigned long i = 0; i < nRows; ++i) {
                 rows.emplace_back(nCols);
@@ -106,6 +121,14 @@ namespace astra {
         friend Matrix& operator*=(Matrix& left, double right) {
             left = left * right;
             return left;
+        }
+        
+        friend Matrix operator+(const Matrix& left, const Matrix& right) {
+            std::vector<Vector> result;
+            for (unsigned int i = 0; i < left.nRows; ++i) {
+                result.push_back(left.get_row(i) + right.get_row(i));
+            }
+            return Matrix(result);
         }
         
         friend std::ostream& operator<<(std::ostream& os, const Matrix& mat) {

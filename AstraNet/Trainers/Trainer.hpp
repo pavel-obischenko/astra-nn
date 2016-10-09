@@ -32,7 +32,7 @@ namespace astra {
         Vector errorFactor(const Vector& out, const Vector& train);
         Vector errorFactor(const Matrix& prevWeights, const Vector& prevLocalGradient);
         Vector localGradient(const InputVector& input, const Vector& errorFactor, const Matrix& weights, const ActivationFunctionPtr& activation);
-        Matrix calculateCorrectWeights(const Matrix& weights, const Vector& input, const Vector& localGrad, double epsilon);
+        Matrix calculateCorrectWeights(const Matrix& weights, const InputVector& input, const Vector& localGrad, double epsilon);
         
     protected:
         double epsilon;

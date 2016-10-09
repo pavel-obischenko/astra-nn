@@ -20,10 +20,6 @@
 using namespace astra;
 
 int main(int argc, const char * argv[]) {
-    Matrix m0 = {{1, 2}, {3, 4}};
-    std::cout << m0 << std::endl;
-    std::cout << m0.transpose() << std::endl;
-    
     AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {3, 3, 1});
     
     int count = 20000;
