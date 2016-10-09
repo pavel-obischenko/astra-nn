@@ -46,7 +46,7 @@ namespace astra {
         
         LayerPtr currentLayerPtr = currentWr->layer;
         const InputVector& layerIn = currentLayerPtr->getInput();
-        Vector localGrad = localGradient(layerIn, errFactor, *currentLayerPtr);
+        Vector localGrad = localGradient(layerIn, errFactor, currentLayerPtr->getWeights(), currentLayerPtr->getActivationFunc());
         
         currentWr->localGradient = std::make_shared<Vector>(localGrad);
         
@@ -65,7 +65,7 @@ namespace astra {
     
     Vector Trainer::errorFactor(const Matrix& prevWeights, const Vector& prevLocalGradient) {
         std::vector<double> sumArray;
-        std::vector<Vector> cols = prevWeights.get_cols_const();
+        std::vector<Vector> cols = prevWeights.get_cols();
         
         // col < cols.end() - without last col, last col is bias weight
         for (auto col = cols.begin(); col < cols.end(); ++col) {
@@ -79,15 +79,11 @@ namespace astra {
         return Vector(sumArray);
     }
     
-    Vector Trainer::localGradient(const InputVector& input, const Vector& errorFactor, const Layer& layer) {
-        Matrix weights = layer.getWeights();
-        
-        auto currentErrorFactor = errorFactor.get_storage_const().begin();
+    Vector Trainer::localGradient(const InputVector& input, const Vector& errorFactor, const Matrix& weights, const ActivationFunctionPtr& activation) {
+        auto currentErrorFactor = errorFactor.get_storage().begin();
         std::vector<double> resultDelta;
         
-        std::for_each(weights.get_rows().begin(), weights.get_rows().end(), [&input, &layer, &resultDelta, &currentErrorFactor](const Vector& rowWeights) {
-            ActivationFunctionPtr activation = layer.getActivationFunc();
-            
+        std::for_each(weights.get_rows().begin(), weights.get_rows().end(), [&input, &activation, &resultDelta, &currentErrorFactor](const Vector& rowWeights) {
             double rowSum = input.mul_termwise(rowWeights).sum();
             double derivative = activation->derivativeValue(rowSum);
             
@@ -100,9 +96,9 @@ namespace astra {
     
     Matrix Trainer::calculateCorrectWeights(const Matrix& weights, const Vector& input, const Vector& localGrad, double epsilon) {
         std::vector<Vector> resultData;
-        auto currentLocalGrad = localGrad.get_storage_const().begin();
+        auto currentLocalGrad = localGrad.get_storage().begin();
         
-        std::for_each(weights.get_rows_const().begin(), weights.get_rows_const().end(), [&input, &currentLocalGrad, epsilon, &resultData](const Vector& rowWeights) {
+        std::for_each(weights.get_rows().begin(), weights.get_rows().end(), [&input, &currentLocalGrad, epsilon, &resultData](const Vector& rowWeights) {
             Vector dVec = (*currentLocalGrad) * input * epsilon;
             resultData.push_back(rowWeights + dVec);
             ++currentLocalGrad;

@@ -38,6 +38,6 @@ namespace astra {
             lastOutput = layer->get()->process(currentInput);
         }
         
-        return lastOutput.get_storage_const();
+        return lastOutput.get_storage();
     }
 }

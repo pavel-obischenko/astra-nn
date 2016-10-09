@@ -33,7 +33,7 @@ namespace astra {
         output = weights * input;
         
         std::vector<double> result;
-        std::for_each(output.get_storage_const().begin(), output.get_storage_const().end(), [this, &result](const double& val) {
+        std::for_each(output.get_storage().begin(), output.get_storage().end(), [this, &result](const double& val) {
             result.push_back(this->activation->value(val));
         });
         

@@ -129,7 +129,7 @@ namespace astra {
             return storage;
         }
         
-        const std::vector<double>& get_storage_const() const {
+        const std::vector<double>& get_storage() const {
             return storage;
         }
         

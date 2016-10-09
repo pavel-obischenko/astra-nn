@@ -29,7 +29,7 @@ namespace astra {
                 storage.resize(size);
             }
             
-            std::copy(src.get_storage_const().begin(), src.get_storage_const().end(), storage.begin());
+            std::copy(src.get_storage().begin(), src.get_storage().end(), storage.begin());
             storage[Vector::size() - 1] = 1;
             
             return *this;

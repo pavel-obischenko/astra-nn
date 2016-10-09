@@ -127,15 +127,20 @@ namespace astra {
             return strm.str();
         }
         
+        Matrix transpose() const {
+            std::vector<Vector> cols = get_cols();
+            return Matrix(cols);
+        }
+        
         std::vector<Vector>& get_rows() {
             return rows;
         }
         
-        const std::vector<Vector>& get_rows_const() const {
+        const std::vector<Vector>& get_rows() const {
             return rows;
         }
         
-        std::vector<Vector> get_cols_const() const {
+        std::vector<Vector> get_cols() const {
             std::vector<Vector> cols;
             for (unsigned int i = 0; i < nCols; ++i) {
                 cols.push_back(get_col(i));
