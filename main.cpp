@@ -20,7 +20,15 @@
 using namespace astra;
 
 int main(int argc, const char * argv[]) {
-    AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {3, 3, 1});
+//    Vector v = {1, 2, 3, 4, 5, 6};
+//    Vector h = v.head(5);
+//    Vector t = v.tail(1);
+//    
+//    std::cout << v << std::endl;
+//    std::cout << h << std::endl;
+//    std::cout << t << std::endl;
+    
+    AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {5, 5, 1});
     
     int count = 20000;
     
