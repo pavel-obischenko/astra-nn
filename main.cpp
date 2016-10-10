@@ -28,7 +28,7 @@ int main(int argc, const char * argv[]) {
 //    std::cout << h << std::endl;
 //    std::cout << t << std::endl;
     
-    AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {5, 5, 1});
+    AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {8, 4, 2, 4, 8, 1});
     
     int count = 20000;
     
@@ -54,10 +54,11 @@ int main(int argc, const char * argv[]) {
     }
     
     double error = 0;
+    double epsilon = 0.5;
     
     TrainerPtr trainer = std::make_shared<Trainer>(net, trainData);
     for (int i = 0; i < count; i++) {
-        trainer->runTrainEpoch(0.005);
+        trainer->runTrainEpoch(epsilon);
         
         TrainDataPairPtr pairPtr = trainData->currentPair();
         const std::vector<double>& input = *pairPtr->first;
@@ -69,7 +70,8 @@ int main(int argc, const char * argv[]) {
         bool lastIteration = i == count-1;
         if ((i > 0 && i % errCount == 0) || lastIteration) {
             error *= 100. / errCount;
-            std::cout << (lastIteration ? i+1 : i) << " " << error << std::endl;
+            std::cout << (lastIteration ? i+1 : i) << " error: " << error << std::endl;
+            
             error = 0;
         }
         else {

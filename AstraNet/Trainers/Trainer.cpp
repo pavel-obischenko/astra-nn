@@ -62,64 +62,18 @@ namespace astra {
         return train - out;
     }
     
-    Vector errorFactorNew(const Matrix& prevWeights, const Vector& prevLocalGradient) {
-        return prevWeights.transpose() * prevLocalGradient;
-    }
-    
     Vector Trainer::errorFactor(const Matrix& prevWeights, const Vector& prevLocalGradient) {
-        std::vector<double> sumArray;
-        std::vector<Vector> cols = prevWeights.get_cols();
-        
-        // col < cols.end() - without last col, last col is bias weight
-        for (auto col = cols.begin(); col < cols.end(); ++col) {
-            sumArray.push_back(col->mul_termwise(prevLocalGradient).sum());
-        }
-        
-        return Vector(sumArray);
-        //return errorFactorNew(prevWeights, prevLocalGradient);
-    }
-    
-    Vector localGradientNew(const InputVector& input, const Vector& errorFactor, const Matrix& weights, const ActivationFunctionPtr& activation) {
-        Vector derivative = activation->derivativeValue(weights.transpose() * input);
-        return derivative.mul_termwise(errorFactor);
+        return (prevWeights.transpose() * prevLocalGradient).head(prevWeights.getNCols() - 1);
     }
     
     Vector Trainer::localGradient(const InputVector& input, const Vector& errorFactor, const Matrix& weights, const ActivationFunctionPtr& activation) {
-        auto currentErrorFactor = errorFactor.get_storage().begin();
-        std::vector<double> resultDelta;
-        
-        std::for_each(weights.get_rows().begin(), weights.get_rows().end(), [&input, &activation, &resultDelta, &currentErrorFactor](const Vector& rowWeights) {
-            double rowSum = input.mul_termwise(rowWeights).sum();
-            double derivative = activation->derivativeValue(rowSum);
-            
-            double grad = derivative * (*currentErrorFactor++);
-            resultDelta.push_back(grad);
-        });
-        
-        return Vector(resultDelta);
-        //return localGradientNew(input, errorFactor, weights, activation);
-    }
-    
-    Matrix calculateCorrectWeightsNew(const Matrix& weights, const Vector& input, const Vector& localGrad, double epsilon) {
-        Matrix i = Matrix::oneRowMatrix(input * epsilon);
-        Matrix g = Matrix::oneColMatrix(localGrad);
-        
-        return weights + (i * g);
+        Vector derivative = activation->derivativeValue(weights * input);
+        return derivative.mul_termwise(errorFactor);
     }
     
     Matrix Trainer::calculateCorrectWeights(const Matrix& weights, const InputVector& input, const Vector& localGrad, double epsilon) {
-        
-        std::vector<Vector> resultData;
-        auto currentLocalGrad = localGrad.get_storage().begin();
-        
-        std::for_each(weights.get_rows().begin(), weights.get_rows().end(), [&input, &currentLocalGrad, epsilon, &resultData](const Vector& rowWeights) {
-            Vector dVec = (*currentLocalGrad) * input * epsilon;
-            resultData.push_back(rowWeights + dVec);
-            ++currentLocalGrad;
-        });
-        
-        return Matrix(resultData);
-        
-        //return calculateCorrectWeightsNew(weights, input, localGrad, epsilon);
+        Matrix i = Matrix::oneRowMatrix(input * epsilon);
+        Matrix g = Matrix::oneColMatrix(localGrad);
+        return weights + (i * g);
     }
 }

@@ -82,7 +82,7 @@ namespace astra {
         }
         
         friend Matrix operator*(const Matrix& left, const Matrix& right) {
-            Matrix result(left.nCols, right.nRows);
+            Matrix result(right.nRows, left.nCols);
             
             for (unsigned long col = 0; col < left.nCols; ++col) {
                 auto left_col = left.get_col(col);
@@ -183,6 +183,8 @@ namespace astra {
             return Vector(result);
         }
         
+        unsigned long getNRows() const { return nRows; }
+        unsigned long getNCols() const { return nCols; }
         
     protected:
         
