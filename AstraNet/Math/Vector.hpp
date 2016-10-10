@@ -119,6 +119,23 @@ namespace astra {
             return storage[index];
         }
         
+        Vector head(unsigned long nElements) {
+            return subvec(0, nElements-1);
+        }
+        
+        Vector tail(unsigned long nElements) {
+            return subvec(size() - nElements, size() - 1);
+        }
+        
+        Vector subvec(unsigned long beginIndex, unsigned long endIndex) {
+            std::vector<double> result;
+            
+            auto beginIter = get_storage().begin();
+            std::copy(beginIter + beginIndex, beginIter + endIndex + 1, std::back_inserter(result));
+            
+            return Vector(result);
+        }
+        
         const std::string to_string() const {
             std::stringstream strm;
             strm << this;
