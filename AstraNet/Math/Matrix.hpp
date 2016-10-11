@@ -17,6 +17,7 @@
 #include <functional>
 #include <iostream>
 #include <sstream>
+#include <numeric>
 
 namespace astra {
     
@@ -213,24 +214,82 @@ namespace math {
             unsigned long index = 0;
             std::for_each(init.begin(), init.end(), [this, &index](const std::initializer_list<double>& item) {
                 std::for_each(item.begin(), item.end(), [this, &index](double val) {
-                    this->data[index++] = val;
+                    this->data.get()[index++] = val;
                 });
             });
         }
         
-        inline Matrix(const Matrix& other) : nRows(other.nRows), nCols(other.nCols), matrixSize(other.matrixSize) {
-            allocMemory();
-            memcpy(data, other.data, matrixSize * sizeof(double));
+        inline Matrix(const Matrix& other) = default;
+    
+    public:
+        double sum() const {
+            return std::accumulate(begin(), end(), 0);
         }
         
-        inline virtual ~Matrix() {
-            if (data) {
-                delete [] data;
-            }
+        Matrix mul_cwise(double arg) const {
+            Matrix result(getNRows(), getNCols());
+            std::transform(begin(), end(), result.begin(), std::bind2nd(std::multiplies<double>(), arg));
+            return result;
+        }
+        
+        inline Matrix& operator=(const Matrix& mat) {
+            nCols = mat.getNCols();
+            nRows = mat.getNRows();
+            
+            allocMemory();
+            std::copy(mat.begin(), mat.end(), begin());
+
+            return *this;
+        }
+        
+        friend Matrix operator*(const Matrix& left, const Matrix& right) {
+            Matrix result(right.nRows, left.nCols);
+            
+            // TODO:
+            
+            return result;
+        }
+        
+//        friend Vector operator*(const Matrix& left, const Vector& right) {
+//            auto mt = left.mul_termwise(right);
+//            
+//            std::vector<double> result;
+//            std::for_each(mt.rows.begin(), mt.rows.end(), [&result](const Vector& row) {
+//                result.push_back(row.sum());
+//            });
+//            return Vector(result);
+//        }
+//        
+//        friend Vector operator*(const Vector& left, const Matrix& right) {
+//            return right * left;
+//        }
+        
+        friend Matrix operator*(const Matrix& left, double right) {
+            return left.mul_cwise(right);
+        }
+        
+        friend Matrix operator*(double left, const Matrix& right) {
+            return right * left;
+        }
+        
+        friend Matrix& operator*=(Matrix& left, double right) {
+            left = left * right;
+            return left;
+        }
+        
+        friend Matrix operator+(const Matrix& left, const Matrix& right) {
+            Matrix result(left.getNRows(), left.getNCols());
+            std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::plus<double>());
+            return result;
+        }
+        
+        friend Matrix operator-(const Matrix& left, const Matrix& right) {
+            Matrix result(left.getNRows(), left.getNCols());
+            std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::minus<double>());
+            return result;
         }
         
     public:
-    
         friend std::ostream& operator<<(std::ostream& os, const Matrix& mat) {
             os << "{";
 //            for(auto item = mat.rows.begin(); item != mat.rows.end(); item++) {
@@ -259,29 +318,35 @@ namespace math {
         
     public:
         inline common::iterator begin() {
-            return common::iterator(data);
+            return common::iterator(data.get());
         }
         inline common::iterator end() {
-            return common::iterator(&data[size()]);
+            return common::iterator(&data.get()[size()]);
         }
         
-        inline common::const_iterator cbegin() const {
-            return common::const_iterator(data);
+        inline common::const_iterator begin() const {
+            return common::const_iterator(data.get());
         }
-        inline common::const_iterator cend() const {
-            return common::const_iterator(&data[size()]);
+        inline common::const_iterator end() const {
+            return common::const_iterator(&data.get()[size()]);
         }
         
     private:
+        template <typename T> struct array_deleter {
+            void operator ()(T const *p) {
+                delete[] p; 
+            }
+        };
+        
         inline void allocMemory() {
-            data = new double[size()];
+            data = std::shared_ptr<double>(new double[size()], array_deleter<double>());
         }
         
     private:
         unsigned long nCols, nRows;
         unsigned long matrixSize;
         
-        double* data;
+        std::shared_ptr<double> data;
     };
     
     typedef std::shared_ptr<Matrix> MatrixPtr;
