@@ -48,6 +48,7 @@
 		E9DF75301D9E497600F77E56 /* InputVector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputVector.hpp; sourceTree = "<group>"; };
 		E9DF75311D9E497600F77E56 /* Matrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = "<group>"; };
 		E9DF75321D9E497600F77E56 /* Vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector.hpp; sourceTree = "<group>"; };
+		E9ED1EAB1DACC99300248306 /* Iterators.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Iterators.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +93,7 @@
 		E9DF75251D9E497600F77E56 /* AstraNet */ = {
 			isa = PBXGroup;
 			children = (
+				E9ED1EAA1DACC96C00248306 /* Common */,
 				E9DF75261D9E497600F77E56 /* ActivationFunctions */,
 				E9DF752C1D9E497600F77E56 /* Layers */,
 				E9DF752F1D9E497600F77E56 /* Math */,
@@ -133,6 +135,14 @@
 				E9DF75321D9E497600F77E56 /* Vector.hpp */,
 			);
 			path = Math;
+			sourceTree = "<group>";
+		};
+		E9ED1EAA1DACC96C00248306 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E9ED1EAB1DACC99300248306 /* Iterators.h */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

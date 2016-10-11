@@ -10,6 +10,7 @@
 #define Matrix_h
 
 #include "Vector.hpp"
+#include "../Common/Iterators.h"
 
 #include <vector>
 #include <algorithm>
@@ -198,172 +199,11 @@ namespace astra {
 
 namespace astra {
 namespace math {
-    template <typename T> class MatrixIterator : public std::iterator<std::random_access_iterator_tag, T, ptrdiff_t, T*, T&> {
-    public:
-        inline MatrixIterator(T* ptr = nullptr) : dataPtr(ptr) {}
-        inline MatrixIterator(const MatrixIterator<T>& rawIterator) = default;
-        ~MatrixIterator() {}
-        
-        inline MatrixIterator<T>& operator=(const MatrixIterator<T>& rawIterator) = default;
-        inline MatrixIterator<T>& operator=(T* ptr) {
-            dataPtr = ptr;
-            return *this;
-        }
-        
-        inline operator bool() const {
-            return dataPtr ? true : false;
-        }
-        
-        inline bool operator==(const MatrixIterator<T>& rawIterator) const {
-            return dataPtr == rawIterator.getConstPtr();
-        }
-        inline bool operator!=(const MatrixIterator<T>& rawIterator) const {
-            return dataPtr != rawIterator.getConstPtr();
-        }
-        
-        inline MatrixIterator<T>& operator+=(const ptrdiff_t& movement) {
-            dataPtr += movement;
-            return *this;
-        }
-        inline MatrixIterator<T>& operator-=(const ptrdiff_t& movement) {
-            dataPtr -= movement;
-            return *this;
-        }
-        
-        inline MatrixIterator<T>& operator++() {
-            ++dataPtr;
-            return *this;
-        }
-        inline MatrixIterator<T>& operator--() {
-            --dataPtr;
-            return *this;
-        }
-        
-        inline MatrixIterator<T> operator++(int) {
-            auto temp(*this);
-            ++dataPtr;
-            return temp;
-        }
-        inline MatrixIterator<T> operator--(int) {
-            auto temp(*this);
-            --dataPtr;
-            return temp;
-        }
-        
-        inline MatrixIterator<T> operator+(const ptrdiff_t& movement) {
-            auto oldPtr = dataPtr;
-            dataPtr += movement;
-            auto temp(*this);
-            dataPtr = oldPtr;
-            return temp;
-        }
-        
-        inline MatrixIterator<T> operator-(const ptrdiff_t& movement) {
-            auto oldPtr = dataPtr;
-            dataPtr -= movement;
-            auto temp(*this);
-            dataPtr = oldPtr;
-            return temp;
-        }
-        
-        inline ptrdiff_t operator-(const MatrixIterator<T>& rawIterator) {
-            return std::distance(rawIterator.getPtr(), this->getPtr());
-        }
-        
-        inline T& operator*() {
-            return *dataPtr;
-        }
-        inline const T& operator*() const {
-            return *dataPtr;
-        }
-        inline T* operator->() {
-            return dataPtr;
-        }
-        
-        inline T* getPtr() const {
-            return dataPtr;
-        }
-        inline const T* getConstPtr() const {
-            return dataPtr;
-        }
-        
-    protected:
-        T* dataPtr;
-    };
-    
-    template <typename T> class MatrixReverseIterator : public MatrixIterator<T> {
-    public:
-        
-        inline MatrixReverseIterator(T* ptr = nullptr) : MatrixIterator<T>(ptr) {}
-        inline MatrixReverseIterator(const MatrixIterator<T>& rawIterator) {
-            this->m_ptr = rawIterator.getPtr();
-        }
-        inline MatrixReverseIterator(const MatrixReverseIterator<T>& rawReverseIterator) = default;
-        ~MatrixReverseIterator() {}
-        
-        MatrixReverseIterator<T>& operator=(const MatrixReverseIterator<T>& rawReverseIterator) = default;
-        MatrixReverseIterator<T>& operator=(const MatrixIterator<T>& rawIterator) {
-            this->m_ptr = rawIterator.getPtr();
-            return *this;
-        }
-        MatrixReverseIterator<T>& operator=(T* ptr) {
-            this->setPtr(ptr);
-            return *this;
-        }
-        
-        MatrixReverseIterator<T>& operator+=(const ptrdiff_t& movement) {
-            this->m_ptr -= movement;
-            return *this;
-        }
-        MatrixReverseIterator<T>& operator-=(const ptrdiff_t& movement) {
-            this->m_ptr += movement;
-            return *this;
-        }
-        MatrixReverseIterator<T>& operator++() {
-            --this->m_ptr;
-            return *this;
-        }
-        MatrixReverseIterator<T>& operator--() {
-            ++this->m_ptr;
-            return *this;
-        }
-        MatrixReverseIterator<T> operator++(int) {
-            auto temp(*this);
-            --this->m_ptr;
-            return temp;
-        }
-        MatrixReverseIterator<T> operator--(int) {
-            auto temp(*this);
-            ++this->m_ptr;
-            return temp;
-        }
-        MatrixReverseIterator<T> operator+(const int& movement) {
-            auto oldPtr = this->m_ptr;
-            this->m_ptr-=movement;
-            auto temp(*this);
-            this->m_ptr = oldPtr;
-            return temp;
-        }
-        MatrixReverseIterator<T> operator-(const int& movement){auto oldPtr = this->m_ptr;this->m_ptr+=movement;auto temp(*this);this->m_ptr = oldPtr;return temp;}
-        
-        ptrdiff_t operator-(const MatrixReverseIterator<T>& rawReverseIterator) {
-            return std::distance(this->getPtr(), rawReverseIterator.getPtr());
-        }
-        
-        MatrixIterator<T> base() {
-            MatrixIterator<T> forwardIterator(this->m_ptr);
-            ++forwardIterator;
-            return forwardIterator;
-        }
-    };
-    
-    typedef MatrixIterator<double> iterator;
-    typedef MatrixIterator<const double> const_iterator;
-    
-    typedef MatrixReverseIterator<double>       reverse_iterator;
-    typedef MatrixReverseIterator<const double> const_reverse_iterator;
     
     class Matrix {
+    private:
+        inline Matrix() : nRows(0), nCols(0), matrixSize(0), data(0) {}
+        
     public:
         inline Matrix(unsigned long nRows, unsigned long nCols) : nRows(nRows), nCols(nCols), matrixSize(nRows * nCols), data(0) {
             allocMemory();
@@ -383,45 +223,53 @@ namespace math {
             memcpy(data, other.data, matrixSize * sizeof(double));
         }
         
-        inline unsigned long size() const {
-            return matrixSize;
-        }
-        
         inline virtual ~Matrix() {
             if (data) {
                 delete [] data;
             }
         }
         
+    public:
+    
+        friend std::ostream& operator<<(std::ostream& os, const Matrix& mat) {
+            os << "{";
+//            for(auto item = mat.rows.begin(); item != mat.rows.end(); item++) {
+//                os << *item << (item != mat.rows.end() - 1 ? ", " : "");
+//            }
+            os << "}";
+            return os;
+        }
+        
+    public:
+        template <class _Function> inline _Function for_each(_Function __f) {
+            for (auto it = begin(); it != end(); ++it) {
+                __f(*it);
+            }
+            return _VSTD::move(__f);
+        }
+        
+
+    public:
+        inline unsigned long size() const {
+            return matrixSize;
+        }
+        
         inline  unsigned long getNRows() const { return nRows; }
         inline unsigned long getNCols() const { return nCols; }
         
-        inline iterator begin() {
-            return iterator(data);
+    public:
+        inline common::iterator begin() {
+            return common::iterator(data);
         }
-        inline iterator end() {
-            return iterator(&data[size()]);
-        }
-        
-        inline const_iterator cbegin() const {
-            return const_iterator(data);
-        }
-        inline const_iterator cend() const {
-            return const_iterator(&data[size()]);
+        inline common::iterator end() {
+            return common::iterator(&data[size()]);
         }
         
-        inline reverse_iterator rbegin() {
-            return reverse_iterator(&data[size() - 1]);
+        inline common::const_iterator cbegin() const {
+            return common::const_iterator(data);
         }
-        inline reverse_iterator rend() {
-            return reverse_iterator(&data[-1]);
-        }
-        
-        inline const_reverse_iterator crbegin() const {
-            return const_reverse_iterator(&data[size() - 1]);
-        }
-        inline const_reverse_iterator crend() const {
-            return const_reverse_iterator(&data[-1]);
+        inline common::const_iterator cend() const {
+            return common::const_iterator(&data[size()]);
         }
         
     private:

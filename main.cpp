@@ -17,6 +17,9 @@
 #include "AstraNet/Trainers/Trainer.hpp"
 #include "AstraNet/Math/Vector.hpp"
 
+#include "AstraNet/Common/Iterators.h"
+#include "AstraNet/Math/Matrix.hpp"
+
 using namespace astra;
 
 int main(int argc, const char * argv[]) {
@@ -27,6 +30,20 @@ int main(int argc, const char * argv[]) {
 //    std::cout << v << std::endl;
 //    std::cout << h << std::endl;
 //    std::cout << t << std::endl;
+    
+//    astra::math::Matrix m = {{1, 2, 3}, {4, 5, 6}};
+//    
+//    auto itr = m.begin();
+//    astra::common::StrideIteratorAdapter<double, astra::common::iterator> si(&itr, 3);
+//    
+//    std::cout << *si << std::endl;
+//    std::cout << *(si + 1) << std::endl;
+//    std::cout << *si << std::endl;
+//    //std::cout << v << std::endl;
+//    //std::cout << v << std::endl;
+//    
+//    
+//    return 0;
     
     AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {8, 4, 2, 4, 8, 1});
     
