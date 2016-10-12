@@ -35,11 +35,11 @@ namespace common {
             return dataPtr != rawIterator.getConstPtr();
         }
         
-        inline RawIterator<T>& operator+=(const ptrdiff_t& movement) {
+        inline RawIterator<T>& operator+=(const long movement) {
             dataPtr += movement;
             return *this;
         }
-        inline RawIterator<T>& operator-=(const ptrdiff_t& movement) {
+        inline RawIterator<T>& operator-=(const long movement) {
             dataPtr -= movement;
             return *this;
         }
@@ -64,7 +64,7 @@ namespace common {
             return temp;
         }
         
-        inline RawIterator<T> operator+(const ptrdiff_t& movement) {
+        inline RawIterator<T> operator+(const long movement) {
             auto oldPtr = dataPtr;
             dataPtr += movement;
             auto temp(*this);
@@ -72,7 +72,7 @@ namespace common {
             return temp;
         }
         
-        inline RawIterator<T> operator-(const ptrdiff_t& movement) {
+        inline RawIterator<T> operator-(const long movement) {
             auto oldPtr = dataPtr;
             dataPtr -= movement;
             auto temp(*this);
@@ -97,7 +97,7 @@ namespace common {
         inline T* getPtr() const {
             return dataPtr;
         }
-        inline const T* getConstPtr() const {
+        inline const T* const getConstPtr() const {
             return dataPtr;
         }
         
@@ -124,11 +124,11 @@ namespace common {
             return *this;
         }
         
-        RawReverseIterator<T>& operator+=(const ptrdiff_t& movement) {
+        RawReverseIterator<T>& operator+=(const long movement) {
             this->dataPtr -= movement;
             return *this;
         }
-        RawReverseIterator<T>& operator-=(const ptrdiff_t& movement) {
+        RawReverseIterator<T>& operator-=(const long movement) {
             this->dataPtr += movement;
             return *this;
         }
@@ -150,14 +150,14 @@ namespace common {
             ++this->dataPtr;
             return temp;
         }
-        RawReverseIterator<T> operator+(const int& movement) {
+        RawReverseIterator<T> operator+(const long movement) {
             auto oldPtr = this->dataPtr;
             this->dataPtr -= movement;
             auto temp(*this);
             this->dataPtr = oldPtr;
             return temp;
         }
-        RawReverseIterator<T> operator-(const int& movement) {
+        RawReverseIterator<T> operator-(const long movement) {
             auto oldPtr = this->dataPtr;
             this->dataPtr += movement;
             auto temp(*this);
@@ -195,11 +195,11 @@ namespace common {
             return itr.operator !=(other.itr);
         }
         
-        inline StrideIteratorAdapter<T>& operator+=(const ptrdiff_t& movement) {
+        inline StrideIteratorAdapter<T>& operator+=(const long movement) {
             itr.operator +=(movement * stride);
             return *this;
         }
-        inline StrideIteratorAdapter<T>& operator-=(const ptrdiff_t& movement) {
+        inline StrideIteratorAdapter<T>& operator-=(const long movement) {
             itr.operator -=(movement * stride);
             return *this;
         }
@@ -222,13 +222,13 @@ namespace common {
             return temp;
         }
         
-        inline StrideIteratorAdapter<T> operator+(const int& movement) {
+        inline StrideIteratorAdapter<T> operator+(const long movement) {
             auto temp(*this);
             temp += movement;
             return temp;
         }
         
-        inline StrideIteratorAdapter<T> operator-(const int& movement) {
+        inline StrideIteratorAdapter<T> operator-(const long movement) {
             auto temp(*this);
             temp -= movement;
             return temp;
@@ -283,9 +283,9 @@ namespace common {
             return itr.operator !=(other.itr);
         }
         
-        inline RectIteratorAdapter<T>& operator+=(const ptrdiff_t& movement) {
+        inline RectIteratorAdapter<T>& operator+=(const long movement) {
             if (movement > 0) {
-                for (unsigned long i = 0; i < movement; ++i) {
+                for (long i = 0; i < movement; ++i) {
                     if (ip < max_ip) {
                         itr.operator += (ip != 0 && (ip + 1) < max_ip && (ip + 1) % width == 0 ? stride + 1 : 1);
                         ++ip;
@@ -297,7 +297,7 @@ namespace common {
                 return operator -= (std::abs(movement));
             }
         }
-        inline RectIteratorAdapter<T>& operator-=(const ptrdiff_t& movement) {
+        inline RectIteratorAdapter<T>& operator-=(const long movement) {
             if (movement > 0) {
                 for (unsigned long i = 0; i < movement; ++i) {
                     if (ip > 0) {
@@ -331,13 +331,13 @@ namespace common {
             return temp;
         }
         
-        inline RectIteratorAdapter<T> operator+(const int& movement) {
+        inline RectIteratorAdapter<T> operator+(const long movement) {
             auto temp(*this);
             temp += movement;
             return temp;
         }
         
-        inline RectIteratorAdapter<T> operator-(const int& movement) {
+        inline RectIteratorAdapter<T> operator-(const long movement) {
             auto temp(*this);
             temp -= movement;
             return temp;

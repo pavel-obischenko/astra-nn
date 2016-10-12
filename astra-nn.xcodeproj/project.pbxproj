@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E90B68CA1DAE561C00C8292B /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E90B68C91DAE561C00C8292B /* Matrix.cpp */; };
 		E9D8DBDE1D9EA4D500B59CC5 /* SigLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D8DBDC1D9EA4D500B59CC5 /* SigLayer.cpp */; };
 		E9D8DBE11D9EA6C800B59CC5 /* TanhLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D8DBDF1D9EA6C800B59CC5 /* TanhLayer.cpp */; };
 		E9D8DBE51D9EA7B400B59CC5 /* Trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D8DBE31D9EA7B400B59CC5 /* Trainer.cpp */; };
@@ -28,6 +29,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E90B68C81DAE528000C8292B /* MatrixProxy.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MatrixProxy.hpp; sourceTree = "<group>"; };
+		E90B68C91DAE561C00C8292B /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
 		E9AE356D1DA2695900C45683 /* TrainData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainData.h; sourceTree = "<group>"; };
 		E9AE35721DA2CF2C00C45683 /* TrainLayerWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainLayerWrapper.h; sourceTree = "<group>"; };
 		E9D8DBDC1D9EA4D500B59CC5 /* SigLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SigLayer.cpp; sourceTree = "<group>"; };
@@ -132,7 +135,9 @@
 			children = (
 				E9DF75301D9E497600F77E56 /* InputVector.hpp */,
 				E9DF75311D9E497600F77E56 /* Matrix.hpp */,
+				E90B68C91DAE561C00C8292B /* Matrix.cpp */,
 				E9DF75321D9E497600F77E56 /* Vector.hpp */,
+				E90B68C81DAE528000C8292B /* MatrixProxy.hpp */,
 			);
 			path = Math;
 			sourceTree = "<group>";
@@ -220,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E90B68CA1DAE561C00C8292B /* Matrix.cpp in Sources */,
 				E9DF75341D9E497600F77E56 /* Layer.cpp in Sources */,
 				E9D8DBE51D9EA7B400B59CC5 /* Trainer.cpp in Sources */,
 				E9D8DBDE1D9EA4D500B59CC5 /* SigLayer.cpp in Sources */,

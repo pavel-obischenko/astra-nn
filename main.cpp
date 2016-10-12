@@ -19,6 +19,7 @@
 
 #include "AstraNet/Common/Iterators.h"
 #include "AstraNet/Math/Matrix.hpp"
+#include "AstraNet/Math/MatrixProxy.hpp"
 
 using namespace astra;
 
@@ -31,19 +32,19 @@ int main(int argc, const char * argv[]) {
 //    std::cout << h << std::endl;
 //    std::cout << t << std::endl;
     
-    astra::math::Matrix m0 = {{1, 1, 1, 1, 1, 1, 1},
-                              {1, 2, 2, 2, 2, 2, 1},
-                              {1, 2, 3, 3, 3, 2, 1},
-                              {1, 2, 3, 4, 3, 2, 1},
-                              {1, 2, 3, 3, 3, 2, 1},
-                              {1, 2, 2, 2, 2, 2, 1},
-                              {1, 1, 1, 1, 1, 1, 1}};
+    astra::math::Matrix m0 = {{1, 1, 1, 1, 1, 1, 1, 1},
+                              {1, 2, 2, 2, 2, 2, 2, 1},
+                              {1, 2, 3, 3, 3, 3, 2, 1},
+                              {1, 2, 3, 4, 4, 3, 2, 1},
+                              {1, 2, 3, 3, 3, 3, 2, 1},
+                              {1, 2, 2, 2, 2, 2, 2, 1},
+                              {1, 1, 1, 1, 1, 1, 1, 1}};
     
-    common::iterator itr = m0.begin().operator +(8);
-    astra::math::MatrixProxy m1(itr.getPtr(), 5, 5, 7);
-    
+    astra::math::MatrixProxy m1 = m0.submatrix(1, 1, 6, 5);
+    m1 *= 2;
     
     std::cout << m1 << std::endl;
+    std::cout << m0 << std::endl;
     
     return 0;
     

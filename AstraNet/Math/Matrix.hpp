@@ -201,64 +201,52 @@ namespace astra {
 namespace astra {
 namespace math {
     
-    template <class _T, class _Function> inline _Function for_each(_T* __t, _Function __f) {
-        return std::for_each(__t->begin(), __t->end(), __f);
-    }
+    template <class _T, class _Function> inline _Function for_each(const _T* const __t, _Function __f);
+    template <class _T, class _Function> inline _Function for_each(_T* __t, _Function __f);
     
-    template <class _T, class _Function> inline _Function for_each(const _T* const __t, _Function __f) {
-        return std::for_each(__t->begin(), __t->end(), __f);
-    }
+    class Matrix;
+    typedef std::shared_ptr<astra::math::Matrix> MatrixPtr;
+    typedef std::shared_ptr<const astra::math::Matrix> ConstMatrixPtr;
+    
+    class MatrixProxy;
+    typedef std::shared_ptr<astra::math::MatrixProxy> MatrixProxyPtr;
+    typedef std::shared_ptr<const astra::math::MatrixProxy> ConstMatrixProxyPtr;
     
     class Matrix {
     protected:
-        inline Matrix() : nRows(0), nCols(0), matrixSize(0), data(0) {}
+        inline Matrix() : height(0), width(0), matrixSize(0), data(0) {}
         
     public:
-        inline Matrix(unsigned long nRows, unsigned long nCols) : nRows(nRows), nCols(nCols), matrixSize(nRows * nCols), data(0) {
-            allocMemory();
-        }
-        
-        inline Matrix(const std::initializer_list<std::initializer_list<double>>& init) : Matrix(init.size(), init.begin()->size()) {
-            unsigned long index = 0;
-            std::for_each(init.begin(), init.end(), [this, &index](const std::initializer_list<double>& item) {
-                std::for_each(item.begin(), item.end(), [this, &index](double val) {
-                    this->data.get()[index++] = val;
-                });
-            });
-        }
-        
-        inline Matrix(const Matrix& other) = default;
+        Matrix(unsigned long width, unsigned long height);
+        Matrix(const std::initializer_list<std::initializer_list<double>>& init);
+        Matrix(const Matrix& other);
     
     public:
-        double sum() const {
+        inline double sum() const {
             return std::accumulate(begin(), end(), 0);
         }
         
-        Matrix element_wise_mul(double arg) const {
-            Matrix result(get_n_rows(), get_n_cols());
+        MatrixProxy submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height);
+        const MatrixProxy submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height) const;
+        
+        inline Matrix element_wise_mul(double arg) const {
+            Matrix result(get_width(), get_height());
             std::transform(begin(), end(), result.begin(), std::bind2nd(std::multiplies<double>(), arg));
             return result;
         }
         
-        inline Matrix& operator=(const Matrix& mat) {
-            nRows = mat.get_n_rows();
-            nCols = mat.get_n_cols();
-            
-            allocMemory();
-            std::copy(mat.begin(), mat.end(), begin());
-
-            return *this;
-        }
+        Matrix& operator=(const Matrix& mat);
+        Matrix& operator=(const MatrixProxy& mat);
         
-        friend Matrix operator*(const Matrix& left, const Matrix& right) {
-            Matrix result(right.get_n_rows(), left.get_n_cols());
+        friend inline Matrix operator*(const Matrix& left, const Matrix& right) {
+            Matrix result(right.get_width(), left.get_height());
             
             // TODO:
             
             return result;
         }
         
-//        friend Vector operator*(const Matrix& left, const Vector& right) {
+//        friend inline Vector operator*(const Matrix& left, const Vector& right) {
 //            auto mt = left.mul_termwise(right);
 //            
 //            std::vector<double> result;
@@ -268,50 +256,37 @@ namespace math {
 //            return Vector(result);
 //        }
 //        
-//        friend Vector operator*(const Vector& left, const Matrix& right) {
+//        friend inline Vector operator*(const Vector& left, const Matrix& right) {
 //            return right * left;
 //        }
         
-        friend Matrix operator*(const Matrix& left, double right) {
+        friend inline Matrix operator*(const Matrix& left, double right) {
             return left.element_wise_mul(right);
         }
         
-        friend Matrix operator*(double left, const Matrix& right) {
+        friend inline Matrix operator*(double left, const Matrix& right) {
             return right * left;
         }
         
-        friend Matrix& operator*=(Matrix& left, double right) {
-            left = left * right;
+        friend inline Matrix& operator*=(Matrix& left, double right) {
+            std::transform(left.begin(), left.end(), left.begin(), std::bind2nd(std::multiplies<double>(), right));
             return left;
         }
         
-        friend Matrix operator+(const Matrix& left, const Matrix& right) {
-            Matrix result(left.get_n_rows(), left.get_n_cols());
+        friend inline Matrix operator+(const Matrix& left, const Matrix& right) {
+            Matrix result(left.get_width(), left.get_height());
             std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::plus<double>());
             return result;
         }
         
-        friend Matrix operator-(const Matrix& left, const Matrix& right) {
-            Matrix result(left.get_n_rows(), left.get_n_cols());
+        friend inline Matrix operator-(const Matrix& left, const Matrix& right) {
+            Matrix result(left.get_width(), left.get_height());
             std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::minus<double>());
             return result;
         }
         
-    public:
-        friend std::ostream& operator<<(std::ostream& os, const Matrix& mat) {
-            unsigned long i = 0;
-            unsigned long c = mat.get_n_cols();
-            
-            os << "\n ";
-            mat.for_each([&os, &i, c](double val) {
-                os << val << ((i > 0 && (i + 1) % c == 0) ? "\n " : " ");
-                ++i;
-            });
-            os << "\n";
-            return os;
-        }
+        friend std::ostream& operator<<(std::ostream& os, const Matrix& mat);
         
-    public:
         template <class _Function> inline _Function for_each(_Function __f) {
             return astra::math::for_each(this, __f);
         }
@@ -321,20 +296,21 @@ namespace math {
         }
         
         template <class _Function> inline _Function for_each_row(_Function __f) {
+            auto beginItr = common::stride_iterator(begin(), get_width());
+            auto endItr = common::stride_iterator(begin(), 0);
             
+            for (auto itr = beginItr; itr != endItr; ++itr) {
+                //auto row
+            }
             
-            
+            return _VSTD::move(__f);
         }
 
     public:
         inline unsigned long size() const { return matrixSize; }
         
-        inline unsigned long get_n_rows() const { return nRows; }
-        inline unsigned long get_n_cols() const { return nCols; }
-        
-    protected:
-        inline void set_n_rows(unsigned long r) { nRows = r; }
-        inline void set_n_cols(unsigned long c) { nCols = c; }
+        inline unsigned long get_height() const { return height; }
+        inline unsigned long get_width() const { return width; }
         
     public:
         inline common::iterator begin() {
@@ -351,79 +327,53 @@ namespace math {
             return common::const_iterator(&data.get()[size()]);
         }
         
+    protected:
+        inline void set_height(unsigned long r) { height = r; }
+        inline void set_width(unsigned long c) { width = c; }
+        
+        inline std::shared_ptr<double>& get_data_ptr() { return data; }
+        inline const std::shared_ptr<double>& get_data_ptr() const { return data; }
+        
     private:
         inline void allocMemory() {
+            matrixSize = width * height;
             data = std::shared_ptr<double>(new double[size()], [](double *p) { delete [] p; });
         }
         
     private:
-        unsigned long nCols, nRows;
+        unsigned long width, height;
         unsigned long matrixSize;
         
         std::shared_ptr<double> data;
     };
     
-    class MatrixProxy : public Matrix {
-        friend class Matrix;
-        
+    template <class _T, class _Function> inline _Function for_each(const _T* const __t, _Function __f) {
+        return std::for_each(__t->begin(), __t->end(), __f);
+    }
+    
+    template <class _T, class _Function> inline _Function for_each(_T* __t, _Function __f) {
+        return std::for_each(__t->begin(), __t->end(), __f);
+    }
+    
+    typedef std::shared_ptr<astra::math::Matrix> MatrixPtr;
+    typedef std::shared_ptr<const astra::math::Matrix> ConstMatrixPtr;
+    
+    class Vector : public Matrix {
     protected:
-        MatrixProxy() {}
-        MatrixProxy(const MatrixProxy& other) = default;
+        Vector() : Matrix() {}
         
     public:
-        inline MatrixProxy(double* origin, unsigned long nRows, unsigned long nCols, unsigned long parentWidth) : beginItr(origin), stride(parentWidth - nCols) {
-            set_n_rows(nRows);
-            set_n_cols(nCols);
-            
-            endItr = beginItr.operator +(((nRows * nCols) + stride * (nRows - 1)));
-        }
-        
-    public:
-        friend std::ostream& operator<<(std::ostream& os, const MatrixProxy& mat) {
-            unsigned long i = 0;
-            unsigned long c = mat.get_n_cols();
-            
-            os << "\n ";
-            mat.for_each([&os, &i, c](double val) {
-                os << val << ((i > 0 && (i + 1) % c == 0) ? "\n " : " ");
-                ++i;
+        explicit Vector(unsigned long size) : Matrix(1, size) {}
+        Vector(const std::initializer_list<std::initializer_list<double>>& init) : Matrix(init) {};
+        Vector(const std::initializer_list<double>& init) : Matrix(1, init.size()) {
+            unsigned long index = 0;
+            double *ptr = get_data_ptr().get();
+            std::for_each(init.begin(), init.end(), [&ptr, &index](double val) {
+                ptr[index++] = val;
             });
-            os << "\n";
-            return os;
-        }
-        
-        template <class _Function> inline _Function for_each(_Function __f) {
-            return astra::math::for_each(this, __f);
-        }
-        
-        template <class _Function> inline _Function for_each(_Function __f) const {
-            return astra::math::for_each(this, __f);
-        }
-    
-    public:
-        inline common::rect_iterator begin() {
-            return common::rect_iterator(beginItr, get_n_rows(), get_n_cols(), stride);
-        }
-        inline common::rect_iterator end() {
-            return common::rect_iterator(endItr, get_n_rows(), get_n_cols(), stride);
-        }
-        
-        inline common::const_rect_iterator begin() const {
-            return common::const_rect_iterator(common::const_iterator(beginItr.getConstPtr()), get_n_rows(), get_n_cols(), stride);
-        }
-        inline common::const_rect_iterator end() const {
-            return common::const_rect_iterator(common::const_iterator(endItr.getConstPtr()), get_n_rows(), get_n_cols(), stride);
-        }
-        
-    private:
-        common::iterator beginItr;
-        common::iterator endItr;
-        unsigned long stride;
+        };
+        Vector(const Vector& other) = default;
     };
-    
-    
-    typedef std::shared_ptr<Matrix> MatrixPtr;
-    
 }}
 
 #endif /* Matrix_h */
