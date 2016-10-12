@@ -220,6 +220,7 @@ namespace math {
         Matrix(unsigned long width, unsigned long height);
         Matrix(const std::initializer_list<std::initializer_list<double>>& init);
         Matrix(const Matrix& other);
+        Matrix(const MatrixProxy& other);
     
     public:
         inline double sum() const {

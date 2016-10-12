@@ -33,6 +33,14 @@ namespace math {
         std::copy(other.begin(), other.end(), begin());
     }
     
+    Matrix::Matrix(const MatrixProxy& other) {
+        width = other.get_width();
+        height = other.get_height();
+        
+        allocMemory();
+        std::copy(other.begin(), other.end(), begin());
+    }
+    
     Matrix& Matrix::operator=(const Matrix& mat) {
         if (&mat != this) {
             width = mat.get_width();

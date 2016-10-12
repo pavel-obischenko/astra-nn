@@ -40,8 +40,7 @@ int main(int argc, const char * argv[]) {
                               {1, 2, 2, 2, 2, 2, 2, 1},
                               {1, 1, 1, 1, 1, 1, 1, 1}};
     
-    astra::math::MatrixProxy m1 = m0.submatrix(1, 1, 6, 5);
-    m1 *= 2;
+    astra::math::Matrix m1 = m0.submatrix(1, 1, 6, 5);
     
     std::cout << m1 << std::endl;
     std::cout << m0 << std::endl;
