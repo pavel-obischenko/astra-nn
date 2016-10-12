@@ -31,19 +31,21 @@ int main(int argc, const char * argv[]) {
 //    std::cout << h << std::endl;
 //    std::cout << t << std::endl;
     
-//    astra::math::Matrix m = {{1, 2, 3}, {4, 5, 6}};
-//    
-//    auto itr = m.begin();
-//    astra::common::StrideIteratorAdapter<double, astra::common::iterator> si(&itr, 3);
-//    
-//    std::cout << *si << std::endl;
-//    std::cout << *(si + 1) << std::endl;
-//    std::cout << *si << std::endl;
-//    //std::cout << v << std::endl;
-//    //std::cout << v << std::endl;
-//    
-//    
-//    return 0;
+    astra::math::Matrix m0 = {{1, 1, 1, 1, 1, 1, 1},
+                              {1, 2, 2, 2, 2, 2, 1},
+                              {1, 2, 3, 3, 3, 2, 1},
+                              {1, 2, 3, 4, 3, 2, 1},
+                              {1, 2, 3, 3, 3, 2, 1},
+                              {1, 2, 2, 2, 2, 2, 1},
+                              {1, 1, 1, 1, 1, 1, 1}};
+    
+    common::iterator itr = m0.begin().operator +(8);
+    astra::math::MatrixProxy m1(itr.getPtr(), 5, 5, 7);
+    
+    
+    std::cout << m1 << std::endl;
+    
+    return 0;
     
     AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {8, 4, 2, 4, 8, 1});
     
