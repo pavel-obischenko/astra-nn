@@ -51,7 +51,7 @@
 		E9DF75301D9E497600F77E56 /* InputVector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputVector.hpp; sourceTree = "<group>"; };
 		E9DF75311D9E497600F77E56 /* Matrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = "<group>"; };
 		E9DF75321D9E497600F77E56 /* Vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector.hpp; sourceTree = "<group>"; };
-		E9ED1EAB1DACC99300248306 /* Iterators.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Iterators.h; sourceTree = "<group>"; };
+		E9ED1EAB1DACC99300248306 /* Iterators.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Iterators.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +145,7 @@
 		E9ED1EAA1DACC96C00248306 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				E9ED1EAB1DACC99300248306 /* Iterators.h */,
+				E9ED1EAB1DACC99300248306 /* Iterators.hpp */,
 			);
 			path = Common;
 			sourceTree = "<group>";
