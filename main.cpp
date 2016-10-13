@@ -41,18 +41,25 @@ int main(int argc, const char * argv[]) {
                               {1, 2, 2, 2, 2, 2, 2, 1},
                               {1, 1, 1, 1, 1, 1, 1, 1}};
     
-//    m0.for_each_col([](const astra::math::MatrixPtr& col) {
-//        std::cout << *col << std::endl;
-//    });
-    
     astra::math::MatrixPtr sm1 = m0.submatrix(0, 0, 3, 2);
     astra::math::MatrixPtr sm2 = m0.submatrix(4, 0, 2, 3);
     
-    std::cout << *sm1 << std::endl;
-    std::cout << *sm2 << std::endl;
     std::cout << *sm1 * *sm2 << std::endl;
     
-    //std::cout << m0 << std::endl;
+    astra::math::Matrix m3x3 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    astra::math::Matrix m3x4 = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
+    
+    std::cout << m3x3 * m3x4 << std::endl;
+    
+    astra::math::Matrix m1x3 = {{1, 2, 3}};
+    astra::math::Matrix m3x1 = {{1}, {5}, {9}};
+    
+    std::cout << m1x3 * m3x1 << std::endl;
+    
+    astra::math::Matrix mm3x1 = {{1}, {5}, {9}};
+    astra::math::Matrix mm1x3 = {{1, 2, 3}};
+    
+    std::cout << mm3x1 * mm1x3 << std::endl;
     
     return 0;
     

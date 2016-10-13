@@ -294,9 +294,7 @@ namespace common {
             return itr == other.itr;
         }
         inline bool operator !=(const MatrixIteratorAdapter<T, Itr>& other) const {
-            //return itr != other.itr;
-            bool res = itr != other.itr;
-            return res;
+            return itr != other.itr;
         }
         
         inline MatrixIteratorAdapter<T, Itr>& operator+=(const long movement) {

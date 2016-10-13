@@ -351,28 +351,28 @@ namespace math {
     
     template <class _Function> void Matrix::for_each_row(_Function __f) {
         for (unsigned int r = 0; r < get_height(); ++r) {
-            MatrixPtr m = submatrix(x, y + r, get_width(), 1);
+            MatrixPtr m = submatrix(0, r, get_width(), 1);
             __f(m);
         }
     }
     
     template <class _Function> void Matrix::for_each_row(_Function __f) const {
         for (unsigned int r = 0; r < get_height(); ++r) {
-            ConstMatrixPtr m = submatrix(x, y + r, get_width(), 1);
+            ConstMatrixPtr m = submatrix(0, r, get_width(), 1);
             __f(m);
         }
     }
     
     template <class _Function> void Matrix::for_each_col(_Function __f) {
         for (unsigned int c = 0; c < get_width(); ++c) {
-            MatrixPtr m = submatrix(x + c, y, 1, get_height());
+            MatrixPtr m = submatrix(c, 0, 1, get_height());
             __f(m);
         }
     }
     
     template <class _Function> void Matrix::for_each_col(_Function __f) const {
         for (unsigned int c = 0; c < get_width(); ++c) {
-            ConstMatrixPtr m = submatrix(x + c, y, 1, get_height());
+            ConstMatrixPtr m = submatrix(c, 0, 1, get_height());
             __f(m);
         }
     }

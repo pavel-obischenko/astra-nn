@@ -57,11 +57,11 @@ namespace math {
     }
 
     MatrixPtr Matrix::submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height) {
-        return MatrixPtr(new Matrix(data, x, y, width, height, parentWidth));
+        return MatrixPtr(new Matrix(data, this->x + x, this->y + y, width, height, parentWidth));
     }
 
     const ConstMatrixPtr Matrix::submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height) const {
-        return ConstMatrixPtr(new Matrix(data, x, y, width, height, parentWidth));
+        return ConstMatrixPtr(new Matrix(data, this->x + x, this->y + y, width, height, parentWidth));
     }
     
     Matrix operator*(const Matrix& left, const Matrix& right) {
@@ -72,12 +72,7 @@ namespace math {
         
         left.for_each_row([&right, &resItr](const astra::math::ConstMatrixPtr& row) {
             right.for_each_col([&row, &resItr](const astra::math::ConstMatrixPtr& col) {
-                std::cout << *row << std::endl;
-                std::cout << *col << std::endl;
-                
-                double res = row->dot_product(*col);
-                *resItr = res;
-                resItr++;
+                *resItr++ = row->dot_product(*col);
             });
         });
         
