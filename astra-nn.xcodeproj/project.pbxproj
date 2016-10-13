@@ -29,7 +29,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E90B68C81DAE528000C8292B /* MatrixProxy.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MatrixProxy.hpp; sourceTree = "<group>"; };
 		E90B68C91DAE561C00C8292B /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
 		E9AE356D1DA2695900C45683 /* TrainData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainData.h; sourceTree = "<group>"; };
 		E9AE35721DA2CF2C00C45683 /* TrainLayerWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainLayerWrapper.h; sourceTree = "<group>"; };
@@ -137,7 +136,6 @@
 				E9DF75311D9E497600F77E56 /* Matrix.hpp */,
 				E90B68C91DAE561C00C8292B /* Matrix.cpp */,
 				E9DF75321D9E497600F77E56 /* Vector.hpp */,
-				E90B68C81DAE528000C8292B /* MatrixProxy.hpp */,
 			);
 			path = Math;
 			sourceTree = "<group>";

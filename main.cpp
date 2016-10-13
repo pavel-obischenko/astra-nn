@@ -17,9 +17,8 @@
 #include "AstraNet/Trainers/Trainer.hpp"
 #include "AstraNet/Math/Vector.hpp"
 
-#include "AstraNet/Common/Iterators.h"
+#include "AstraNet/Common/Iterators.hpp"
 #include "AstraNet/Math/Matrix.hpp"
-#include "AstraNet/Math/MatrixProxy.hpp"
 
 using namespace astra;
 
@@ -40,9 +39,10 @@ int main(int argc, const char * argv[]) {
                               {1, 2, 2, 2, 2, 2, 2, 1},
                               {1, 1, 1, 1, 1, 1, 1, 1}};
     
-    astra::math::Matrix m1 = m0.submatrix(1, 1, 6, 5);
+    astra::math::MatrixPtr m1 = m0.submatrix(1, 1, 6, 5);
+    *m1 *= 2;
     
-    std::cout << m1 << std::endl;
+    std::cout << *m1 << std::endl;
     std::cout << m0 << std::endl;
     
     return 0;

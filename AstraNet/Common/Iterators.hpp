@@ -9,6 +9,9 @@
 #ifndef Iterators_h
 #define Iterators_h
 
+#include <iterator>
+#include <vector>
+
 namespace astra {
 namespace common {
     
@@ -263,41 +266,55 @@ namespace common {
         unsigned long stride;
     };
     
-    template <typename T> class RectIteratorAdapter : public RawIterator<T> {
+    typedef RawIterator<double> iterator;
+    typedef RawIterator<const double> const_iterator;
+    
+    typedef StrideIteratorAdapter<double> stride_iterator;
+    typedef StrideIteratorAdapter<const double> const_stride_iterator;
+    
+    typedef RawReverseIterator<double>       reverse_iterator;
+    typedef RawReverseIterator<const double> const_reverse_iterator;
+    
+    // ******************** MatrixIteratorAdapter ********************
+    
+    template <typename T, class Itr> class MatrixIteratorAdapter : public std::iterator<std::random_access_iterator_tag, T, ptrdiff_t, T*, T&> {
     public:
-        explicit inline RectIteratorAdapter(const RawIterator<T>& origin, unsigned long width, unsigned long height, unsigned long stride) : ip(0), max_ip(width * height), itr(origin), width(width), height(height), stride(stride) {}
+        inline MatrixIteratorAdapter(const Itr& origin, unsigned long width, unsigned long height, unsigned long stride) : ip(0), max_ip(width * height), itr(origin), width(width), height(height), stride(stride) {}
         
-        inline RectIteratorAdapter(const RectIteratorAdapter<T>& adapter) = default;
-        ~RectIteratorAdapter() {}
+        inline MatrixIteratorAdapter(const MatrixIteratorAdapter<T, Itr>& adapter) = default;
+        ~MatrixIteratorAdapter() {}
         
-        inline RectIteratorAdapter<T>& operator=(const RectIteratorAdapter<T>& adapter) = default;
+        inline MatrixIteratorAdapter<T, Itr>& operator=(const MatrixIteratorAdapter<T, Itr>& adapter) = default;
         
         inline operator bool() const {
             return itr.operator bool();
         }
         
-        inline bool operator==(const RectIteratorAdapter<T>& other) const {
-            return itr.operator ==(other.itr);
+        inline bool operator ==(const MatrixIteratorAdapter<T, Itr>& other) const {
+            return itr == other.itr;
         }
-        inline bool operator!=(const RectIteratorAdapter<T>& other) const {
-            return itr.operator !=(other.itr);
+        inline bool operator !=(const MatrixIteratorAdapter<T, Itr>& other) const {
+            return itr != other.itr;
         }
         
-        inline RectIteratorAdapter<T>& operator+=(const long movement) {
+        inline MatrixIteratorAdapter<T, Itr>& operator+=(const long movement) {
             if (movement > 0) {
                 for (long i = 0; i < movement; ++i) {
                     if (ip < max_ip) {
-                        itr.operator += (ip != 0 && (ip + 1) < max_ip && (ip + 1) % width == 0 ? stride + 1 : 1);
+                        itr += (ip != 0 && (ip + 1) < max_ip && (ip + 1) % width == 0 ? stride + 1 : 1);
                         ++ip;
+                    }
+                    else if (ip == max_ip) {
+                        ++ip;
+                        ++itr;
                     }
                 }
                 return *this;
             }
-            else {
-                return operator -= (std::abs(movement));
-            }
+            return operator -= (std::abs(movement));
         }
-        inline RectIteratorAdapter<T>& operator-=(const long movement) {
+        
+        inline MatrixIteratorAdapter<T, Itr>& operator-=(const long movement) {
             if (movement > 0) {
                 for (unsigned long i = 0; i < movement; ++i) {
                     if (ip > 0) {
@@ -305,45 +322,42 @@ namespace common {
                         --ip;
                     }
                 }
-                
                 return *this;
             }
-            else {
-                return operator += (std::abs(movement));
-            }
+            return operator += (std::abs(movement));
         }
         
-        inline RectIteratorAdapter<T>& operator++() {
+        inline MatrixIteratorAdapter<T, Itr>& operator++() {
             return operator +=(1);
         }
-        inline RectIteratorAdapter<T>& operator--() {
+        inline MatrixIteratorAdapter<T, Itr>& operator--() {
             return operator -=(1);
         }
         
-        inline RectIteratorAdapter<T> operator++(int) {
+        inline MatrixIteratorAdapter<T, Itr> operator++(int) {
             auto temp(*this);
             operator ++();
             return temp;
         }
-        inline RectIteratorAdapter<T> operator--(int) {
+        inline MatrixIteratorAdapter<T, Itr> operator--(int) {
             auto temp(*this);
             operator --();
             return temp;
         }
         
-        inline RectIteratorAdapter<T> operator+(const long movement) {
+        inline MatrixIteratorAdapter<T, Itr> operator+(const long movement) {
             auto temp(*this);
             temp += movement;
             return temp;
         }
         
-        inline RectIteratorAdapter<T> operator-(const long movement) {
+        inline MatrixIteratorAdapter<T, Itr> operator-(const long movement) {
             auto temp(*this);
             temp -= movement;
             return temp;
         }
         
-        inline ptrdiff_t operator-(const RectIteratorAdapter<T>& iterator) {
+        inline ptrdiff_t operator-(const MatrixIteratorAdapter<T, Itr>& iterator) {
             return std::distance(iterator.getPtr(), this->getPtr());
         }
         
@@ -365,10 +379,10 @@ namespace common {
         }
         
     private:
-        inline RectIteratorAdapter<T>& operator=(T* ptr) { return *this; }
+        inline MatrixIteratorAdapter<T, Itr>& operator=(T* ptr) { return *this; }
         
     protected:
-        RawIterator<T> itr;
+        Itr itr;
         unsigned long ip;
         unsigned long max_ip;
         
@@ -377,18 +391,67 @@ namespace common {
         unsigned long stride;
     };
     
-    typedef RawIterator<double> iterator;
-    typedef RawIterator<const double> const_iterator;
+    template <typename T, class Itr> class MatrixReverseIteratorAdapter : public MatrixIteratorAdapter<T, Itr> {
+    public:
+        inline MatrixReverseIteratorAdapter(const Itr& origin, unsigned long width, unsigned long height, unsigned long stride) : MatrixIteratorAdapter<T, Itr>(origin, width, height, stride) {}
+        inline MatrixReverseIteratorAdapter(const MatrixIteratorAdapter<T, Itr>& reverseIterator) = default;
+        ~MatrixReverseIteratorAdapter() {}
+        
+        MatrixReverseIteratorAdapter<T, Itr>& operator=(const RawReverseIterator<T>& rawReverseIterator) = default;
+        
+        MatrixReverseIteratorAdapter<T, Itr>& operator+=(const long movement) {
+            MatrixIteratorAdapter<T, Itr>::operator -= (movement);
+            return *this;
+        }
+        MatrixReverseIteratorAdapter<T, Itr>& operator-=(const long movement) {
+            MatrixIteratorAdapter<T, Itr>::operator += (movement);
+            return *this;
+        }
+        MatrixReverseIteratorAdapter<T, Itr>& operator++() {
+            MatrixIteratorAdapter<T, Itr>::operator -= (1);
+            return *this;
+        }
+        MatrixReverseIteratorAdapter<T, Itr>& operator--() {
+            MatrixIteratorAdapter<T, Itr>::operator += (1);
+            return *this;
+        }
+        MatrixReverseIteratorAdapter<T, Itr> operator++(int) {
+            auto temp(*this);
+            MatrixIteratorAdapter<T, Itr>::operator --();
+            return temp;
+        }
+        MatrixReverseIteratorAdapter<T, Itr> operator--(int) {
+            auto temp(*this);
+            MatrixIteratorAdapter<T, Itr>::operator ++();
+            return temp;
+        }
+        MatrixReverseIteratorAdapter<T, Itr> operator+(const long movement) {
+            auto temp(*this);
+            temp -= movement;
+            return temp;
+        }
+        MatrixReverseIteratorAdapter<T, Itr> operator-(const long movement) {
+            auto temp(*this);
+            temp += movement;
+            return temp;
+        }
+        
+        ptrdiff_t operator-(const MatrixReverseIteratorAdapter<T, Itr>& reverseIterator) {
+            return std::distance(this->getPtr(), reverseIterator.getPtr());
+        }
+        
+        MatrixIteratorAdapter<T, Itr> base() {
+            MatrixIteratorAdapter<T, Itr> forwardIterator(&this);
+            ++forwardIterator;
+            return forwardIterator;
+        }
+    };
     
-    typedef StrideIteratorAdapter<double> stride_iterator;
-    typedef StrideIteratorAdapter<const double> const_stride_iterator;
+    typedef MatrixIteratorAdapter<double, std::vector<double>::iterator> matrix_iterator;
+    typedef MatrixIteratorAdapter<const double, std::vector<const double>::const_iterator> const_matrix_iterator;
     
-    typedef RectIteratorAdapter<double> rect_iterator;
-    typedef RectIteratorAdapter<const double> const_rect_iterator;
-    
-    typedef RawReverseIterator<double>       reverse_iterator;
-    typedef RawReverseIterator<const double> const_reverse_iterator;
-    
+    typedef MatrixReverseIteratorAdapter<double, std::vector<double>::iterator> matrix_reverse_iterator;
+    typedef MatrixReverseIteratorAdapter<const double, std::vector<const double>::const_iterator> const_matrix_reverse_iterator;
 }}
 
 #endif /* Iterators_h */
