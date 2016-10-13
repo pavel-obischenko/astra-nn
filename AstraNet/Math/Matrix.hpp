@@ -18,6 +18,7 @@
 #include <iostream>
 #include <sstream>
 #include <numeric>
+#include <cassert>
 
 namespace astra {
     
@@ -213,7 +214,7 @@ namespace math {
     
     class Matrix {
     protected:
-        inline Matrix() : height(0), width(0), matrixSize(0), data(0) {}
+        inline Matrix() : x(0), y(0), height(0), width(0), matrixSize(0), data(0), parentWidth(0) {}
         
     public:
         Matrix(unsigned long width, unsigned long height);
@@ -222,28 +223,16 @@ namespace math {
         Matrix(const StdVectorPtr& data, unsigned long x, unsigned long y, unsigned long width, unsigned long height, unsigned long parentWidth);
     
     public:
-        inline double sum() const {
-            return std::accumulate(begin(), end(), 0);
-        }
+        double sum() const { return std::accumulate(begin(), end(), 0); }
+        Matrix& operator=(const Matrix& mat);
         
         MatrixPtr submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height);
         const ConstMatrixPtr submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height) const;
         
-        inline Matrix element_wise_mul(double arg) const {
-            Matrix result(get_width(), get_height());
-            std::transform(begin(), end(), result.begin(), std::bind2nd(std::multiplies<double>(), arg));
-            return result;
-        }
+        Matrix element_wise_mul(double arg) const;
+        double dot_product(const Matrix& mat) const;
         
-        Matrix& operator=(const Matrix& mat);
-        
-        friend inline Matrix operator*(const Matrix& left, const Matrix& right) {
-            Matrix result(right.get_width(), left.get_height());
-            
-            // TODO:
-            
-            return result;
-        }
+        friend Matrix operator*(const Matrix& left, const Matrix& right);
         
 //        friend inline Vector operator*(const Matrix& left, const Vector& right) {
 //            auto mt = left.mul_termwise(right);
@@ -286,24 +275,14 @@ namespace math {
         
         friend std::ostream& operator<<(std::ostream& os, const Matrix& mat);
         
-        template <class _Function> inline _Function for_each(_Function __f) {
-            return astra::math::for_each(this, __f);
-        }
+        template <class _Function> void for_each(_Function __f);
+        template <class _Function> void for_each(_Function __f) const;
         
-        template <class _Function> inline _Function for_each(_Function __f) const {
-            return astra::math::for_each(this, __f);
-        }
+        template <class _Function> void for_each_row(_Function __f);
+        template <class _Function> void for_each_row(_Function __f) const;
         
-        template <class _Function> inline _Function for_each_row(_Function __f) {
-//            auto beginItr = common::stride_iterator(begin(), get_width());
-//            auto endItr = common::stride_iterator(begin(), 0);
-//            
-//            for (auto itr = beginItr; itr != endItr; ++itr) {
-//                //auto row
-//            }
-//            
-//            return _VSTD::move(__f);
-        }
+        template <class _Function> void for_each_col(_Function __f);
+        template <class _Function> void for_each_col(_Function __f) const;
 
     public:
         inline unsigned long size() const { return matrixSize; }
@@ -362,8 +341,46 @@ namespace math {
         return std::for_each(__t->begin(), __t->end(), __f);
     }
     
+    template <class _Function> void Matrix::for_each(_Function __f) {
+        astra::math::for_each(this, __f);
+    }
+    
+    template <class _Function> void Matrix::for_each(_Function __f) const {
+        astra::math::for_each(this, __f);
+    }
+    
+    template <class _Function> void Matrix::for_each_row(_Function __f) {
+        for (unsigned int r = 0; r < get_height(); ++r) {
+            MatrixPtr m = submatrix(x, y + r, get_width(), 1);
+            __f(m);
+        }
+    }
+    
+    template <class _Function> void Matrix::for_each_row(_Function __f) const {
+        for (unsigned int r = 0; r < get_height(); ++r) {
+            ConstMatrixPtr m = submatrix(x, y + r, get_width(), 1);
+            __f(m);
+        }
+    }
+    
+    template <class _Function> void Matrix::for_each_col(_Function __f) {
+        for (unsigned int c = 0; c < get_width(); ++c) {
+            MatrixPtr m = submatrix(x + c, y, 1, get_height());
+            __f(m);
+        }
+    }
+    
+    template <class _Function> void Matrix::for_each_col(_Function __f) const {
+        for (unsigned int c = 0; c < get_width(); ++c) {
+            ConstMatrixPtr m = submatrix(x + c, y, 1, get_height());
+            __f(m);
+        }
+    }
+    
     typedef std::shared_ptr<astra::math::Matrix> MatrixPtr;
     typedef std::shared_ptr<const astra::math::Matrix> ConstMatrixPtr;
+    
+    // ********************* Vector **********************
     
     class Vector : public Matrix {
     protected:

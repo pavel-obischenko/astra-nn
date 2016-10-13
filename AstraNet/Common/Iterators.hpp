@@ -294,14 +294,17 @@ namespace common {
             return itr == other.itr;
         }
         inline bool operator !=(const MatrixIteratorAdapter<T, Itr>& other) const {
-            return itr != other.itr;
+            //return itr != other.itr;
+            bool res = itr != other.itr;
+            return res;
         }
         
         inline MatrixIteratorAdapter<T, Itr>& operator+=(const long movement) {
             if (movement > 0) {
                 for (long i = 0; i < movement; ++i) {
                     if (ip < max_ip) {
-                        itr += (ip != 0 && (ip + 1) < max_ip && (ip + 1) % width == 0 ? stride + 1 : 1);
+                        bool useStriding = ((ip + 1) < max_ip && ((ip + 1) % width == 0 || width == 1));
+                        itr += (useStriding ? stride + 1 : 1);
                         ++ip;
                     }
                     else if (ip == max_ip) {
@@ -318,7 +321,8 @@ namespace common {
             if (movement > 0) {
                 for (unsigned long i = 0; i < movement; ++i) {
                     if (ip > 0) {
-                        itr.operator -= (ip != 0 && ip % width == 0 ? stride + 1 : 1);
+                        bool useStriding = (ip != 0 && (ip % width == 0 || width == 1));
+                        itr.operator -= (useStriding ? stride + 1 : 1);
                         --ip;
                     }
                 }

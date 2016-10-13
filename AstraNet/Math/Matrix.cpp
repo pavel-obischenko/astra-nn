@@ -45,26 +45,54 @@ namespace math {
         }
         return *this;
     }
+    
+    double Matrix::dot_product(const Matrix& mat) const {
+        return std::inner_product(begin(), end(), mat.begin(), 0);
+    }
+    
+    Matrix Matrix::element_wise_mul(double arg) const {
+        Matrix result(get_width(), get_height());
+        std::transform(begin(), end(), result.begin(), std::bind2nd(std::multiplies<double>(), arg));
+        return result;
+    }
 
     MatrixPtr Matrix::submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height) {
-        return MatrixPtr(new Matrix(data, x, y, width, height, this->get_width()));
+        return MatrixPtr(new Matrix(data, x, y, width, height, parentWidth));
     }
 
     const ConstMatrixPtr Matrix::submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height) const {
-        //common::const_iterator itr = begin().operator +(y * get_width() + x);
-        return ConstMatrixPtr(new Matrix(data, x, y, width, height, this->get_width()));;
+        return ConstMatrixPtr(new Matrix(data, x, y, width, height, parentWidth));
+    }
+    
+    Matrix operator*(const Matrix& left, const Matrix& right) {
+        assert(right.get_height() == left.get_width());
+        
+        Matrix result(right.get_width(), left.get_height());
+        auto resItr = result.begin();
+        
+        left.for_each_row([&right, &resItr](const astra::math::ConstMatrixPtr& row) {
+            right.for_each_col([&row, &resItr](const astra::math::ConstMatrixPtr& col) {
+                std::cout << *row << std::endl;
+                std::cout << *col << std::endl;
+                
+                double res = row->dot_product(*col);
+                *resItr = res;
+                resItr++;
+            });
+        });
+        
+        return result;
     }
     
     std::ostream& operator<<(std::ostream& os, const Matrix& mat) {
         unsigned long i = 0;
         unsigned long w = mat.get_width();
-        
-        os << "\n ";
+        os << " ";
         mat.for_each([&os, &i, w](double val) {
-            os << val << ((i > 0 && (i + 1) % w == 0) ? "\n " : " ");
+            bool newLine = (i > 0 && (i + 1) % w == 0) || w == 1;
+            os << val << (newLine ? "\n " : " ");
             ++i;
         });
-        os << "\n";
         return os;
     }
     

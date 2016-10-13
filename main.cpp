@@ -10,6 +10,10 @@
 #include <random>
 #include <cmath>
 
+#include "AstraNet/Common/Iterators.hpp"
+#include "AstraNet/Math/Matrix.hpp"
+
+
 #include "AstraNet/AstraNet.hpp"
 #include "AstraNet/Layers/TanhLayer.hpp"
 #include "AstraNet/Layers/SigLayer.hpp"
@@ -17,8 +21,6 @@
 #include "AstraNet/Trainers/Trainer.hpp"
 #include "AstraNet/Math/Vector.hpp"
 
-#include "AstraNet/Common/Iterators.hpp"
-#include "AstraNet/Math/Matrix.hpp"
 
 using namespace astra;
 
@@ -31,19 +33,26 @@ int main(int argc, const char * argv[]) {
 //    std::cout << h << std::endl;
 //    std::cout << t << std::endl;
     
-    astra::math::Matrix m0 = {{1, 1, 1, 1, 1, 1, 1, 1},
-                              {1, 2, 2, 2, 2, 2, 2, 1},
-                              {1, 2, 3, 3, 3, 3, 2, 1},
+    astra::math::Matrix m0 = {{1, 1, 1, 10, 1, 1, 10, 1},
+                              {1, 2, 2, 20, 2, 2, 20, 1},
+                              {1, 2, 3, 30, 3, 3, 20, 1},
                               {1, 2, 3, 4, 4, 3, 2, 1},
                               {1, 2, 3, 3, 3, 3, 2, 1},
                               {1, 2, 2, 2, 2, 2, 2, 1},
                               {1, 1, 1, 1, 1, 1, 1, 1}};
     
-    astra::math::MatrixPtr m1 = m0.submatrix(1, 1, 6, 5);
-    *m1 *= 2;
+//    m0.for_each_col([](const astra::math::MatrixPtr& col) {
+//        std::cout << *col << std::endl;
+//    });
     
-    std::cout << *m1 << std::endl;
-    std::cout << m0 << std::endl;
+    astra::math::MatrixPtr sm1 = m0.submatrix(0, 0, 3, 2);
+    astra::math::MatrixPtr sm2 = m0.submatrix(4, 0, 2, 3);
+    
+    std::cout << *sm1 << std::endl;
+    std::cout << *sm2 << std::endl;
+    std::cout << *sm1 * *sm2 << std::endl;
+    
+    //std::cout << m0 << std::endl;
     
     return 0;
     
