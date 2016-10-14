@@ -98,10 +98,20 @@ namespace math {
         return result;
     }
 
+    Matrix& operator+=(Matrix& left, const Matrix& right) {
+        left = left + right;
+        return left;
+    }
+
     Matrix operator-(const Matrix& left, const Matrix& right) {
         Matrix result(left.get_width(), left.get_height());
         std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::minus<double>());
         return result;
+    }
+
+    Matrix& operator-=(Matrix& left, const Matrix& right) {
+        left = left - right;
+        return left;
     }
 
     bool operator==(const Matrix& left, const Matrix& right) {

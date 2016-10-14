@@ -205,8 +205,8 @@ namespace math {
     typedef std::shared_ptr<std::vector<double>> StdVectorPtr;
     typedef std::shared_ptr<const std::vector<const double>> StdConstVectorPtr;
     
-    template <class _T, class _Function> inline _Function for_each(const _T* const __t, _Function __f);
-    template <class _T, class _Function> inline _Function for_each(_T* __t, _Function __f);
+    template <class _T, class _Function> _Function for_each(const _T* const __t, _Function __f);
+    template <class _T, class _Function> _Function for_each(_T* __t, _Function __f);
     
     class Matrix;
     typedef std::shared_ptr<astra::math::Matrix> MatrixPtr;
@@ -237,7 +237,9 @@ namespace math {
         friend Matrix operator*(double left, const Matrix& right);
         friend Matrix& operator*=(Matrix& left, double right);
         friend Matrix operator+(const Matrix& left, const Matrix& right);
+        friend Matrix& operator+=(Matrix& left, const Matrix& right);
         friend Matrix operator-(const Matrix& left, const Matrix& right);
+        friend Matrix& operator-=(Matrix& left, const Matrix& right);
 
         friend bool operator==(const Matrix& left, const Matrix& right);
         
@@ -361,11 +363,15 @@ namespace math {
         };
         Vector(const Vector& other) : Matrix(other) {}
 
-        unsigned long size() const {
-            return get_height();
+        unsigned long size() const { return get_height(); }
+
+        Vector element_wise_mul(double arg) const {
+            Vector result(size());
+            std::transform(begin(), end(), result.begin(), std::bind2nd(std::multiplies<double>(), arg));
+            return result;
         }
 
-        friend inline Vector operator*(const Matrix& left, const Vector& right) {
+        friend Vector operator*(const Matrix& left, const Vector& right) {
             assert(right.size() == left.get_width());
 
             Vector result(left.get_height());
@@ -374,12 +380,41 @@ namespace math {
             left.for_each_row([&right, &resItr](const astra::math::ConstMatrixPtr& row) {
                 *resItr++ = row->dot_product(right);
             });
-
             return result;
         }
 
-        friend inline Vector operator*(const Vector& left, const Matrix& right) {
+        friend Vector operator*(const Vector& left, const Matrix& right) {
             return right * left;
+        }
+
+        friend Vector operator*(const Vector& left, double right) {
+            return left.element_wise_mul(right);
+        }
+        friend Vector operator*(double left, const Vector& right) {
+            return right.element_wise_mul(left);
+        }
+
+        friend Vector& operator*=(Vector& left, double right) {
+            std::transform(left.begin(), left.end(), left.begin(), std::bind2nd(std::multiplies<double>(), right));
+            return left;
+        }
+        friend Vector operator+(const Vector& left, const Vector& right) {
+            Vector result(left.size());
+            std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::plus<double>());
+            return result;
+        }
+        friend Vector& operator+=(Vector& left, const Vector& right) {
+            left = left + right;
+            return left;
+        }
+        friend Vector operator-(const Vector& left, const Vector& right) {
+            Vector result(left.size());
+            std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::minus<double>());
+            return result;
+        }
+        friend Vector& operator-=(Vector& left, const Vector& right) {
+            left = left - right;
+            return left;
         }
     };
 }}
