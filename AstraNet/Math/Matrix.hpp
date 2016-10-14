@@ -214,7 +214,7 @@ namespace math {
     
     class Matrix {
     protected:
-        inline Matrix() : x(0), y(0), height(0), width(0), matrixSize(0), data(0), parentWidth(0) {}
+        Matrix() : x(0), y(0), height(0), width(0), matrixSize(0), data(0), parentWidth(0) {}
         
     public:
         Matrix(unsigned long width, unsigned long height);
@@ -233,45 +233,13 @@ namespace math {
         double dot_product(const Matrix& mat) const;
         
         friend Matrix operator*(const Matrix& left, const Matrix& right);
-        
-//        friend inline Vector operator*(const Matrix& left, const Vector& right) {
-//            auto mt = left.mul_termwise(right);
-//            
-//            std::vector<double> result;
-//            std::for_each(mt.rows.begin(), mt.rows.end(), [&result](const Vector& row) {
-//                result.push_back(row.sum());
-//            });
-//            return Vector(result);
-//        }
-//        
-//        friend inline Vector operator*(const Vector& left, const Matrix& right) {
-//            return right * left;
-//        }
-        
-        friend inline Matrix operator*(const Matrix& left, double right) {
-            return left.element_wise_mul(right);
-        }
-        
-        friend inline Matrix operator*(double left, const Matrix& right) {
-            return right * left;
-        }
-        
-        friend inline Matrix& operator*=(Matrix& left, double right) {
-            std::transform(left.begin(), left.end(), left.begin(), std::bind2nd(std::multiplies<double>(), right));
-            return left;
-        }
-        
-        friend inline Matrix operator+(const Matrix& left, const Matrix& right) {
-            Matrix result(left.get_width(), left.get_height());
-            std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::plus<double>());
-            return result;
-        }
-        
-        friend inline Matrix operator-(const Matrix& left, const Matrix& right) {
-            Matrix result(left.get_width(), left.get_height());
-            std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::minus<double>());
-            return result;
-        }
+        friend Matrix operator*(const Matrix& left, double right);
+        friend Matrix operator*(double left, const Matrix& right);
+        friend Matrix& operator*=(Matrix& left, double right);
+        friend Matrix operator+(const Matrix& left, const Matrix& right);
+        friend Matrix operator-(const Matrix& left, const Matrix& right);
+
+        friend bool operator==(const Matrix& left, const Matrix& right);
         
         friend std::ostream& operator<<(std::ostream& os, const Matrix& mat);
         
@@ -285,41 +253,41 @@ namespace math {
         template <class _Function> void for_each_col(_Function __f) const;
 
     public:
-        inline unsigned long size() const { return matrixSize; }
+        unsigned long size() const { return matrixSize; }
         
-        inline unsigned long get_height() const { return height; }
-        inline unsigned long get_width() const { return width; }
+        unsigned long get_height() const { return height; }
+        unsigned long get_width() const { return width; }
         
     public:
-        inline common::matrix_iterator begin() {
+        common::matrix_iterator begin() {
             auto origin = data->begin() + (y * parentWidth + x);
             return common::matrix_iterator(origin, width, height, parentWidth - width);
         }
-        inline common::matrix_iterator end() {
+        common::matrix_iterator end() {
             unsigned long stride = parentWidth - width;
             auto origin = data->begin() + (y * parentWidth + x) + width * height + stride * (height - 1);
             return common::matrix_iterator(origin, width, height, stride);
         }
         
-        inline common::const_matrix_iterator begin() const {
+        common::const_matrix_iterator begin() const {
             auto origin = data->begin() + (y * parentWidth + x);
             return common::const_matrix_iterator(origin, width, height, parentWidth - width);
         }
-        inline common::const_matrix_iterator end() const {
+        common::const_matrix_iterator end() const {
             unsigned long stride = parentWidth - width;
             auto origin = data->begin() + (y * parentWidth + x) + width * height + stride * (height - 1);
             return common::const_matrix_iterator(origin, width, height, stride);
         }
         
     protected:
-        inline void set_height(unsigned long r) { height = r; }
-        inline void set_width(unsigned long c) { width = c; }
+        void set_height(unsigned long r) { height = r; }
+        void set_width(unsigned long c) { width = c; }
         
-        inline StdVectorPtr& get_data_storage() { return data; }
-        inline const StdVectorPtr& get_data_storage() const { return data; }
+        StdVectorPtr& get_data_storage() { return data; }
+        const StdVectorPtr& get_data_storage() const { return data; }
         
     private:
-        inline void allocMemory() {
+        void allocMemory() {
             matrixSize = width * height;
             data = std::make_shared<std::vector<double>>(matrixSize);
         }
@@ -333,11 +301,11 @@ namespace math {
         std::shared_ptr<std::vector<double>> data;
     };
     
-    template <class _T, class _Function> inline _Function for_each(const _T* const __t, _Function __f) {
+    template <class _T, class _Function> _Function for_each(const _T* const __t, _Function __f) {
         return std::for_each(__t->begin(), __t->end(), __f);
     }
     
-    template <class _T, class _Function> inline _Function for_each(_T* __t, _Function __f) {
+    template <class _T, class _Function> _Function for_each(_T* __t, _Function __f) {
         return std::for_each(__t->begin(), __t->end(), __f);
     }
     
@@ -388,10 +356,31 @@ namespace math {
         
     public:
         explicit Vector(unsigned long size) : Matrix(1, size) {}
-        Vector(const std::initializer_list<std::initializer_list<double>>& init) : Matrix(init) {};
         Vector(const std::initializer_list<double>& init) : Matrix(1, init.size()) {
+            std::copy(init.begin(), init.end(), begin());
         };
-        Vector(const Vector& other) = default;
+        Vector(const Vector& other) : Matrix(other) {}
+
+        unsigned long size() const {
+            return get_height();
+        }
+
+        friend inline Vector operator*(const Matrix& left, const Vector& right) {
+            assert(right.size() == left.get_width());
+
+            Vector result(left.get_height());
+            auto resItr = result.begin();
+
+            left.for_each_row([&right, &resItr](const astra::math::ConstMatrixPtr& row) {
+                *resItr++ = row->dot_product(right);
+            });
+
+            return result;
+        }
+
+        friend inline Vector operator*(const Vector& left, const Matrix& right) {
+            return right * left;
+        }
     };
 }}
 

@@ -6,7 +6,6 @@
 //  Copyright © 2016 Pavel. All rights reserved.
 //
 
-#include <stdio.h>
 #include <random>
 
 #include "Layer.hpp"

@@ -16,11 +16,11 @@ namespace math {
     }
     
     Matrix::Matrix(const std::initializer_list<std::initializer_list<double>>& init) : Matrix(init.begin()->size(), init.size()) {
-        unsigned long index = 0;
-        std::for_each(init.begin(), init.end(), [this, &index](const std::initializer_list<double>& item) {
-            std::for_each(item.begin(), item.end(), [this, &index](double val) {
-                (*this->data)[index++] = val;
-            });
+        auto itr = begin();
+
+        std::for_each(init.begin(), init.end(), [&itr](const std::initializer_list<double>& item) {
+            std::copy(item.begin(), item.end(), itr);
+            itr += item.end() - item.begin();
         });
     }
     
@@ -77,6 +77,35 @@ namespace math {
         });
         
         return result;
+    }
+
+    Matrix operator*(const Matrix& left, double right) {
+        return left.element_wise_mul(right);
+    }
+
+    Matrix operator*(double left, const Matrix& right) {
+        return right * left;
+    }
+
+    Matrix& operator*=(Matrix& left, double right) {
+        std::transform(left.begin(), left.end(), left.begin(), std::bind2nd(std::multiplies<double>(), right));
+        return left;
+    }
+
+    Matrix operator+(const Matrix& left, const Matrix& right) {
+        Matrix result(left.get_width(), left.get_height());
+        std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::plus<double>());
+        return result;
+    }
+
+    Matrix operator-(const Matrix& left, const Matrix& right) {
+        Matrix result(left.get_width(), left.get_height());
+        std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::minus<double>());
+        return result;
+    }
+
+    bool operator==(const Matrix& left, const Matrix& right) {
+        return *left.get_data_storage() == *right.get_data_storage();
     }
     
     std::ostream& operator<<(std::ostream& os, const Matrix& mat) {

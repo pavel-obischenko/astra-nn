@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>astra-nn-tests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>astra-nn.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>E9B649771DB0A44500CA5D5E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E9DF75051D9E483800F77E56</key>
 		<dict>
 			<key>primary</key>

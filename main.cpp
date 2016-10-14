@@ -13,7 +13,6 @@
 #include "AstraNet/Common/Iterators.hpp"
 #include "AstraNet/Math/Matrix.hpp"
 
-
 #include "AstraNet/AstraNet.hpp"
 #include "AstraNet/Layers/TanhLayer.hpp"
 #include "AstraNet/Layers/SigLayer.hpp"
@@ -33,9 +32,9 @@ int main(int argc, const char * argv[]) {
 //    std::cout << h << std::endl;
 //    std::cout << t << std::endl;
     
-    astra::math::Matrix m0 = {{1, 1, 1, 10, 1, 1, 10, 1},
-                              {1, 2, 2, 20, 2, 2, 20, 1},
-                              {1, 2, 3, 30, 3, 3, 20, 1},
+    astra::math::Matrix m0 = {{1, 1, 1, 1, 1, 1, 1, 1},
+                              {1, 2, 2, 2, 2, 2, 2, 1},
+                              {1, 2, 3, 3, 3, 3, 2, 1},
                               {1, 2, 3, 4, 4, 3, 2, 1},
                               {1, 2, 3, 3, 3, 3, 2, 1},
                               {1, 2, 2, 2, 2, 2, 2, 1},
