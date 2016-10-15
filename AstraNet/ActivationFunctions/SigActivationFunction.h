@@ -9,7 +9,7 @@
 #ifndef SigActivationFunction_h
 #define SigActivationFunction_h
 
-#include "ActivationFunction.hpp"
+#include "ActivationFunction.h"
 #include <cmath>
 
 namespace astra {

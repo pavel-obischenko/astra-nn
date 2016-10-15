@@ -6,7 +6,7 @@
 //  Copyright © 2016 Pavel. All rights reserved.
 //
 
-#include "SigLayer.hpp"
+#include "SigLayer.h"
 #include "../ActivationFunctions/SigActivationFunction.h"
 
 namespace astra {

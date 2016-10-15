@@ -6,8 +6,10 @@
 //  Copyright © 2016 Pavel. All rights reserved.
 //
 
-#include "Trainer.hpp"
+#include "Trainer.h"
 #include "TrainLayerWrapper.h"
+
+using namespace astra::math;
 
 namespace astra {
     
@@ -54,7 +56,7 @@ namespace astra {
     
     double Trainer::errorSqr(const Vector& out, const Vector& train) {
         Vector err = errorFactor(out, train);
-        err = err.mul_termwise(err);
+        err = err.element_wise_mul(err);
         return err.sum();
     }
     
@@ -63,17 +65,15 @@ namespace astra {
     }
     
     Vector Trainer::errorFactor(const Matrix& prevWeights, const Vector& prevLocalGradient) {
-        return (prevWeights.transpose() * prevLocalGradient).head(prevWeights.getNCols() - 1);
+        return prevWeights.transpose() * prevLocalGradient;
     }
     
     Vector Trainer::localGradient(const InputVector& input, const Vector& errorFactor, const Matrix& weights, const ActivationFunctionPtr& activation) {
-        Vector derivative = activation->derivativeValue(weights * input);
-        return derivative.mul_termwise(errorFactor);
+        Vector derivative = activation->derivativeValue(weights * input.toVector());
+        return derivative.element_wise_mul(errorFactor);
     }
     
     Matrix Trainer::calculateCorrectWeights(const Matrix& weights, const InputVector& input, const Vector& localGrad, double epsilon) {
-        Matrix i = Matrix::oneRowMatrix(input * epsilon);
-        Matrix g = Matrix::oneColMatrix(localGrad);
-        return weights + (i * g);
+        return weights + (localGrad * (input * epsilon)).transpose();
     }
 }

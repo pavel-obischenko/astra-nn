@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		65828206761C329C870F7D12 /* TestMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6582892424FE16F43C8E7DA2 /* TestMatrix.cpp */; };
+		65828206761C329C870F7D12 /* TestMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6582892424FE16F43C8E7DA2 /* TestMath.cpp */; };
 		658285BA7855E3A6FF80D258 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E90B68C91DAE561C00C8292B /* Matrix.cpp */; };
-		65828601813D8F366B757FD7 /* TestMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6582892424FE16F43C8E7DA2 /* TestMatrix.cpp */; };
 		65828A300A00D3CCAA7FC462 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6582888D2458F168B6099396 /* main.cpp */; };
 		E90B68CA1DAE561C00C8292B /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E90B68C91DAE561C00C8292B /* Matrix.cpp */; };
 		E9D8DBDE1D9EA4D500B59CC5 /* SigLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D8DBDC1D9EA4D500B59CC5 /* SigLayer.cpp */; };
@@ -43,30 +42,30 @@
 
 /* Begin PBXFileReference section */
 		6582888D2458F168B6099396 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		6582892424FE16F43C8E7DA2 /* TestMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestMatrix.cpp; sourceTree = "<group>"; };
+		6582892424FE16F43C8E7DA2 /* TestMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestMath.cpp; sourceTree = "<group>"; };
 		65828C7C0587BB2F8AD90965 /* astra-nn-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "astra-nn-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E90B68C91DAE561C00C8292B /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
 		E9AE356D1DA2695900C45683 /* TrainData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainData.h; sourceTree = "<group>"; };
 		E9AE35721DA2CF2C00C45683 /* TrainLayerWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainLayerWrapper.h; sourceTree = "<group>"; };
 		E9D8DBDC1D9EA4D500B59CC5 /* SigLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SigLayer.cpp; sourceTree = "<group>"; };
-		E9D8DBDD1D9EA4D500B59CC5 /* SigLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SigLayer.hpp; sourceTree = "<group>"; };
+		E9D8DBDD1D9EA4D500B59CC5 /* SigLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SigLayer.h; sourceTree = "<group>"; };
 		E9D8DBDF1D9EA6C800B59CC5 /* TanhLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TanhLayer.cpp; sourceTree = "<group>"; };
-		E9D8DBE01D9EA6C800B59CC5 /* TanhLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TanhLayer.hpp; sourceTree = "<group>"; };
+		E9D8DBE01D9EA6C800B59CC5 /* TanhLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TanhLayer.h; sourceTree = "<group>"; };
 		E9D8DBE31D9EA7B400B59CC5 /* Trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trainer.cpp; sourceTree = "<group>"; };
-		E9D8DBE41D9EA7B400B59CC5 /* Trainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Trainer.hpp; sourceTree = "<group>"; };
+		E9D8DBE41D9EA7B400B59CC5 /* Trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trainer.h; sourceTree = "<group>"; };
 		E9DF75061D9E483900F77E56 /* astra-nn */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "astra-nn"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DF75101D9E488C00F77E56 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		E9DF75271D9E497600F77E56 /* ActivationFunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ActivationFunction.hpp; sourceTree = "<group>"; };
+		E9DF75271D9E497600F77E56 /* ActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivationFunction.h; sourceTree = "<group>"; };
 		E9DF75281D9E497600F77E56 /* SigActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SigActivationFunction.h; sourceTree = "<group>"; };
 		E9DF75291D9E497600F77E56 /* TanhActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TanhActivationFunction.h; sourceTree = "<group>"; };
 		E9DF752A1D9E497600F77E56 /* AstraNet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AstraNet.cpp; sourceTree = "<group>"; };
-		E9DF752B1D9E497600F77E56 /* AstraNet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AstraNet.hpp; sourceTree = "<group>"; };
+		E9DF752B1D9E497600F77E56 /* AstraNet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AstraNet.h; sourceTree = "<group>"; };
 		E9DF752D1D9E497600F77E56 /* Layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Layer.cpp; sourceTree = "<group>"; };
-		E9DF752E1D9E497600F77E56 /* Layer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Layer.hpp; sourceTree = "<group>"; };
-		E9DF75301D9E497600F77E56 /* InputVector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputVector.hpp; sourceTree = "<group>"; };
-		E9DF75311D9E497600F77E56 /* Matrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Matrix.hpp; sourceTree = "<group>"; };
-		E9DF75321D9E497600F77E56 /* Vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector.hpp; sourceTree = "<group>"; };
-		E9ED1EAB1DACC99300248306 /* Iterators.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Iterators.hpp; sourceTree = "<group>"; };
+		E9DF752E1D9E497600F77E56 /* Layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
+		E9DF75301D9E497600F77E56 /* InputVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputVector.h; sourceTree = "<group>"; };
+		E9DF75311D9E497600F77E56 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
+		E9DF75321D9E497600F77E56 /* Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
+		E9ED1EAB1DACC99300248306 /* Iterators.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Iterators.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				6582888D2458F168B6099396 /* main.cpp */,
-				6582892424FE16F43C8E7DA2 /* TestMatrix.cpp */,
+				6582892424FE16F43C8E7DA2 /* TestMath.cpp */,
 			);
 			path = "astra-nn-tests";
 			sourceTree = "<group>";
@@ -100,7 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				E9D8DBE31D9EA7B400B59CC5 /* Trainer.cpp */,
-				E9D8DBE41D9EA7B400B59CC5 /* Trainer.hpp */,
+				E9D8DBE41D9EA7B400B59CC5 /* Trainer.h */,
 				E9AE356D1DA2695900C45683 /* TrainData.h */,
 				E9AE35721DA2CF2C00C45683 /* TrainLayerWrapper.h */,
 			);
@@ -135,7 +134,7 @@
 				E9DF752F1D9E497600F77E56 /* Math */,
 				E9D8DBE21D9EA73C00B59CC5 /* Trainers */,
 				E9DF752A1D9E497600F77E56 /* AstraNet.cpp */,
-				E9DF752B1D9E497600F77E56 /* AstraNet.hpp */,
+				E9DF752B1D9E497600F77E56 /* AstraNet.h */,
 			);
 			path = AstraNet;
 			sourceTree = "<group>";
@@ -143,7 +142,7 @@
 		E9DF75261D9E497600F77E56 /* ActivationFunctions */ = {
 			isa = PBXGroup;
 			children = (
-				E9DF75271D9E497600F77E56 /* ActivationFunction.hpp */,
+				E9DF75271D9E497600F77E56 /* ActivationFunction.h */,
 				E9DF75281D9E497600F77E56 /* SigActivationFunction.h */,
 				E9DF75291D9E497600F77E56 /* TanhActivationFunction.h */,
 			);
@@ -154,11 +153,11 @@
 			isa = PBXGroup;
 			children = (
 				E9DF752D1D9E497600F77E56 /* Layer.cpp */,
-				E9DF752E1D9E497600F77E56 /* Layer.hpp */,
+				E9DF752E1D9E497600F77E56 /* Layer.h */,
 				E9D8DBDC1D9EA4D500B59CC5 /* SigLayer.cpp */,
-				E9D8DBDD1D9EA4D500B59CC5 /* SigLayer.hpp */,
+				E9D8DBDD1D9EA4D500B59CC5 /* SigLayer.h */,
 				E9D8DBDF1D9EA6C800B59CC5 /* TanhLayer.cpp */,
-				E9D8DBE01D9EA6C800B59CC5 /* TanhLayer.hpp */,
+				E9D8DBE01D9EA6C800B59CC5 /* TanhLayer.h */,
 			);
 			path = Layers;
 			sourceTree = "<group>";
@@ -166,10 +165,10 @@
 		E9DF752F1D9E497600F77E56 /* Math */ = {
 			isa = PBXGroup;
 			children = (
-				E9DF75301D9E497600F77E56 /* InputVector.hpp */,
-				E9DF75311D9E497600F77E56 /* Matrix.hpp */,
+				E9DF75301D9E497600F77E56 /* InputVector.h */,
+				E9DF75311D9E497600F77E56 /* Matrix.h */,
 				E90B68C91DAE561C00C8292B /* Matrix.cpp */,
-				E9DF75321D9E497600F77E56 /* Vector.hpp */,
+				E9DF75321D9E497600F77E56 /* Vector.h */,
 			);
 			path = Math;
 			sourceTree = "<group>";
@@ -177,7 +176,7 @@
 		E9ED1EAA1DACC96C00248306 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				E9ED1EAB1DACC99300248306 /* Iterators.hpp */,
+				E9ED1EAB1DACC99300248306 /* Iterators.h */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -277,7 +276,7 @@
 			files = (
 				65828A300A00D3CCAA7FC462 /* main.cpp in Sources */,
 				658285BA7855E3A6FF80D258 /* Matrix.cpp in Sources */,
-				65828206761C329C870F7D12 /* TestMatrix.cpp in Sources */,
+				65828206761C329C870F7D12 /* TestMath.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +291,6 @@
 				E9DF75111D9E488C00F77E56 /* main.cpp in Sources */,
 				E9D8DBE11D9EA6C800B59CC5 /* TanhLayer.cpp in Sources */,
 				E9DF75331D9E497600F77E56 /* AstraNet.cpp in Sources */,
-				65828601813D8F366B757FD7 /* TestMatrix.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

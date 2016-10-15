@@ -9,7 +9,7 @@
 #ifndef TanhActivationFunction_h
 #define TanhActivationFunction_h
 
-#include "ActivationFunction.hpp"
+#include "ActivationFunction.h"
 #include <cmath>
 
 namespace astra {

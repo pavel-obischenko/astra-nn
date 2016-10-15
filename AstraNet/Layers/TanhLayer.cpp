@@ -6,7 +6,7 @@
 //  Copyright © 2016 Pavel. All rights reserved.
 //
 
-#include "TanhLayer.hpp"
+#include "TanhLayer.h"
 #include "../ActivationFunctions/TanhActivationFunction.h"
 
 namespace astra {

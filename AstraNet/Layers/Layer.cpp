@@ -7,27 +7,23 @@
 //
 
 #include <random>
+#include "Layer.h"
 
-#include "Layer.hpp"
-#include "../Trainers/Trainer.hpp"
+using namespace astra::math;
 
 namespace astra {
 
-    Layer::Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : input(nInputs + 1), output(nOutputs), weights(nOutputs, nInputs + 1), activation(activationFunc) {
-        input[0] = 1.;
+    Layer::Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : input(nInputs + 1), output(nOutputs), weights(nInputs + 1, nOutputs), activation(activationFunc) {
         initWeights();
     }
 
-    const vec& Layer::process(const vec& inputValues) {
-        if (!activation) {
-            // TODO: throw exception
-        }
-        
-        if (Layer::input.size() != inputValues.size() + 1) {
-            // TODO: throw exception
-        }
+    const Vector& Layer::process(const InputVector& inputValues) {
+        assert(activation != nullptr);
+        assert(Layer::input.size() == inputValues.size());
 
-        output = activation->value(weights * input.fill_from(inputValues));
+        input = inputValues;
+        output = activation->value(weights * input.toVector()); // TODO: REFACTOR IT !!!
+
         return output;
     }
     
@@ -35,11 +31,10 @@ namespace astra {
         std::default_random_engine generator;
         std::uniform_real_distribution<double> distribution(-.5, .5);
         auto rnd = std::bind(distribution, generator);
-        
-        std::for_each(weights.get_rows().begin(), weights.get_rows().end(), [&rnd](vec& row) {
-            std::for_each(row.get_storage().begin(), row.get_storage().end(), [&rnd](double& val) {
-                val = rnd();
-            });
+
+        weights.for_each([&rnd](double &val) {
+            val = rnd();
         });
     }
 }
+

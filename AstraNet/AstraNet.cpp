@@ -6,8 +6,11 @@
 //  Copyright © 2016 Pavel. All rights reserved.
 //
 
-#include "AstraNet.hpp"
-#include "Layers/TanhLayer.hpp"
+#include "AstraNet.h"
+#include "Layers/TanhLayer.h"
+#import "Math/Vector.h"
+
+using namespace astra::math;
 
 namespace astra {
     
@@ -32,12 +35,12 @@ namespace astra {
     Output AstraNet::process(const Input& input) {
         auto firstLayer = layers.begin();
         
-        vec lastOutput;
+        Vector lastOutput;
         for (auto layer = firstLayer; layer != layers.end(); ++layer) {
-            const vec& currentInput = layer == firstLayer ? vec(input) : lastOutput;
-            lastOutput = layer->get()->process(currentInput);
+            const Vector& currentInput = layer == firstLayer ? Vector(input) : lastOutput;
+            lastOutput = (*layer)->process(currentInput);
         }
         
-        return lastOutput.get_storage();
+        return *lastOutput.get_data_storage();
     }
 }

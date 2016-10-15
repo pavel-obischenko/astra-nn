@@ -9,7 +9,7 @@
 #ifndef AstraNet_hpp
 #define AstraNet_hpp
 
-#include "Layers/Layer.hpp"
+#include "Layers/Layer.h"
 #include <vector>
 
 namespace astra {

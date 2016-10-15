@@ -9,7 +9,7 @@
 #ifndef TanhLayer_hpp
 #define TanhLayer_hpp
 
-#include "Layer.hpp"
+#include "Layer.h"
 
 namespace astra {
     

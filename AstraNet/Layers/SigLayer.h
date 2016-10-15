@@ -9,7 +9,7 @@
 #ifndef SigLayer_hpp
 #define SigLayer_hpp
 
-#include "Layer.hpp"
+#include "Layer.h"
 
 namespace astra {
     

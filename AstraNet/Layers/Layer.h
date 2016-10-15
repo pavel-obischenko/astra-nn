@@ -9,40 +9,38 @@
 #ifndef Layer_hpp
 #define Layer_hpp
 
-#include "../ActivationFunctions/ActivationFunction.hpp"
+#include "../ActivationFunctions/ActivationFunction.h"
 
-#include "../Math/Vector.hpp"
-#include "../Math/Matrix.hpp"
-#include "../Math/InputVector.hpp"
+#include "../Math/Vector.h"
+#include "../Math/Matrix.h"
+#include "../Math/InputVector.h"
 
 namespace astra {
-    
-    class Trainer;
-    
+
     class Layer {
     private:
-        Layer() : weights(1, 1) {};
+        Layer() : input(2), output(1), weights(2, 2), activation(nullptr) {};
         
     protected:
         Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr &activationFunc);
         
     public:
-        const vec& process(const vec& inputValues);
+        const math::Vector& process(const math::InputVector& input);
         
     public:
-        void setWeights(const mat& newWeights) { weights = newWeights; }
-        const inputv& getInput() const { return input; }
-        const mat& getWeights() const { return weights; }
-        const vec& getOutput() const { return output; }
+        void setWeights(const math::Matrix& newWeights) { weights = newWeights; }
+        const math::InputVector& getInput() const { return input; }
+        const math::Matrix& getWeights() const { return weights; }
+        const math::Vector& getOutput() const { return output; }
         const ActivationFunctionPtr& getActivationFunc() const { return activation; }
         
     protected:
         void initWeights();
         
     protected:
-        inputv input;
-        vec output;
-        mat weights;
+        math::InputVector input;
+        math::Vector output;
+        math::Matrix weights;
         
         ActivationFunctionPtr activation;
     };

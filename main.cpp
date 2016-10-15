@@ -10,58 +10,21 @@
 #include <random>
 #include <cmath>
 
-#include "AstraNet/Common/Iterators.hpp"
-#include "AstraNet/Math/Matrix.hpp"
+#include "AstraNet/Common/Iterators.h"
+#include "AstraNet/Math/Matrix.h"
 
-#include "AstraNet/AstraNet.hpp"
-#include "AstraNet/Layers/TanhLayer.hpp"
-#include "AstraNet/Layers/SigLayer.hpp"
+#include "AstraNet/AstraNet.h"
+#include "AstraNet/Layers/TanhLayer.h"
+#include "AstraNet/Layers/SigLayer.h"
 #include "AstraNet/Trainers/TrainData.h"
-#include "AstraNet/Trainers/Trainer.hpp"
-#include "AstraNet/Math/Vector.hpp"
+#include "AstraNet/Trainers/Trainer.h"
+#include "AstraNet/Math/Vector.h"
 
 
 using namespace astra;
+using namespace astra::math;
 
 int main(int argc, const char * argv[]) {
-//    Vector v = {1, 2, 3, 4, 5, 6};
-//    Vector h = v.head(5);
-//    Vector t = v.tail(1);
-//    
-//    std::cout << v << std::endl;
-//    std::cout << h << std::endl;
-//    std::cout << t << std::endl;
-    
-    astra::math::Matrix m0 = {{1, 1, 1, 1, 1, 1, 1, 1},
-                              {1, 2, 2, 2, 2, 2, 2, 1},
-                              {1, 2, 3, 3, 3, 3, 2, 1},
-                              {1, 2, 3, 4, 4, 3, 2, 1},
-                              {1, 2, 3, 3, 3, 3, 2, 1},
-                              {1, 2, 2, 2, 2, 2, 2, 1},
-                              {1, 1, 1, 1, 1, 1, 1, 1}};
-    
-    astra::math::MatrixPtr sm1 = m0.submatrix(0, 0, 3, 2);
-    astra::math::MatrixPtr sm2 = m0.submatrix(4, 0, 2, 3);
-    
-    std::cout << *sm1 * *sm2 << std::endl;
-    
-    astra::math::Matrix m3x3 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    astra::math::Matrix m3x4 = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
-    
-    std::cout << m3x3 * m3x4 << std::endl;
-    
-    astra::math::Matrix m1x3 = {{1, 2, 3}};
-    astra::math::Matrix m3x1 = {{1}, {5}, {9}};
-    
-    std::cout << m1x3 * m3x1 << std::endl;
-    
-    astra::math::Matrix mm3x1 = {{1}, {5}, {9}};
-    astra::math::Matrix mm1x3 = {{1, 2, 3}};
-    
-    std::cout << mm3x1 * mm1x3 << std::endl;
-    
-    return 0;
-    
     AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {8, 4, 2, 4, 8, 1});
     
     int count = 20000;
@@ -84,7 +47,7 @@ int main(int argc, const char * argv[]) {
         
         Vector outVec = {outValue ? .5 : -.5};
         
-        trainData->addTrainPair(inputVec.get_storage(), outVec.get_storage());
+        trainData->addTrainPair(*inputVec.get_data_storage(), *outVec.get_data_storage());
     }
     
     double error = 0;

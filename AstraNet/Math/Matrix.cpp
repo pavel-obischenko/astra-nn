@@ -6,7 +6,7 @@
 //  Copyright © 2016 Pavel. All rights reserved.
 //
 
-#include "Matrix.hpp"
+#include "Matrix.h"
 
 namespace astra {
 namespace math {
@@ -39,7 +39,8 @@ namespace math {
         if (&mat != this) {
             width = mat.get_width();
             height = mat.get_height();
-            
+            parentWidth = mat.parentWidth;
+
             allocMemory();
             std::copy(mat.begin(), mat.end(), begin());
         }
@@ -47,12 +48,28 @@ namespace math {
     }
     
     double Matrix::dot_product(const Matrix& mat) const {
-        return std::inner_product(begin(), end(), mat.begin(), 0);
+        return std::inner_product(begin(), end(), mat.begin(), 0.0);
     }
     
     Matrix Matrix::element_wise_mul(double arg) const {
         Matrix result(get_width(), get_height());
         std::transform(begin(), end(), result.begin(), std::bind2nd(std::multiplies<double>(), arg));
+        return result;
+    }
+
+    Matrix Matrix::transpose() const {
+        Matrix result(get_height(), get_width());
+
+        auto src = data->begin();
+        auto dst = result.begin();
+
+        for (int i = 0; i < get_width(); ++i, ++src) {
+            common::const_stride_iterator col(src, get_width());
+
+            for (int j = 0; j < get_height(); ++j, ++col, ++dst) {
+                *dst = *col;
+            }
+        }
         return result;
     }
 
@@ -75,7 +92,6 @@ namespace math {
                 *resItr++ = row->dot_product(*col);
             });
         });
-        
         return result;
     }
 
@@ -93,6 +109,8 @@ namespace math {
     }
 
     Matrix operator+(const Matrix& left, const Matrix& right) {
+        assert(left.get_width() == right.get_width() && left.get_height() == right.get_height());
+
         Matrix result(left.get_width(), left.get_height());
         std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::plus<double>());
         return result;
@@ -104,6 +122,8 @@ namespace math {
     }
 
     Matrix operator-(const Matrix& left, const Matrix& right) {
+        assert(left.get_width() == right.get_width() && left.get_height() == right.get_height());
+
         Matrix result(left.get_width(), left.get_height());
         std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::minus<double>());
         return result;
@@ -116,6 +136,14 @@ namespace math {
 
     bool operator==(const Matrix& left, const Matrix& right) {
         return *left.get_data_storage() == *right.get_data_storage();
+    }
+
+    double& Matrix::operator[](unsigned long index) {
+        return (*get_data_storage())[index];
+    }
+
+    const double& Matrix::operator[](unsigned long index) const {
+        return (*get_data_storage())[index];
     }
     
     std::ostream& operator<<(std::ostream& os, const Matrix& mat) {

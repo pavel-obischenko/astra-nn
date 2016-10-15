@@ -11,6 +11,8 @@
 
 #include <iterator>
 #include <vector>
+#include <cmath>
+#include <cstdlib>
 
 namespace astra {
 namespace common {
@@ -178,66 +180,66 @@ namespace common {
             return forwardIterator;
         }
     };
-    
-    template <typename T> class StrideIteratorAdapter : public RawIterator<T> {
+
+    template <typename T, class Itr> class StrideIteratorAdapter : public std::iterator<std::random_access_iterator_tag, T, ptrdiff_t, T*, T&> {
     public:
-        explicit inline StrideIteratorAdapter(const RawIterator<T>& itr, unsigned long stride) : itr(itr), stride(stride) {}
-        inline StrideIteratorAdapter(const StrideIteratorAdapter<T>& adapter) : stride(adapter.stride), itr(RawIterator<T>(adapter.getPtr())) {} // default ?
+        explicit StrideIteratorAdapter(const Itr& itr, unsigned long stride) : itr(itr), stride(stride) {}
+        inline StrideIteratorAdapter(const StrideIteratorAdapter<T, Itr>& adapter) = default;
         ~StrideIteratorAdapter() {}
         
-        inline StrideIteratorAdapter<T>& operator=(const StrideIteratorAdapter<T>& adapter) = default;
+        inline StrideIteratorAdapter<T, Itr>& operator=(const StrideIteratorAdapter<T, Itr>& adapter) = default;
         
         inline operator bool() const {
             return itr.operator bool();
         }
         
-        inline bool operator==(const StrideIteratorAdapter<T>& other) const {
+        inline bool operator==(const StrideIteratorAdapter<T, Itr>& other) const {
             return itr.operator ==(other.itr);
         }
-        inline bool operator!=(const StrideIteratorAdapter<T>& other) const {
+        inline bool operator!=(const StrideIteratorAdapter<T, Itr>& other) const {
             return itr.operator !=(other.itr);
         }
         
-        inline StrideIteratorAdapter<T>& operator+=(const long movement) {
+        inline StrideIteratorAdapter<T, Itr>& operator+=(const long movement) {
             itr.operator +=(movement * stride);
             return *this;
         }
-        inline StrideIteratorAdapter<T>& operator-=(const long movement) {
+        inline StrideIteratorAdapter<T, Itr>& operator-=(const long movement) {
             itr.operator -=(movement * stride);
             return *this;
         }
         
-        inline StrideIteratorAdapter<T>& operator++() {
+        inline StrideIteratorAdapter<T, Itr>& operator++() {
             return operator +=(1);
         }
-        inline StrideIteratorAdapter<T>& operator--() {
+        inline StrideIteratorAdapter<T, Itr>& operator--() {
             return operator -=(1);
         }
         
-        inline StrideIteratorAdapter<T> operator++(int) {
+        inline StrideIteratorAdapter<T, Itr> operator++(int) {
             auto temp(*this);
             operator ++();
             return temp;
         }
-        inline StrideIteratorAdapter<T> operator--(int) {
+        inline StrideIteratorAdapter<T, Itr> operator--(int) {
             auto temp(*this);
             operator --();
             return temp;
         }
         
-        inline StrideIteratorAdapter<T> operator+(const long movement) {
+        inline StrideIteratorAdapter<T, Itr> operator+(const long movement) {
             auto temp(*this);
             temp += movement;
             return temp;
         }
         
-        inline StrideIteratorAdapter<T> operator-(const long movement) {
+        inline StrideIteratorAdapter<T, Itr> operator-(const long movement) {
             auto temp(*this);
             temp -= movement;
             return temp;
         }
         
-        inline ptrdiff_t operator-(const StrideIteratorAdapter<T>& strideIterator) {
+        inline ptrdiff_t operator-(const StrideIteratorAdapter<T, Itr>& strideIterator) {
             return std::distance(strideIterator.getPtr(), this->getPtr());
         }
         
@@ -259,18 +261,18 @@ namespace common {
         }
         
     private:
-        inline StrideIteratorAdapter<T>& operator=(T* ptr) { return *this; }
+        inline StrideIteratorAdapter<T, Itr>& operator=(T* ptr) { return *this; }
         
     protected:
-        RawIterator<T> itr;
+        Itr itr;
         unsigned long stride;
     };
     
     typedef RawIterator<double> iterator;
     typedef RawIterator<const double> const_iterator;
     
-    typedef StrideIteratorAdapter<double> stride_iterator;
-    typedef StrideIteratorAdapter<const double> const_stride_iterator;
+    typedef StrideIteratorAdapter<double, std::vector<double>::iterator> stride_iterator;
+    typedef StrideIteratorAdapter<const double, std::vector<const double>::const_iterator> const_stride_iterator;
     
     typedef RawReverseIterator<double>       reverse_iterator;
     typedef RawReverseIterator<const double> const_reverse_iterator;
