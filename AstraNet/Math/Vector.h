@@ -35,7 +35,7 @@ namespace math {
         explicit Vector(const std::vector<double>& vec) : Matrix(1, vec.size()) {
             std::copy(vec.begin(), vec.end(), begin());
         }
-        Vector(const StdVectorPtr& data, unsigned long beginIndex, unsigned long endIndex) : Matrix(data, beginIndex, 0, endIndex - beginIndex, 1, data->size()) {}
+        Vector(const StdVectorPtr& data, unsigned long beginIndex, unsigned long endIndex) : Matrix(data, beginIndex, 0, 1, endIndex - beginIndex, 1) {}
 
         unsigned long size() const { return get_height(); }
 
@@ -112,10 +112,10 @@ namespace math {
         }
 
         VectorPtr head(unsigned long size) {
-            return subvec(0, size - 1);
+            return subvec(0, size);
         }
         ConstVectorPtr head(unsigned long size) const {
-            return subvec(0, size - 1);
+            return subvec(0, size);
         }
 
         VectorPtr tail(unsigned long size) {

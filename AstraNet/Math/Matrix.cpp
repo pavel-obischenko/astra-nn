@@ -157,5 +157,10 @@ namespace math {
         });
         return os;
     }
-    
+
+    void Matrix::debugNaNs() const {
+        for_each([] (double v) {
+            assert(!std::isnan(v));
+        });
+    }
 }}

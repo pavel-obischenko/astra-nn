@@ -41,7 +41,7 @@ namespace math {
         Matrix(const StdVectorPtr& data, unsigned long x, unsigned long y, unsigned long width, unsigned long height, unsigned long parentWidth);
     
     public:
-        double sum() const { return std::accumulate(begin(), end(), 0); }
+        double sum() const { return std::accumulate(begin(), end(), 0.0); }
         Matrix& operator=(const Matrix& mat);
         
         MatrixPtr submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height);
@@ -83,8 +83,11 @@ namespace math {
         unsigned long get_height() const { return height; }
         unsigned long get_width() const { return width; }
 
+        void debugNaNs() const;
+
         StdVectorPtr& get_data_storage() { return data; }
         const StdVectorPtr& get_data_storage() const { return data; }
+
         
     public:
         common::matrix_iterator begin() {

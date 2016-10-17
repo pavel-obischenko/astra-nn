@@ -7,7 +7,6 @@
 //
 
 #include "Trainer.h"
-#include "TrainLayerWrapper.h"
 
 using namespace astra::math;
 
@@ -65,7 +64,7 @@ namespace astra {
     }
     
     Vector Trainer::errorFactor(const Matrix& prevWeights, const Vector& prevLocalGradient) {
-        return prevWeights.transpose() * prevLocalGradient;
+        return *(prevWeights.transpose() * prevLocalGradient).head(prevWeights.get_width() - 1);
     }
     
     Vector Trainer::localGradient(const InputVector& input, const Vector& errorFactor, const Matrix& weights, const ActivationFunctionPtr& activation) {
@@ -74,6 +73,6 @@ namespace astra {
     }
     
     Matrix Trainer::calculateCorrectWeights(const Matrix& weights, const InputVector& input, const Vector& localGrad, double epsilon) {
-        return weights + (localGrad * (input * epsilon)).transpose();
+        return weights + ((input * epsilon) * localGrad);
     }
 }
