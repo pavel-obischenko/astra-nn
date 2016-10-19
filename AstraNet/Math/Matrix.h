@@ -12,12 +12,7 @@
 #include "../Common/Iterators.h"
 
 #include <vector>
-#include <algorithm>
-#include <functional>
 #include <iostream>
-#include <sstream>
-#include <numeric>
-#include <cassert>
 
 namespace astra {
 namespace math {
@@ -41,7 +36,17 @@ namespace math {
         Matrix(const StdVectorPtr& data, unsigned long x, unsigned long y, unsigned long width, unsigned long height, unsigned long parentWidth);
     
     public:
-        double sum() const { return std::accumulate(begin(), end(), 0.0); }
+        static Matrix zero(unsigned long width, unsigned long height);
+        static Matrix identity(unsigned long dimensions);
+        static Matrix rnd(unsigned long width, unsigned long height, double min = -1., double max = 1.);
+        static Matrix copy(const Matrix& other, unsigned long padWidth, unsigned long padHeight);
+
+    public:
+        void fill(double arg);
+        void zeroFill();
+        void rndFill(double min = -1., double max = 1.);
+
+        double sum() const;
         Matrix& operator=(const Matrix& mat);
         
         MatrixPtr submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height);
@@ -115,10 +120,7 @@ namespace math {
         void set_width(unsigned long c) { width = c; }
         
     private:
-        void allocMemory() {
-            matrixSize = width * height;
-            data = std::make_shared<std::vector<double>>(matrixSize);
-        }
+        void allocMemory();
         
     private:
         unsigned long x, y;

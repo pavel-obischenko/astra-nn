@@ -21,6 +21,8 @@
 #include "AstraNet/Math/Vector.h"
 
 
+#include "AstraNet/Algorithms/Image2Cols.h"
+
 using namespace astra;
 using namespace astra::math;
 

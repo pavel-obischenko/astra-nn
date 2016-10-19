@@ -6,16 +6,14 @@
 //  Copyright © 2016 Pavel. All rights reserved.
 //
 
-#include <random>
 #include "Layer.h"
+#include <cassert>
 
 using namespace astra::math;
 
 namespace astra {
 
-    Layer::Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : input(nInputs + 1), output(nOutputs), weights(nInputs + 1, nOutputs), activation(activationFunc) {
-        initWeights();
-    }
+    Layer::Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : input(nInputs + 1), output(nOutputs), weights(Matrix::rnd(nInputs + 1, nOutputs, -.5, .5)), activation(activationFunc) {}
 
     const Vector& Layer::process(const InputVector& inputValues) {
         assert(activation != nullptr);
@@ -25,16 +23,6 @@ namespace astra {
         output = activation->value(weights * input.toVector()); // TODO: REFACTOR IT !!!
 
         return output;
-    }
-    
-    void Layer::initWeights() {
-        std::default_random_engine generator;
-        std::uniform_real_distribution<double> distribution(-.5, .5);
-        auto rnd = std::bind(distribution, generator);
-
-        weights.for_each([&rnd](double &val) {
-            val = rnd();
-        });
     }
 }
 

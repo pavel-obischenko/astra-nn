@@ -8,6 +8,13 @@
 
 #include "Matrix.h"
 
+#include <algorithm>
+#include <functional>
+#include <sstream>
+#include <numeric>
+#include <cassert>
+#include <random>
+
 namespace astra {
 namespace math {
     
@@ -33,6 +40,68 @@ namespace math {
         
         allocMemory();
         std::copy(other.begin(), other.end(), begin());
+    }
+
+    Matrix Matrix::zero(unsigned long width, unsigned long height) {
+        Matrix result(width, height);
+        result.zeroFill();
+        return result;
+    }
+
+    Matrix Matrix::identity(unsigned long dimensions) {
+        Matrix result(dimensions, dimensions);
+
+        unsigned long diagonalIndex = 0;
+        unsigned long size = dimensions * dimensions;
+        for (unsigned long i = 0; i < size; ++i) {
+            if (i != diagonalIndex) {
+                result[i] = 0;
+            }
+            else {
+                result[i] = 1;
+                diagonalIndex += dimensions + 1;
+            }
+        }
+        return result;
+    }
+
+    Matrix Matrix::rnd(unsigned long width, unsigned long height, double min, double max) {
+        Matrix result(width, height);
+        result.rndFill(min, max);
+        return result;
+    }
+
+    Matrix Matrix::copy(const Matrix& other, unsigned long padWidth, unsigned long padHeight) {
+        Matrix result = Matrix::zero(other.get_width() + 2 * padWidth, other.get_height() + 2 * padHeight);
+
+        MatrixPtr submatrix = result.submatrix(padWidth, padHeight, other.get_width(), other.get_height());
+        std::copy(other.begin(), other.end(), submatrix->begin());
+
+        return result;
+    }
+
+    void Matrix::fill(double arg) {
+        for_each([arg](double &val) {
+            val = arg;
+        });
+    }
+
+    void Matrix::zeroFill() {
+        fill(0);
+    }
+
+    void Matrix::rndFill(double min, double max) {
+        std::default_random_engine generator;
+        std::uniform_real_distribution<double> distribution(min, max);
+        auto rnd = std::bind(distribution, generator);
+
+        for_each([&rnd](double &val) {
+            val = rnd();
+        });
+    }
+
+    double Matrix::sum() const {
+        return std::accumulate(begin(), end(), 0.0);
     }
     
     Matrix& Matrix::operator=(const Matrix& mat) {
@@ -156,6 +225,11 @@ namespace math {
             ++i;
         });
         return os;
+    }
+
+    void Matrix::allocMemory() {
+        matrixSize = width * height;
+        data = std::make_shared<std::vector<double>>(matrixSize);
     }
 
     void Matrix::debugNaNs() const {
