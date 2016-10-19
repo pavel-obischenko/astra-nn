@@ -20,12 +20,12 @@ namespace astra {
         explicit TanhActivationFunction(double alpha) : alpha(alpha) {}
         
         virtual double value(double arg) const {
-            return std::tanh(alpha * arg / 2.);
+            return std::tanh(alpha * arg);
         }
         
         virtual double derivativeValue(double arg) const {
             double th = value(arg);
-            return alpha * (1 - th * th) / 2.;
+            return alpha * (1 - th * th);
         }
         
     private:

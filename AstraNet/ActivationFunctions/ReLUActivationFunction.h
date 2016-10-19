@@ -14,7 +14,12 @@ namespace astra {
     class ReLUActivationFunction : public ActivationFunction {
     public:
         ReLUActivationFunction() {}
-        virtual double value(double arg) const { return std::max(arg, 0); }
+        virtual double value(double arg) const {
+            return std::max(arg, 0);
+        }
+        virtual double derivativeValue(double arg) const {
+            return arg < 0 ? 0 : 1.;
+        }
     };
 
 }
