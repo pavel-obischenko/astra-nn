@@ -41,8 +41,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6582870C40F866850EF46A12 /* SoftplusActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftplusActivationFunction.h; sourceTree = "<group>"; };
 		6582888D2458F168B6099396 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6582892424FE16F43C8E7DA2 /* TestMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestMath.cpp; sourceTree = "<group>"; };
+		65828BE82DADF11B980E77BD /* ReLUActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReLUActivationFunction.h; sourceTree = "<group>"; };
 		65828C7C0587BB2F8AD90965 /* astra-nn-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "astra-nn-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E90B68C91DAE561C00C8292B /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
 		E9AE356D1DA2695900C45683 /* TrainData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainData.h; sourceTree = "<group>"; };
@@ -145,6 +147,8 @@
 				E9DF75271D9E497600F77E56 /* ActivationFunction.h */,
 				E9DF75281D9E497600F77E56 /* SigActivationFunction.h */,
 				E9DF75291D9E497600F77E56 /* TanhActivationFunction.h */,
+				6582870C40F866850EF46A12 /* SoftplusActivationFunction.h */,
+				65828BE82DADF11B980E77BD /* ReLUActivationFunction.h */,
 			);
 			path = ActivationFunctions;
 			sourceTree = "<group>";
