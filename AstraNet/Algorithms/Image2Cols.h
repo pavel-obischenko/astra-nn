@@ -11,9 +11,13 @@
 namespace astra {
 namespace algorithms {
 
-    math::Matrix image2Cols(const std::vector<math::MatrixPtr>& src, unsigned long kernelWidth, unsigned long kernelHeight, unsigned long padWidth, unsigned long padHeight, unsigned long stride);
-    std::vector<math::MatrixPtr> addPadding(const std::vector<math::MatrixPtr>& src, unsigned long padWidth, unsigned long padHeight);
+    class Image2Cols {
+    public:
+        static math::MatrixPtr convertToCols(const std::vector<math::MatrixPtr> &src, unsigned long kernelWidth, unsigned long kernelHeight, unsigned long padWidth, unsigned long padHeight, unsigned long stride);
 
+    private:
+        static std::vector<math::MatrixPtr> addPadding(const std::vector<math::MatrixPtr>& src, unsigned long padWidth, unsigned long padHeight);
+    };
 }}
 
 #endif //ASTRA_NN_IMAGE2COLS_H
