@@ -7,13 +7,16 @@
 #define ASTRA_NN_IMAGE2COLS_H
 
 #include "../Math/Matrix.h"
+#include "../Math/Vector.h"
 
 namespace astra {
 namespace algorithms {
 
     class Image2Cols {
     public:
-        static math::MatrixPtr convertToCols(const std::vector<math::MatrixPtr> &src, unsigned long kernelWidth, unsigned long kernelHeight, unsigned long stride= 1, unsigned long padWidth = 0, unsigned long padHeight = 0);
+        static math::MatrixPtr convertToCols(const math::Vector& src, unsigned long nChannels, unsigned long kernelWidth, unsigned long kernelHeight, bool addInputForBias = false, unsigned long stride= 1, unsigned long padWidth = 0, unsigned long padHeight = 0);
+
+        static math::MatrixPtr convertToCols(const std::vector<math::MatrixPtr> &src, unsigned long kernelWidth, unsigned long kernelHeight, bool addInputForBias = false, unsigned long stride= 1, unsigned long padWidth = 0, unsigned long padHeight = 0);
         static unsigned long kernelsCount(unsigned long size, unsigned long kernelSize, unsigned long stride = 1, unsigned long padSize = 0);
 
     private:

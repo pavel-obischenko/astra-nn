@@ -26,14 +26,17 @@ namespace astra {
         virtual const math::Vector& process(const math::Vector& input);
         
     public:
-        void setWeights(const math::Matrix& newWeights) { weights = newWeights; }
+        void setWeights(const math::Matrix& w) { weights = w; }
+
         const math::Vector& getInput() const { return input; }
         const math::Matrix& getWeights() const { return weights; }
         const math::Vector& getOutput() const { return output; }
+
         const ActivationFunctionPtr& getActivationFunc() const { return activation; }
-        
+
     protected:
-        void initWeights();
+        void setInput(const math::Vector& i) { input = i; }
+        void setOutput(const math::Vector& o) { output = o; }
         
     protected:
         math::Vector input;

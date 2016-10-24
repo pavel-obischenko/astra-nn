@@ -11,7 +11,27 @@ using namespace astra::math;
 namespace astra {
 namespace algorithms {
 
-    MatrixPtr Image2Cols::convertToCols(const std::vector<MatrixPtr>& src, unsigned long kernelWidth, unsigned long kernelHeight, unsigned long stride/* = 1*/, unsigned long padWidth/* = 0*/, unsigned long padHeight/* = 0*/) {
+    MatrixPtr Image2Cols::convertToCols(const math::Vector& src, unsigned long nChannels, unsigned long kernelWidth, unsigned long kernelHeight, bool addInputForBias/* = false*/, unsigned long stride/* = 1*/, unsigned long padWidth/* = 0*/, unsigned long padHeight/* = 0*/) {
+        std::vector<MatrixPtr> srcVec;
+        unsigned long channelSize = src.size() / nChannels;
+        unsigned long width = (unsigned long)std::sqrt(channelSize);
+        unsigned long height = (unsigned long)std::sqrt(channelSize);
+
+        for (unsigned long i = 0; i < nChannels; ++i) {
+            unsigned long index = i * channelSize;
+            MatrixPtr m = std::make_shared<Matrix>(Matrix(width, height));
+
+            auto begin = src.get_data_storage()->begin() + index;
+            auto end = begin + channelSize;
+            std::copy(begin, end, m->begin());
+
+            srcVec.push_back(m);
+        }
+
+        return convertToCols(srcVec, kernelWidth, kernelHeight, addInputForBias, stride, padWidth, padHeight);
+    }
+
+    MatrixPtr Image2Cols::convertToCols(const std::vector<MatrixPtr>& src, unsigned long kernelWidth, unsigned long kernelHeight, bool addInputForBias/* = false*/, unsigned long stride/* = 1*/, unsigned long padWidth/* = 0*/, unsigned long padHeight/* = 0*/) {
         assert(src.size() > 0);
 
         unsigned long srcWidth = src[0]->get_width();
@@ -24,20 +44,26 @@ namespace algorithms {
         unsigned long kernelsCountV = kernelsCount(srcHeight, kernelHeight, stride, padHeight);
 
         unsigned long resultWidth = kernelsCountH * kernelsCountV;
-        unsigned long resultHeight = kernelWidth * kernelHeight * src.size();
+        unsigned long resultHeight = kernelWidth * kernelHeight * src.size() + (addInputForBias ? 1 : 0);
 
         Matrix result(resultWidth, resultHeight);
 
-        unsigned long x = 0;
         unsigned long y = 0;
         unsigned long kernelCol = 0;
 
         for (unsigned long row = 0; row < kernelsCountV; ++row, y += stride) {
             for (unsigned long col = 0, x = 0; col < kernelsCountH; ++col, x += stride, ++kernelCol) {
+                MatrixPtr dm = result.submatrix(kernelCol, 0, 1, resultHeight);
+                auto begin = dm->begin();
+
                 for (unsigned long i = 0; i < src.size(); ++i) {
                     MatrixPtr sm = padSrc[i]->submatrix(x, y, kernelWidth, kernelHeight);
-                    MatrixPtr dm = result.submatrix(kernelCol, 0, 1, resultHeight);
-                    std::copy(sm->begin(), sm->end(), dm->begin());
+                    begin = std::copy(sm->begin(), sm->end(), begin);
+                }
+
+                if (addInputForBias) {
+                    auto end = dm->end();
+                    *(--end) = 1;
                 }
             }
         }

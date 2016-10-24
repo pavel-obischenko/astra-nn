@@ -20,6 +20,7 @@ namespace astra {
     private:
         unsigned long width, height;
         unsigned long nChannels;
+        unsigned long filterWidth, filterHeight;
         unsigned long nFilters;
     };
 

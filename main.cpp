@@ -32,23 +32,26 @@ int main(int argc, const char * argv[]) {
 //                  {1, 2, 3, 4, 5},
 //                  {1, 2, 3, 4, 5},
 //                  {1, 2, 3, 4, 5}};
+//
+//    Matrix src = {{1, 2, 2, 1},
+//                  {2, 4, 4, 2},
+//                  {2, 4, 4, 2},
+//                  {1, 2, 2, 1}}; // патчи (ядра свертки) - столбцы
+//
+//    Matrix f = {{2, 2, 2, 2},
+//                {3, 3, 3, 3}};   // фильтры (наборы весов) - строки
+//    // пока забыли про bias-ы
+//
+//    std::vector<MatrixPtr> srcVec; srcVec.push_back(std::make_shared<Matrix>(src));
+//
+//    Matrix res = *astra::algorithms::Image2Cols::convertToCols(srcVec, 2, 2, true);
 
-    Matrix src = {{1, 2, 2, 1},
-                  {2, 4, 4, 2},
-                  {2, 4, 4, 2},
-                  {1, 2, 2, 1}}; // патчи (ядра свертки) - столбцы
+    Vector v = {1, 2, 3, 1, 2, 3, 1, 2, 3, 4, 5, 6, 4, 5, 6, 4, 5, 6, 7, 8, 9, 7, 8, 9, 7, 8, 9};
+    Matrix res = *astra::algorithms::Image2Cols::convertToCols(v, 3, 2, 2, true);
 
-    Matrix f = {{2, 2, 2, 2},
-                {3, 3, 3, 3}};   // фильтры - строки
-    // пока забыли про bias-ы
-
-
-    std::vector<MatrixPtr> srcVec; srcVec.push_back(std::make_shared<Matrix>(src));
-
-    Matrix res = *astra::algorithms::Image2Cols::convertToCols(srcVec, 2, 2);
-    
     // результат - ядра свертки в строку. Сколько фильтров - столько и строк
-    std::cout << f * res << std::endl;
+    //std::cout << f * res << std::endl;
+    std::cout << res << std::endl;
 
     return 0;
     AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {8, 4, 2, 4, 8, 1});

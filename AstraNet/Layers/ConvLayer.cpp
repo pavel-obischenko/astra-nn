@@ -11,14 +11,21 @@ using namespace astra::algorithms;
 
 namespace astra {
 
-    ConvLayer::ConvLayer(unsigned long width, unsigned long height, unsigned long nChannels, unsigned long filterWidth, unsigned long filterHeight, unsigned long nFilters) {
+    ConvLayer::ConvLayer(unsigned long width, unsigned long height, unsigned long nChannels, unsigned long filterWidth, unsigned long filterHeight, unsigned long nFilters) : width(width), height(height), nChannels(nChannels), filterWidth(filterWidth), filterHeight(filterHeight), nFilters(nFilters) {
         unsigned long kernelsCountH = Image2Cols::kernelsCount(width, filterWidth);
         unsigned long kernelsCountV = Image2Cols::kernelsCount(height, filterHeight);
 
+        setInput(Vector(kernelsCountH * kernelsCountV * nChannels));
 
+        // width - filter size + bias, height - filters qty
+        setWeights(Matrix::rnd(filterWidth * filterHeight + 1, nFilters));
     }
 
     const Vector& ConvLayer::process(const Vector& input) {
+        setInput(input);
+        MatrixPtr inputCols = Image2Cols::convertToCols(input, nChannels, filterWidth, filterHeight, true);
+
+
         return Layer::getOutput();
     }
 

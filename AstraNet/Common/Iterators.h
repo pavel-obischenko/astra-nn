@@ -281,6 +281,15 @@ namespace common {
     
     template <typename T, class Itr> class MatrixIteratorAdapter : public std::iterator<std::random_access_iterator_tag, T, ptrdiff_t, T*, T&> {
     public:
+        static MatrixIteratorAdapter<T, Itr> begin(const Itr& origin, unsigned long width, unsigned long height, unsigned long stride) {
+            return MatrixIteratorAdapter<T, Itr>(origin, width, height, stride);
+        }
+        static MatrixIteratorAdapter<T, Itr> end(const Itr& origin, unsigned long width, unsigned long height, unsigned long stride) {
+            MatrixIteratorAdapter<T, Itr> adapter(origin, width, height, stride); adapter.ip = adapter.max_ip + 1;
+            return adapter;
+        }
+
+    public:
         inline MatrixIteratorAdapter(const Itr& origin, unsigned long width, unsigned long height, unsigned long stride) : ip(0), max_ip(width * height), itr(origin), width(width), height(height), stride(stride) {}
         
         inline MatrixIteratorAdapter(const MatrixIteratorAdapter<T, Itr>& adapter) = default;
@@ -321,8 +330,13 @@ namespace common {
             if (movement > 0) {
                 for (unsigned long i = 0; i < movement; ++i) {
                     if (ip > 0) {
-                        bool useStriding = (ip != 0 && (ip % width == 0 || width == 1));
-                        itr.operator -= (useStriding ? stride + 1 : 1);
+                        if (ip <= max_ip) {
+                            bool useStriding = (ip % width == 0 || width == 1);
+                            itr -= (useStriding ? stride + 1 : 1);
+                        }
+                        else {
+                            --itr;
+                        }
                         --ip;
                     }
                 }

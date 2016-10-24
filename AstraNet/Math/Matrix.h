@@ -97,22 +97,22 @@ namespace math {
     public:
         common::matrix_iterator begin() {
             auto origin = data->begin() + (y * parentWidth + x);
-            return common::matrix_iterator(origin, width, height, parentWidth - width);
+            return common::matrix_iterator::begin(origin, width, height, parentWidth - width);
         }
         common::matrix_iterator end() {
             unsigned long stride = parentWidth - width;
             auto origin = data->begin() + (y * parentWidth + x) + width * height + stride * (height - 1);
-            return common::matrix_iterator(origin, width, height, stride);
+            return common::matrix_iterator::end(origin, width, height, stride);
         }
         
         common::const_matrix_iterator begin() const {
             auto origin = data->begin() + (y * parentWidth + x);
-            return common::const_matrix_iterator(origin, width, height, parentWidth - width);
+            return common::const_matrix_iterator::begin(origin, width, height, parentWidth - width);
         }
         common::const_matrix_iterator end() const {
             unsigned long stride = parentWidth - width;
             auto origin = data->begin() + (y * parentWidth + x) + width * height + stride * (height - 1);
-            return common::const_matrix_iterator(origin, width, height, stride);
+            return common::const_matrix_iterator::end(origin, width, height, stride);
         }
         
     protected:

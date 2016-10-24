@@ -16,13 +16,14 @@ namespace astra {
     Layer::Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : input(nInputs), output(nOutputs), weights(Matrix::rnd(nInputs + 1, nOutputs, -.5, .5)), activation(activationFunc) {}
 
     const Vector& Layer::process(const Vector& inputValues) {
-        assert(activation != nullptr);
-        assert(input.size() == inputValues.size());
+        assert(getActivationFunc() != nullptr);
+        assert(getInput().size() == inputValues.size());
 
-        input = inputValues;
-        output = activation->value(weights * InputVector(input).toVector());
+        setInput(inputValues);
+
+        auto result = getWeights() * InputVector(getInput()).toVector();
+        setOutput(getActivationFunc()->value(result));
 
         return output;
     }
 }
-
