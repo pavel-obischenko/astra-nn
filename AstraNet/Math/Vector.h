@@ -34,7 +34,7 @@ namespace math {
         Vector element_wise_mul(const Vector& arg) const;
 
         friend Vector operator*(const Matrix& left, const Vector& right);
-        friend Vector operator*(const Vector& left, const Matrix& right);
+        friend Matrix operator*(const Vector& left, const Matrix& right);
         friend Matrix operator*(const Vector& left, const Vector& right);
         friend Vector operator*(const Vector& left, double right);
         friend Vector operator*(double left, const Vector& right);

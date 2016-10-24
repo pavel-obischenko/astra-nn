@@ -51,8 +51,8 @@ namespace math {
         return result;
     }
 
-    Vector operator*(const Vector& left, const Matrix& right) {
-        return right * left;
+    Matrix operator*(const Vector& left, const Matrix& right) {
+        return left.transpose() * right;
     }
 
     Matrix operator*(const Vector& left, const Vector& right) {

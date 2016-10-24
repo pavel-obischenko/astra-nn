@@ -11,7 +11,7 @@ using namespace astra::math;
 namespace astra {
 namespace algorithms {
 
-    MatrixPtr Image2Cols::convertToCols(const std::vector<MatrixPtr>& src, unsigned long kernelWidth, unsigned long kernelHeight, unsigned long padWidth, unsigned long padHeight, unsigned long stride) {
+    MatrixPtr Image2Cols::convertToCols(const std::vector<MatrixPtr>& src, unsigned long kernelWidth, unsigned long kernelHeight, unsigned long stride/* = 1*/, unsigned long padWidth/* = 0*/, unsigned long padHeight/* = 0*/) {
         assert(src.size() > 0);
 
         unsigned long srcWidth = src[0]->get_width();
@@ -20,8 +20,8 @@ namespace algorithms {
         bool hasPadding = padWidth > 0 || padHeight > 0;
         const std::vector<MatrixPtr>& padSrc = hasPadding ? addPadding(src, padWidth, padHeight) : src;
 
-        unsigned long kernelsCountH = (srcWidth + 2*padWidth - kernelWidth) / stride + 1;
-        unsigned long kernelsCountV = (srcHeight + 2*padHeight - kernelHeight) / stride  + 1;
+        unsigned long kernelsCountH = kernelsCount(srcWidth, kernelWidth, stride, padWidth);
+        unsigned long kernelsCountV = kernelsCount(srcHeight, kernelHeight, stride, padHeight);
 
         unsigned long resultWidth = kernelsCountH * kernelsCountV;
         unsigned long resultHeight = kernelWidth * kernelHeight * src.size();
@@ -43,6 +43,10 @@ namespace algorithms {
         }
 
         return std::make_shared<Matrix>(result);
+    }
+
+    unsigned long Image2Cols::kernelsCount(unsigned long size, unsigned long kernelSize, unsigned long stride/* = 1*/, unsigned long padSize/* = 0*/) {
+        return (size + 2*padSize - kernelSize) / stride + 1;
     }
 
     std::vector<MatrixPtr> Image2Cols::addPadding(const std::vector<MatrixPtr>& src, unsigned long padWidth, unsigned long padHeight) {

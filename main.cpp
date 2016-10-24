@@ -27,17 +27,28 @@ using namespace astra;
 using namespace astra::math;
 
 int main(int argc, const char * argv[]) {
-    Matrix src = {{1, 2, 3, 4, 5},
-                  {1, 2, 3, 4, 5},
-                  {1, 2, 3, 4, 5},
-                  {1, 2, 3, 4, 5},
-                  {1, 2, 3, 4, 5}};
+//    Matrix src = {{1, 2, 3, 4, 5},
+//                  {1, 2, 3, 4, 5},
+//                  {1, 2, 3, 4, 5},
+//                  {1, 2, 3, 4, 5},
+//                  {1, 2, 3, 4, 5}};
+
+    Matrix src = {{1, 2, 2, 1},
+                  {2, 4, 4, 2},
+                  {2, 4, 4, 2},
+                  {1, 2, 2, 1}}; // патчи (ядра свертки) - столбцы
+
+    Matrix f = {{2, 2, 2, 2},
+                {3, 3, 3, 3}};   // фильтры - строки
+    // пока забыли про bias-ы
+
 
     std::vector<MatrixPtr> srcVec; srcVec.push_back(std::make_shared<Matrix>(src));
 
-    MatrixPtr res = astra::algorithms::Image2Cols::convertToCols(srcVec, 3, 3, 0, 0, 2);
-
-    std::cout << *res << std::endl;
+    Matrix res = *astra::algorithms::Image2Cols::convertToCols(srcVec, 2, 2);
+    
+    // результат - ядра свертки в строку. Сколько фильтров - столько и строк
+    std::cout << f * res << std::endl;
 
     return 0;
     AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {8, 4, 2, 4, 8, 1});

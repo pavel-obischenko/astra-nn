@@ -18,18 +18,16 @@
 namespace astra {
 
     class Layer {
-    private:
-        Layer() : input(2), output(1), weights(2, 2), activation(nullptr) {};
-        
     protected:
+        Layer() : input(2), output(1), weights(2, 2), activation(nullptr) {};
         Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr &activationFunc);
         
     public:
-        const math::Vector& process(const math::InputVector& input);
+        virtual const math::Vector& process(const math::Vector& input);
         
     public:
         void setWeights(const math::Matrix& newWeights) { weights = newWeights; }
-        const math::InputVector& getInput() const { return input; }
+        const math::Vector& getInput() const { return input; }
         const math::Matrix& getWeights() const { return weights; }
         const math::Vector& getOutput() const { return output; }
         const ActivationFunctionPtr& getActivationFunc() const { return activation; }
@@ -38,7 +36,7 @@ namespace astra {
         void initWeights();
         
     protected:
-        math::InputVector input;
+        math::Vector input;
         math::Vector output;
         math::Matrix weights;
         
