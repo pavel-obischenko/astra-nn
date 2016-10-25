@@ -36,6 +36,7 @@ namespace astra {
         // save results
         layer->setWeights(getNewWeights());
 
+        // return error factor
         return getErrorFactor();
     }
 }
