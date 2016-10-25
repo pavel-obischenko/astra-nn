@@ -12,17 +12,16 @@
 		658282224A1F3A27D4407D91 /* Image2Cols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658287711DBAE1EB718313F5 /* Image2Cols.cpp */; };
 		658285BA7855E3A6FF80D258 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E90B68C91DAE561C00C8292B /* Matrix.cpp */; };
 		658285EAB56B039A24A80B11 /* Vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658289342837346C968E8562 /* Vector.cpp */; };
+		65828624CD1972A299D4D8D4 /* FullConnLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828B67B25FE2B9F0CC311A /* FullConnLayer.cpp */; };
 		658288991BF9A05E215F154F /* ConvLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658284C1059BEA849E7B65EF /* ConvLayer.cpp */; };
 		65828A300A00D3CCAA7FC462 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6582888D2458F168B6099396 /* main.cpp */; };
 		65828C61BBF0C6B48BEDDBE5 /* Image2Cols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658287711DBAE1EB718313F5 /* Image2Cols.cpp */; };
+		65828F7B192276AA945E3F89 /* FullConnLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828B67B25FE2B9F0CC311A /* FullConnLayer.cpp */; };
 		65828FF7E310BCDF72548086 /* Vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658289342837346C968E8562 /* Vector.cpp */; };
 		E90B68CA1DAE561C00C8292B /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E90B68C91DAE561C00C8292B /* Matrix.cpp */; };
-		E9D8DBDE1D9EA4D500B59CC5 /* SigLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D8DBDC1D9EA4D500B59CC5 /* SigLayer.cpp */; };
-		E9D8DBE11D9EA6C800B59CC5 /* TanhLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D8DBDF1D9EA6C800B59CC5 /* TanhLayer.cpp */; };
 		E9D8DBE51D9EA7B400B59CC5 /* Trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9D8DBE31D9EA7B400B59CC5 /* Trainer.cpp */; };
 		E9DF75111D9E488C00F77E56 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9DF75101D9E488C00F77E56 /* main.cpp */; };
 		E9DF75331D9E497600F77E56 /* AstraNet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9DF752A1D9E497600F77E56 /* AstraNet.cpp */; };
-		E9DF75341D9E497600F77E56 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9DF752D1D9E497600F77E56 /* Layer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,17 +52,15 @@
 		6582888D2458F168B6099396 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		658288ECB3178700513ACE82 /* Image2Cols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image2Cols.h; sourceTree = "<group>"; };
 		6582892424FE16F43C8E7DA2 /* TestMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestMath.cpp; sourceTree = "<group>"; };
+		658289318FA6BFCDC0EEC7B3 /* FullConnLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullConnLayer.h; sourceTree = "<group>"; };
 		658289342837346C968E8562 /* Vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector.cpp; sourceTree = "<group>"; };
+		65828B67B25FE2B9F0CC311A /* FullConnLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FullConnLayer.cpp; sourceTree = "<group>"; };
 		65828BE82DADF11B980E77BD /* ReLUActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReLUActivationFunction.h; sourceTree = "<group>"; };
 		65828C7C0587BB2F8AD90965 /* astra-nn-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "astra-nn-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65828EDD0BFFD5A4AF308A2E /* ConvLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvLayer.h; sourceTree = "<group>"; };
 		E90B68C91DAE561C00C8292B /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
 		E9AE356D1DA2695900C45683 /* TrainData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainData.h; sourceTree = "<group>"; };
 		E9AE35721DA2CF2C00C45683 /* TrainLayerWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainLayerWrapper.h; sourceTree = "<group>"; };
-		E9D8DBDC1D9EA4D500B59CC5 /* SigLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SigLayer.cpp; sourceTree = "<group>"; };
-		E9D8DBDD1D9EA4D500B59CC5 /* SigLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SigLayer.h; sourceTree = "<group>"; };
-		E9D8DBDF1D9EA6C800B59CC5 /* TanhLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TanhLayer.cpp; sourceTree = "<group>"; };
-		E9D8DBE01D9EA6C800B59CC5 /* TanhLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TanhLayer.h; sourceTree = "<group>"; };
 		E9D8DBE31D9EA7B400B59CC5 /* Trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trainer.cpp; sourceTree = "<group>"; };
 		E9D8DBE41D9EA7B400B59CC5 /* Trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trainer.h; sourceTree = "<group>"; };
 		E9DF75061D9E483900F77E56 /* astra-nn */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "astra-nn"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,7 +70,6 @@
 		E9DF75291D9E497600F77E56 /* TanhActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TanhActivationFunction.h; sourceTree = "<group>"; };
 		E9DF752A1D9E497600F77E56 /* AstraNet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AstraNet.cpp; sourceTree = "<group>"; };
 		E9DF752B1D9E497600F77E56 /* AstraNet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AstraNet.h; sourceTree = "<group>"; };
-		E9DF752D1D9E497600F77E56 /* Layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Layer.cpp; sourceTree = "<group>"; };
 		E9DF752E1D9E497600F77E56 /* Layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
 		E9DF75301D9E497600F77E56 /* InputVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputVector.h; sourceTree = "<group>"; };
 		E9DF75311D9E497600F77E56 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
@@ -177,14 +173,11 @@
 		E9DF752C1D9E497600F77E56 /* Layers */ = {
 			isa = PBXGroup;
 			children = (
-				E9DF752D1D9E497600F77E56 /* Layer.cpp */,
 				E9DF752E1D9E497600F77E56 /* Layer.h */,
-				E9D8DBDC1D9EA4D500B59CC5 /* SigLayer.cpp */,
-				E9D8DBDD1D9EA4D500B59CC5 /* SigLayer.h */,
-				E9D8DBDF1D9EA6C800B59CC5 /* TanhLayer.cpp */,
-				E9D8DBE01D9EA6C800B59CC5 /* TanhLayer.h */,
 				658284C1059BEA849E7B65EF /* ConvLayer.cpp */,
 				65828EDD0BFFD5A4AF308A2E /* ConvLayer.h */,
+				65828B67B25FE2B9F0CC311A /* FullConnLayer.cpp */,
+				658289318FA6BFCDC0EEC7B3 /* FullConnLayer.h */,
 			);
 			path = Layers;
 			sourceTree = "<group>";
@@ -308,6 +301,7 @@
 				65828C61BBF0C6B48BEDDBE5 /* Image2Cols.cpp in Sources */,
 				65828FF7E310BCDF72548086 /* Vector.cpp in Sources */,
 				658288991BF9A05E215F154F /* ConvLayer.cpp in Sources */,
+				65828F7B192276AA945E3F89 /* FullConnLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,15 +310,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E90B68CA1DAE561C00C8292B /* Matrix.cpp in Sources */,
-				E9DF75341D9E497600F77E56 /* Layer.cpp in Sources */,
 				E9D8DBE51D9EA7B400B59CC5 /* Trainer.cpp in Sources */,
-				E9D8DBDE1D9EA4D500B59CC5 /* SigLayer.cpp in Sources */,
 				E9DF75111D9E488C00F77E56 /* main.cpp in Sources */,
-				E9D8DBE11D9EA6C800B59CC5 /* TanhLayer.cpp in Sources */,
 				E9DF75331D9E497600F77E56 /* AstraNet.cpp in Sources */,
 				658282224A1F3A27D4407D91 /* Image2Cols.cpp in Sources */,
 				658285EAB56B039A24A80B11 /* Vector.cpp in Sources */,
 				6582805335AE76BF55048411 /* ConvLayer.cpp in Sources */,
+				65828624CD1972A299D4D8D4 /* FullConnLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

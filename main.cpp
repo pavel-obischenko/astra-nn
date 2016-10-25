@@ -14,8 +14,8 @@
 #include "AstraNet/Math/Matrix.h"
 
 #include "AstraNet/AstraNet.h"
-#include "AstraNet/Layers/TanhLayer.h"
-#include "AstraNet/Layers/SigLayer.h"
+#include "AstraNet/Layers/FullConnLayer.h"
+
 #include "AstraNet/Trainers/TrainData.h"
 #include "AstraNet/Trainers/Trainer.h"
 #include "AstraNet/Math/Vector.h"
@@ -46,14 +46,14 @@ int main(int argc, const char * argv[]) {
 //
 //    Matrix res = *astra::algorithms::Image2Cols::convertToCols(srcVec, 2, 2, true);
 
-    Vector v = {1, 2, 3, 1, 2, 3, 1, 2, 3, 4, 5, 6, 4, 5, 6, 4, 5, 6, 7, 8, 9, 7, 8, 9, 7, 8, 9};
-    Matrix res = *astra::algorithms::Image2Cols::convertToCols(v, 3, 2, 2, true);
-
-    // результат - ядра свертки в строку. Сколько фильтров - столько и строк
-    //std::cout << f * res << std::endl;
-    std::cout << res << std::endl;
-
-    return 0;
+//    Vector v = {1, 2, 3, 1, 2, 3, 1, 2, 3, 4, 5, 6, 4, 5, 6, 4, 5, 6, 7, 8, 9, 7, 8, 9, 7, 8, 9};
+//    Matrix res = *astra::algorithms::Image2Cols::convertToCols(v, 3, 2, 2, true);
+//
+//    // результат - ядра свертки в строку. Сколько фильтров - столько и строк
+//    //std::cout << f * res << std::endl;
+//    std::cout << res << std::endl;
+//
+//    return 0;
     AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {8, 4, 2, 4, 8, 1});
     
     int count = 20000;

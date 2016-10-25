@@ -20,10 +20,10 @@ namespace astra {
     class Layer {
     protected:
         Layer() : input(2), output(1), weights(2, 2), activation(nullptr) {};
-        Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr &activationFunc);
+        Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : input(nInputs), output(nOutputs), weights(math::Matrix::rnd(nInputs + 1, nOutputs, -.5, .5)), activation(activationFunc) {}
         
     public:
-        virtual const math::Vector& process(const math::Vector& input);
+        virtual const math::Vector& process(const math::Vector& input) = 0;
         
     public:
         void setWeights(const math::Matrix& w) { weights = w; }

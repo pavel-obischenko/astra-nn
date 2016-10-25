@@ -7,8 +7,8 @@
 //
 
 #include "AstraNet.h"
-#include "Layers/TanhLayer.h"
-#import "Math/Vector.h"
+#include "Layers/FullConnLayer.h"
+#include "Math/Vector.h"
 
 using namespace astra::math;
 
@@ -23,7 +23,7 @@ namespace astra {
         
         int currentInputsCount = nInputs;
         std::for_each(layerSizes.begin(), layerSizes.end(), [&netPtr, &currentInputsCount](int layerSize) {
-            LayerPtr layerPtr = TanhLayer::createPtr(currentInputsCount, layerSize, 1.);
+            LayerPtr layerPtr = FullConnLayer::createTanhLayerPtr(currentInputsCount, layerSize, 1.);
             netPtr->addLayer(layerPtr);
             
             currentInputsCount = layerSize;
