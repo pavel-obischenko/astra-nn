@@ -73,6 +73,6 @@ namespace astra {
     }
     
     Matrix Trainer::calculateCorrectWeights(const Matrix& weights, const InputVector& input, const Vector& localGrad, double epsilon) {
-        return weights + ((input * epsilon) * localGrad);
+        return weights + input.toVector() * epsilon * localGrad;
     }
 }

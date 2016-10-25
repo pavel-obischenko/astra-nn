@@ -20,6 +20,7 @@ namespace astra {
         FullConnLayer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc);
 
     public:
+        virtual LayerTrainerPtr createTrainer();
         virtual const math::Vector& process(const math::Vector& input);
     };
 

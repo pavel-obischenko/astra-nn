@@ -6,8 +6,11 @@
 //  Copyright © 2016 Pavel. All rights reserved.
 //
 
-#ifndef Layer_hpp
-#define Layer_hpp
+#ifndef ASTRA_NN_LAYER_H
+#define ASTRA_NN_LAYER_H
+
+#include "LayerPtr.h"
+#include "../Trainers/LayerTrainerPtr.h"
 
 #include "../ActivationFunctions/ActivationFunction.h"
 
@@ -21,8 +24,10 @@ namespace astra {
     protected:
         Layer() : input(2), output(1), weights(2, 2), activation(nullptr) {};
         Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : input(nInputs), output(nOutputs), weights(math::Matrix::rnd(nInputs + 1, nOutputs, -.5, .5)), activation(activationFunc) {}
+        virtual ~Layer() {}
         
     public:
+        virtual LayerTrainerPtr createTrainer() = 0;
         virtual const math::Vector& process(const math::Vector& input) = 0;
         
     public:
@@ -45,8 +50,6 @@ namespace astra {
         
         ActivationFunctionPtr activation;
     };
-    
-    typedef std::shared_ptr<Layer> LayerPtr;
 }
 
-#endif /* Layer_hpp */
+#endif /* ASTRA_NN_LAYER_H */
