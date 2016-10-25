@@ -22,8 +22,10 @@ namespace math {
     
     template <class _T, class _Function> _Function for_each(const _T* const __t, _Function __f);
     template <class _T, class _Function> _Function for_each(_T* __t, _Function __f);
-    
+
+    class Vector;
     class Matrix;
+
     typedef std::shared_ptr<astra::math::Matrix> MatrixPtr;
     typedef std::shared_ptr<const astra::math::Matrix> ConstMatrixPtr;
     
@@ -51,6 +53,8 @@ namespace math {
         
         MatrixPtr submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height);
         const ConstMatrixPtr submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height) const;
+
+        Vector toVector() const;
         
         Matrix element_wise_mul(double arg) const;
         double dot_product(const Matrix& mat) const;

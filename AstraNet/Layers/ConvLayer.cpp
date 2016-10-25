@@ -17,7 +17,8 @@ namespace astra {
 
         setInput(Vector(kernelsCountH * kernelsCountV * nChannels));
 
-        // width - filter size + bias, height - filters qty
+        // width = filter size + bias
+        // height = filters qty
         setWeights(Matrix::rnd(filterWidth * filterHeight + 1, nFilters));
     }
 
@@ -25,8 +26,9 @@ namespace astra {
         setInput(input);
         MatrixPtr inputCols = Image2Cols::convertToCols(input, nChannels, filterWidth, filterHeight, true);
 
+        auto result = getWeights() * (*inputCols);
+        setOutput(getActivationFunc()->value(result).toVector());
 
         return Layer::getOutput();
     }
-
 }

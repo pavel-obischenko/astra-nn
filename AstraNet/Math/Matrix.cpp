@@ -7,6 +7,7 @@
 //
 
 #include "Matrix.h"
+#include "Vector.h"
 
 #include <algorithm>
 #include <functional>
@@ -148,6 +149,10 @@ namespace math {
 
     const ConstMatrixPtr Matrix::submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height) const {
         return ConstMatrixPtr(new Matrix(data, this->x + x, this->y + y, width, height, parentWidth));
+    }
+
+    Vector Matrix::toVector() const {
+        return Vector(*this);
     }
     
     Matrix operator*(const Matrix& left, const Matrix& right) {

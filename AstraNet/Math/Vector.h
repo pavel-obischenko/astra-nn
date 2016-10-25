@@ -26,6 +26,9 @@ namespace math {
         Vector(const std::initializer_list<double>& init);
         Vector(const Vector& other) : Matrix(other) {}
         explicit Vector(const std::vector<double>& vec);
+        explicit Vector(const Matrix& other) : Matrix(1, other.get_width() * other.get_height()) {
+            std::copy(other.begin(), other.end(), begin());
+        }
         Vector(const StdVectorPtr& data, unsigned long beginIndex, unsigned long endIndex) : Matrix(data, beginIndex, 0, 1, endIndex - beginIndex, 1) {}
 
         unsigned long size() const { return get_height(); }

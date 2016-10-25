@@ -24,6 +24,6 @@ namespace astra {
         auto result = getWeights() * InputVector(getInput()).toVector();
         setOutput(getActivationFunc()->value(result));
 
-        return output;
+        return getOutput();
     }
 }
