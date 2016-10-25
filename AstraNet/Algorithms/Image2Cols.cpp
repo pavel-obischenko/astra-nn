@@ -72,7 +72,7 @@ namespace algorithms {
     }
 
     unsigned long Image2Cols::kernelsCount(unsigned long size, unsigned long kernelSize, unsigned long stride/* = 1*/, unsigned long padSize/* = 0*/) {
-        return (size + 2*padSize - kernelSize) / stride + 1;
+        return 1 + (size + 2*padSize - kernelSize) / stride;
     }
 
     std::vector<MatrixPtr> Image2Cols::addPadding(const std::vector<MatrixPtr>& src, unsigned long padWidth, unsigned long padHeight) {
