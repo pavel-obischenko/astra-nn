@@ -18,7 +18,7 @@ namespace astra {
         return std::make_shared<AstraNet>();
     }
     
-    AstraNetPtr AstraNet::constructFeedForwardNet(unsigned int nInputs, const std::vector<int>& layerSizes) {
+    AstraNetPtr AstraNet::constructFullConnNet(unsigned int nInputs, const std::vector<int> &layerSizes) {
         AstraNetPtr netPtr = AstraNet::createPtr();
         
         int currentInputsCount = nInputs;

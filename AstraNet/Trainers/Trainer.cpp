@@ -29,9 +29,9 @@ namespace astra {
         Vector out = Vector(netPtr->process(*currentTrainData->first));
         Vector dOut = Vector(*(currentTrainData->second));
 
-        Vector lastErrorFactor = errorFactor(out, dOut);
-        for(auto layerTrainer = trainers.rbegin(); layerTrainer != trainers.rend(); ++layerTrainer) {
-            lastErrorFactor = (*layerTrainer)->backpropagateError(lastErrorFactor, epsilon);
+        Vector error = errorFactor(out, dOut);
+        for(auto trainer = trainers.rbegin(); trainer != trainers.rend(); ++trainer) {
+            error = (*trainer)->backpropagateError(error, epsilon);
         };
         
         ++currentEpoch;

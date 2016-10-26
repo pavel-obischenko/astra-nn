@@ -49,5 +49,4 @@ namespace astra {
     };
 }
 
-
 #endif //ASTRA_NN_LAYERTRAINER_H

@@ -23,17 +23,14 @@ namespace astra {
     class AstraNet {
     public:
         static AstraNetPtr createPtr();
-        static AstraNetPtr constructFeedForwardNet(unsigned int nInputs, const std::vector<int>& layerSizes);
+        static AstraNetPtr constructFullConnNet(unsigned int nInputs, const std::vector<int> &layerSizes);
         
     public:
-        
         Output process(const Input& input);
         
         std::vector<LayerPtr>& getLayers() { return layers; }
         void setLayers(const std::vector<LayerPtr>& layers) { this->layers = layers; }
-        void addLayer(const LayerPtr& layer) {
-            layers.push_back(layer);
-        }
+        void addLayer(const LayerPtr& layer) { layers.push_back(layer); }
         
     protected:
         std::vector<LayerPtr> layers;

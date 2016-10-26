@@ -54,7 +54,7 @@ int main(int argc, const char * argv[]) {
 //    std::cout << res << std::endl;
 //
 //    return 0;
-    AstraNetPtr net = AstraNet::constructFeedForwardNet(2, {8, 4, 2, 4, 8, 1});
+    AstraNetPtr net = AstraNet::constructFullConnNet(2, {8, 4, 2, 4, 8, 1});
     
     int count = 20000;
     
