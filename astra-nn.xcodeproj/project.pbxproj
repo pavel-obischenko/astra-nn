@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		6582805335AE76BF55048411 /* ConvLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658284C1059BEA849E7B65EF /* ConvLayer.cpp */; };
+		6582812047C645F20E82E3DA /* ConvLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828B094AC118C9A0B8F0A7 /* ConvLayerTrainer.cpp */; };
 		65828206761C329C870F7D12 /* TestMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6582892424FE16F43C8E7DA2 /* TestMath.cpp */; };
 		658282224A1F3A27D4407D91 /* Image2Cols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658287711DBAE1EB718313F5 /* Image2Cols.cpp */; };
 		6582833AD4E7FF1CC47D0D52 /* FullConnLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658286881B7A32AB59694530 /* FullConnLayerTrainer.cpp */; };
 		658285BA7855E3A6FF80D258 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E90B68C91DAE561C00C8292B /* Matrix.cpp */; };
 		658285EAB56B039A24A80B11 /* Vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658289342837346C968E8562 /* Vector.cpp */; };
 		65828624CD1972A299D4D8D4 /* FullConnLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828B67B25FE2B9F0CC311A /* FullConnLayer.cpp */; };
+		658286F1B6D60973A06164BB /* ConvLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828B094AC118C9A0B8F0A7 /* ConvLayerTrainer.cpp */; };
 		658288991BF9A05E215F154F /* ConvLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658284C1059BEA849E7B65EF /* ConvLayer.cpp */; };
 		65828A300A00D3CCAA7FC462 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6582888D2458F168B6099396 /* main.cpp */; };
 		65828C61BBF0C6B48BEDDBE5 /* Image2Cols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658287711DBAE1EB718313F5 /* Image2Cols.cpp */; };
@@ -49,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		6582822687309319022EB9B6 /* FullConnLayerTrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullConnLayerTrainer.h; sourceTree = "<group>"; };
+		6582843B6380F8ACD13097B5 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		658284C1059BEA849E7B65EF /* ConvLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvLayer.cpp; sourceTree = "<group>"; };
 		658286881B7A32AB59694530 /* FullConnLayerTrainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FullConnLayerTrainer.cpp; sourceTree = "<group>"; };
 		6582870C40F866850EF46A12 /* SoftplusActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftplusActivationFunction.h; sourceTree = "<group>"; };
@@ -61,6 +64,8 @@
 		658289342837346C968E8562 /* Vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector.cpp; sourceTree = "<group>"; };
 		65828A3344C38689EB8299DA /* LayerTrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTrainer.h; sourceTree = "<group>"; };
 		65828A6F0221788990D47534 /* LayerPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerPtr.h; sourceTree = "<group>"; };
+		65828AC1B67C1002240317A5 /* ConvLayerTrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvLayerTrainer.h; sourceTree = "<group>"; };
+		65828B094AC118C9A0B8F0A7 /* ConvLayerTrainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvLayerTrainer.cpp; sourceTree = "<group>"; };
 		65828B67B25FE2B9F0CC311A /* FullConnLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FullConnLayer.cpp; sourceTree = "<group>"; };
 		65828BE82DADF11B980E77BD /* ReLUActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReLUActivationFunction.h; sourceTree = "<group>"; };
 		65828C7C0587BB2F8AD90965 /* astra-nn-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "astra-nn-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +134,8 @@
 				6582879CFC2C3F5B4FBCF32D /* LayerTrainerPtr.h */,
 				658286881B7A32AB59694530 /* FullConnLayerTrainer.cpp */,
 				6582822687309319022EB9B6 /* FullConnLayerTrainer.h */,
+				65828B094AC118C9A0B8F0A7 /* ConvLayerTrainer.cpp */,
+				65828AC1B67C1002240317A5 /* ConvLayerTrainer.h */,
 			);
 			path = Trainers;
 			sourceTree = "<group>";
@@ -200,6 +207,7 @@
 				E90B68C91DAE561C00C8292B /* Matrix.cpp */,
 				E9DF75321D9E497600F77E56 /* Vector.h */,
 				658289342837346C968E8562 /* Vector.cpp */,
+				6582843B6380F8ACD13097B5 /* Math.h */,
 			);
 			path = Math;
 			sourceTree = "<group>";
@@ -313,6 +321,7 @@
 				658288991BF9A05E215F154F /* ConvLayer.cpp in Sources */,
 				65828F7B192276AA945E3F89 /* FullConnLayer.cpp in Sources */,
 				6582833AD4E7FF1CC47D0D52 /* FullConnLayerTrainer.cpp in Sources */,
+				6582812047C645F20E82E3DA /* ConvLayerTrainer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +338,7 @@
 				6582805335AE76BF55048411 /* ConvLayer.cpp in Sources */,
 				65828624CD1972A299D4D8D4 /* FullConnLayer.cpp in Sources */,
 				65828CB5255D565CF9D72807 /* FullConnLayerTrainer.cpp in Sources */,
+				658286F1B6D60973A06164BB /* ConvLayerTrainer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

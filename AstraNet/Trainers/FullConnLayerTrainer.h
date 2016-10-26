@@ -7,6 +7,7 @@
 #define ASTRA_NN_FULLCONNLAYERTRAINER_H
 
 #include "LayerTrainer.h"
+#include "../Math/Math.h"
 
 namespace astra {
 
@@ -15,7 +16,6 @@ namespace astra {
         explicit FullConnLayerTrainer(const LayerPtr& layerPtr) : LayerTrainer(layerPtr) {}
 
     public:
-        virtual math::Vector trainingError(const math::Vector& out, const math::Vector& train);
         virtual const math::Vector& backpropagateError(const math::Vector& prevLayerErrorFactor, double epsilon);
     };
 

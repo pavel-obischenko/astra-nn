@@ -6,13 +6,10 @@
 #ifndef ASTRA_NN_LAYERTRAINER_H
 #define ASTRA_NN_LAYERTRAINER_H
 
-
 #include "LayerTrainerPtr.h"
 
 #include "../Layers/Layer.h"
-
-#include "../Math/Vector.h"
-#include "../Math/Matrix.h"
+#include "../Math/Math.h"
 
 namespace astra {
 
@@ -22,7 +19,9 @@ namespace astra {
         virtual ~LayerTrainer() {}
 
     public:
-        virtual math::Vector trainingError(const math::Vector& out, const math::Vector& train) = 0;
+        virtual math::Vector trainingError(const math::Vector& out, const math::Vector& train) {
+            return train - out;
+        }
         virtual const math::Vector& backpropagateError(const math::Vector& errorFactor, double epsilon) = 0;
 
     public:

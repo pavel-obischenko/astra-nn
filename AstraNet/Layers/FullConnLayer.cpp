@@ -5,6 +5,8 @@
 
 #include "FullConnLayer.h"
 
+#include "../Math/Math.h"
+
 #include "../ActivationFunctions/TanhActivationFunction.h"
 #include "../ActivationFunctions/SigActivationFunction.h"
 #include "../ActivationFunctions/ReLUActivationFunction.h"

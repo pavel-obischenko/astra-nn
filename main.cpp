@@ -11,16 +11,14 @@
 #include <cmath>
 
 #include "AstraNet/Common/Iterators.h"
-#include "AstraNet/Math/Matrix.h"
 
 #include "AstraNet/AstraNet.h"
 #include "AstraNet/Layers/FullConnLayer.h"
 
 #include "AstraNet/Trainers/TrainData.h"
 #include "AstraNet/Trainers/Trainer.h"
-#include "AstraNet/Math/Vector.h"
 
-
+#include "AstraNet/Math/Math.h"
 #include "AstraNet/Algorithms/Image2Cols.h"
 
 using namespace astra;

@@ -8,7 +8,7 @@
 
 #include "AstraNet.h"
 #include "Layers/FullConnLayer.h"
-#include "Math/Vector.h"
+#include "Math/Math.h"
 
 using namespace astra::math;
 

@@ -14,8 +14,7 @@
 #include "TrainData.h"
 #include "LayerTrainerPtr.h"
 
-#include "../Math/Vector.h"
-#include "../Math/Matrix.h"
+#include "../Math/Math.h"
 
 #include <vector>
 

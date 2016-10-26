@@ -4,7 +4,9 @@
 //
 
 #include "ConvLayer.h"
+#include "../Math/Math.h"
 #include "../Algorithms/Image2Cols.h"
+#include "../Trainers/ConvLayerTrainer.h"
 
 using namespace astra::math;
 using namespace astra::algorithms;
@@ -20,6 +22,10 @@ namespace astra {
         // width = filter size + bias
         // height = filters qty
         setWeights(Matrix::rnd(filterWidth * filterHeight + 1, nFilters));
+    }
+
+    LayerTrainerPtr ConvLayer::createTrainer() {
+        return std::make_shared<ConvLayerTrainer>(shared_from_this());
     }
 
     const Vector& ConvLayer::process(const Vector& input) {

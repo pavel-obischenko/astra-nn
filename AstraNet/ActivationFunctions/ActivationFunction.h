@@ -9,7 +9,7 @@
 #ifndef ActivationFunction_hpp
 #define ActivationFunction_hpp
 
-#include "../Math/Vector.h"
+#include "../Math/Math.h"
 
 #include <vector>
 #include <algorithm>

@@ -15,6 +15,7 @@ namespace astra {
         ConvLayer(unsigned long width, unsigned long height, unsigned long nChannels, unsigned long filterWidth, unsigned long filterHeight, unsigned long nFilters);
 
     public:
+        virtual LayerTrainerPtr createTrainer();
         virtual const math::Vector& process(const math::Vector& input);
 
     private:

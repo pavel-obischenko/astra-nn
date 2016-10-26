@@ -6,8 +6,7 @@
 #ifndef ASTRA_NN_IMAGE2COLS_H
 #define ASTRA_NN_IMAGE2COLS_H
 
-#include "../Math/Matrix.h"
-#include "../Math/Vector.h"
+#include "../Math/Math.h"
 
 namespace astra {
 namespace algorithms {

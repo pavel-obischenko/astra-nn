@@ -9,10 +9,6 @@ using namespace astra::math;
 
 namespace astra {
 
-    Vector FullConnLayerTrainer::trainingError(const Vector& out, const Vector& train) {
-        return train - out;
-    }
-
     const math::Vector& FullConnLayerTrainer::backpropagateError(const math::Vector& prevLayerErrorFactor, double epsilon) {
         setPrevLayerErrorFactor(prevLayerErrorFactor);
 

@@ -10,13 +10,10 @@
 #define ASTRA_NN_LAYER_H
 
 #include "LayerPtr.h"
+
 #include "../Trainers/LayerTrainerPtr.h"
-
 #include "../ActivationFunctions/ActivationFunction.h"
-
-#include "../Math/Vector.h"
-#include "../Math/Matrix.h"
-#include "../Math/InputVector.h"
+#include "../Math/Math.h"
 
 #include <memory>
 
