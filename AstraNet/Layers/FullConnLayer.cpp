@@ -9,6 +9,8 @@
 #include "../ActivationFunctions/SigActivationFunction.h"
 #include "../ActivationFunctions/ReLUActivationFunction.h"
 
+#include "../Trainers/FullConnLayerTrainer.h"
+
 #include <cassert>
 
 using namespace astra::math;
@@ -30,7 +32,7 @@ namespace astra {
     FullConnLayer::FullConnLayer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : Layer(nInputs, nOutputs, activationFunc) {}
 
     LayerTrainerPtr FullConnLayer::createTrainer() {
-        return nullptr;
+        return std::make_shared<FullConnLayerTrainer>(shared_from_this());
     }
 
     const Vector& FullConnLayer::process(const Vector& inputValues) {

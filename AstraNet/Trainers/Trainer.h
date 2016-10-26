@@ -12,7 +12,7 @@
 #include "../AstraNet.h"
 
 #include "TrainData.h"
-#include "TrainLayerWrapper.h"
+#include "LayerTrainerPtr.h"
 
 #include "../Math/Vector.h"
 #include "../Math/Matrix.h"
@@ -26,23 +26,20 @@ namespace astra {
     class Trainer {
     public:
         explicit Trainer(const AstraNetPtr& netPtr, const TrainDataPtr& trainDataPtr);
-        void runTrainEpoch(double epsilon);
 
-        void initWrappers();
-        void trainLayer(TrainLayerWrapperPtr& currentWr, TrainLayerWrapperPtr& prevWr, const astra::math::Vector& out, const astra::math::Vector& dOut, double epsilon);
-        
-        double errorSqr(const astra::math::Vector& out, const astra::math::Vector& train);
-        astra::math::Vector errorFactor(const astra::math::Vector& out, const astra::math::Vector& train);
-        astra::math::Vector errorFactor(const astra::math::Matrix& prevWeights, const astra::math::Vector& prevLocalGradient);
-        astra::math::Vector localGradient(const astra::math::InputVector& input, const astra::math::Vector& errorFactor, const astra::math::Matrix& weights, const ActivationFunctionPtr& activation);
-        astra::math::Matrix calculateCorrectWeights(const astra::math::Matrix& weights, const astra::math::InputVector& input, const astra::math::Vector& localGrad, double epsilon);
+    public:
+        void runTrainEpoch(double epsilon);
+        astra::math::Vector errorFactor(const astra::math::Vector& out, const astra::math::Vector& dOut);
+
+    protected:
+        void init();
         
     protected:
         double epsilon;
         
         AstraNetPtr netPtr;
         TrainDataPtr trainDataPtr;
-        TrainLayerWrapperArrayPtr layerWrappers;
+        LayerTrainerArray trainers;
         
     protected:
         unsigned int currentEpoch;

@@ -18,9 +18,11 @@
 #include "../Math/Matrix.h"
 #include "../Math/InputVector.h"
 
+#include <memory>
+
 namespace astra {
 
-    class Layer {
+    class Layer : public std::enable_shared_from_this<Layer> {
     protected:
         Layer() : input(2), output(1), weights(2, 2), activation(nullptr) {};
         Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : input(nInputs), output(nOutputs), weights(math::Matrix::rnd(nInputs + 1, nOutputs, -.5, .5)), activation(activationFunc) {}

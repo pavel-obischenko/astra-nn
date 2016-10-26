@@ -7,11 +7,14 @@
 #define ASTRA_NN_LAYERPTR_H
 
 #include <memory>
+#include "Layer.h"
 
 namespace astra {
 
     class Layer;
+
     typedef std::shared_ptr<Layer> LayerPtr;
+    typedef std::weak_ptr<Layer> LayerWeakPtr;
 
 }
 

@@ -67,7 +67,6 @@
 		65828EDD0BFFD5A4AF308A2E /* ConvLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvLayer.h; sourceTree = "<group>"; };
 		E90B68C91DAE561C00C8292B /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
 		E9AE356D1DA2695900C45683 /* TrainData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainData.h; sourceTree = "<group>"; };
-		E9AE35721DA2CF2C00C45683 /* TrainLayerWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainLayerWrapper.h; sourceTree = "<group>"; };
 		E9D8DBE31D9EA7B400B59CC5 /* Trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trainer.cpp; sourceTree = "<group>"; };
 		E9D8DBE41D9EA7B400B59CC5 /* Trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trainer.h; sourceTree = "<group>"; };
 		E9DF75061D9E483900F77E56 /* astra-nn */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "astra-nn"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,7 +125,6 @@
 				E9D8DBE31D9EA7B400B59CC5 /* Trainer.cpp */,
 				E9D8DBE41D9EA7B400B59CC5 /* Trainer.h */,
 				E9AE356D1DA2695900C45683 /* TrainData.h */,
-				E9AE35721DA2CF2C00C45683 /* TrainLayerWrapper.h */,
 				65828A3344C38689EB8299DA /* LayerTrainer.h */,
 				6582879CFC2C3F5B4FBCF32D /* LayerTrainerPtr.h */,
 				658286881B7A32AB59694530 /* FullConnLayerTrainer.cpp */,
