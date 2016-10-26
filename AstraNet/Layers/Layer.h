@@ -25,7 +25,7 @@ namespace astra {
     class Layer : public std::enable_shared_from_this<Layer> {
     protected:
         Layer() : input(2), output(1), weights(2, 2), activation(nullptr) {};
-        Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : input(nInputs), output(nOutputs), weights(math::Matrix::rnd(nInputs + 1, nOutputs, -.5, .5)), activation(activationFunc) {}
+        Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : nInputs(nInputs), nOutputs(nOutputs), input(nInputs), output(nOutputs), weights(math::Matrix::rnd(nInputs + 1, nOutputs, -.5, .5)), activation(activationFunc) {}
         virtual ~Layer() {}
         
     public:
@@ -33,6 +33,9 @@ namespace astra {
         virtual const math::Vector& process(const math::Vector& input) = 0;
         
     public:
+        unsigned long getNInputs() const { return nInputs; }
+        unsigned long getNOutputs() const { return nOutputs; }
+
         void setWeights(const math::Matrix& w) { weights = w; }
 
         const math::Vector& getInput() const { return input; }
@@ -45,7 +48,10 @@ namespace astra {
         void setInput(const math::Vector& i) { input = i; }
         void setOutput(const math::Vector& o) { output = o; }
         
-    protected:
+    private:
+        unsigned long nInputs;
+        unsigned long nOutputs;
+
         math::Vector input;
         math::Vector output;
         math::Matrix weights;
