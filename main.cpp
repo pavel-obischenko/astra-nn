@@ -21,6 +21,8 @@
 #include "AstraNet/Math/Math.h"
 #include "AstraNet/Algorithms/Image2Cols.h"
 
+#include "AstraNet/ActivationFunctions/SigActivationFunction.h"
+
 using namespace astra;
 using namespace astra::math;
 
@@ -36,22 +38,37 @@ int main(int argc, const char * argv[]) {
 //                  {2, 4, 4, 2},
 //                  {1, 2, 2, 1}}; // патчи (ядра свертки) - столбцы
 //
-//    Matrix f = {{2, 2, 2, 2},
-//                {3, 3, 3, 3}};   // фильтры (наборы весов) - строки
-//    // пока забыли про bias-ы
-//
-//    std::vector<MatrixPtr> srcVec; srcVec.push_back(std::make_shared<Matrix>(src));
-//
-//    Matrix res = *astra::algorithms::Image2Cols::convertToCols(srcVec, 2, 2, true);
+    Matrix f = {{0, 1, 0, 0, 0},
+                {0, 0, 0, 1, 0}};   // фильтры (наборы весов) - строки
 
-//    Vector v = {1, 2, 3, 1, 2, 3, 1, 2, 3, 4, 5, 6, 4, 5, 6, 4, 5, 6, 7, 8, 9, 7, 8, 9, 7, 8, 9};
-//    Matrix res = *astra::algorithms::Image2Cols::convertToCols(v, 3, 2, 2, true);
-//
-//    // результат - ядра свертки в строку. Сколько фильтров - столько и строк
-//    //std::cout << f * res << std::endl;
-//    std::cout << res << std::endl;
-//
-//    return 0;
+    Vector v = {0.1, 0.1, 1,
+                0.1, 0.1, 0.1,
+                0.1, 0.1, 1};
+    Matrix inp = *astra::algorithms::Image2Cols::convertToCols(v, 1, 2, 2, true);
+
+    // inp - ядра свертки в строку + bias weight. Сколько фильтров - столько и строк
+    std::cout << inp << std::endl;
+
+    auto res = f * inp;
+    std::cout << res << std::endl;
+
+    Vector pe_vec = {-0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5};
+    Matrix pe_mat(pe_vec.get_data_storage(), f.get_width() - 1, f.get_height());
+
+    ActivationFunctionPtr activation = std::make_shared<SigActivationFunction>(0.1);
+    auto derivatives = activation->derivativeValue(res);
+    std::cout << derivatives << std::endl;
+
+    auto localGradient = derivatives.element_wise_mul(pe_mat);
+    std::cout << localGradient << std::endl;
+
+    auto newW = f + (localGradient * inp.transpose()) * 0.1;
+    std::cout << newW << std::endl;
+
+    auto errFactorCols =  f.transpose() * localGradient;
+    std::cout << errFactorCols << std::endl;
+
+    return 0;
     AstraNetPtr net = AstraNet::constructFullConnNet(2, {8, 4, 2, 4, 8, 1});
     
     int count = 20000;
@@ -101,13 +118,6 @@ int main(int argc, const char * argv[]) {
         else {
             error += fabs(trainer->errorFactor(Vector(out), Vector(dOut)).sum());
         }
-        
-        Vector inVec(input);
-        Vector outVec(out);
-        
-        //std::cout << i << " " << inVec << " " << outVec << std::endl;
-        
-        //std::cout << i << " " << trainer->errorFactor(outVec, Vector(*data.output)) << std::endl;
     }
     return 0;
 }

@@ -19,8 +19,8 @@ namespace astra {
         const InputVector& input = layer->getInput();
 
         // local gradient
-        Vector derivative = activation->derivativeValue(weights * input.toVector());
-        Vector localGradient = derivative.element_wise_mul(prevLayerErrorFactor);
+        Vector derivatives = activation->derivativeValue(weights * input.toVector());
+        Vector localGradient = derivatives.element_wise_mul(prevLayerErrorFactor);
         setLocalGradient(localGradient);
 
         // new weights

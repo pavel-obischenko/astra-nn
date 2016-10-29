@@ -66,6 +66,7 @@
 		65828A6F0221788990D47534 /* LayerPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerPtr.h; sourceTree = "<group>"; };
 		65828AC1B67C1002240317A5 /* ConvLayerTrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvLayerTrainer.h; sourceTree = "<group>"; };
 		65828B094AC118C9A0B8F0A7 /* ConvLayerTrainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvLayerTrainer.cpp; sourceTree = "<group>"; };
+		65828B2235CB5B272863216F /* ConvLayerPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvLayerPtr.h; sourceTree = "<group>"; };
 		65828B67B25FE2B9F0CC311A /* FullConnLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FullConnLayer.cpp; sourceTree = "<group>"; };
 		65828BE82DADF11B980E77BD /* ReLUActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReLUActivationFunction.h; sourceTree = "<group>"; };
 		65828C7C0587BB2F8AD90965 /* astra-nn-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "astra-nn-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,6 +196,7 @@
 				65828B67B25FE2B9F0CC311A /* FullConnLayer.cpp */,
 				658289318FA6BFCDC0EEC7B3 /* FullConnLayer.h */,
 				65828A6F0221788990D47534 /* LayerPtr.h */,
+				65828B2235CB5B272863216F /* ConvLayerPtr.h */,
 			);
 			path = Layers;
 			sourceTree = "<group>";

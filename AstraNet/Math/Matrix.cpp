@@ -31,16 +31,21 @@ namespace math {
             itr += item.end() - item.begin();
         });
     }
-    
-    Matrix::Matrix(const StdVectorPtr& data, unsigned long x, unsigned long y, unsigned long width, unsigned long height, unsigned long parentWidth) : x(x), y(y), width(width), height(height), matrixSize(width * height), parentWidth(parentWidth), data(data) {}
-    
+
     Matrix::Matrix(const Matrix& other) : x(0), y(0) {
         width = other.get_width();
         height = other.get_height();
         parentWidth = width;
-        
+
         allocMemory();
         std::copy(other.begin(), other.end(), begin());
+    }
+    
+    Matrix::Matrix(const StdVectorPtr& data, unsigned long x, unsigned long y, unsigned long width, unsigned long height, unsigned long parentWidth) : x(x), y(y), width(width), height(height), matrixSize(width * height), parentWidth(parentWidth), data(data) {}
+
+    Matrix::Matrix(const StdVectorPtr& data, unsigned long width, unsigned long height) : x(0), y(0), width(width), height(height), parentWidth(width) {
+        allocMemory();
+        std::copy(data->begin(), data->end(), begin());
     }
 
     Matrix Matrix::zero(unsigned long width, unsigned long height) {
@@ -124,6 +129,14 @@ namespace math {
     Matrix Matrix::element_wise_mul(double arg) const {
         Matrix result(get_width(), get_height());
         std::transform(begin(), end(), result.begin(), std::bind2nd(std::multiplies<double>(), arg));
+        return result;
+    }
+
+    Matrix Matrix::element_wise_mul(const Matrix& mat) const {
+        assert(get_width() == mat.get_width() && get_height() == mat.get_height());
+
+        Matrix result(get_width(), get_height());
+        std::transform(begin(), end(), mat.begin(), result.begin(), std::multiplies<double>());
         return result;
     }
 

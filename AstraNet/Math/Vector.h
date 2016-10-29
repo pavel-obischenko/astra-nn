@@ -36,6 +36,8 @@ namespace math {
         Vector element_wise_mul(double arg) const;
         Vector element_wise_mul(const Vector& arg) const;
 
+        Matrix toMatrix(unsigned long width, unsigned long height) const;
+
         friend Vector operator*(const Matrix& left, const Vector& right);
         friend Matrix operator*(const Vector& left, const Matrix& right);
         friend Matrix operator*(const Vector& left, const Vector& right);

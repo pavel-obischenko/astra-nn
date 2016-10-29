@@ -39,6 +39,14 @@ namespace math {
         return result;
     }
 
+    Matrix Vector::toMatrix(unsigned long width, unsigned long height) const {
+        assert(width * height == size());
+
+        Matrix result(width, height);
+        std::copy(begin(), end(), result.begin());
+        return result;
+    }
+
     Vector operator*(const Matrix& left, const Vector& right) {
         assert(right.size() == left.get_width());
 
@@ -70,6 +78,7 @@ namespace math {
     Vector operator*(const Vector& left, double right) {
         return left.element_wise_mul(right);
     }
+
     Vector operator*(double left, const Vector& right) {
         return right.element_wise_mul(left);
     }
@@ -78,20 +87,24 @@ namespace math {
         std::transform(left.begin(), left.end(), left.begin(), std::bind2nd(std::multiplies<double>(), right));
         return left;
     }
+
     Vector operator+(const Vector& left, const Vector& right) {
         Vector result(left.size());
         std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::plus<double>());
         return result;
     }
+
     Vector& operator+=(Vector& left, const Vector& right) {
         left = left + right;
         return left;
     }
+
     Vector operator-(const Vector& left, const Vector& right) {
         Vector result(left.size());
         std::transform(left.begin(), left.end(), right.begin(), result.begin(), std::minus<double>());
         return result;
     }
+
     Vector& operator-=(Vector& left, const Vector& right) {
         left = left - right;
         return left;
@@ -100,6 +113,7 @@ namespace math {
     VectorPtr Vector::head(unsigned long size) {
         return subvec(0, size);
     }
+
     ConstVectorPtr Vector::head(unsigned long size) const {
         return subvec(0, size);
     }
@@ -107,6 +121,7 @@ namespace math {
     VectorPtr Vector::tail(unsigned long size) {
         return subvec(this->size() - size, size - 1);
     }
+
     ConstVectorPtr Vector::tail(unsigned long size) const {
         return subvec(this->size() - size, size - 1);
     }
@@ -114,6 +129,7 @@ namespace math {
     VectorPtr Vector::subvec(unsigned long beginIndex, unsigned long endIndex) {
         return VectorPtr(new Vector(get_data_storage(), beginIndex, endIndex));
     }
+
     ConstVectorPtr Vector::subvec(unsigned long beginIndex, unsigned long endIndex) const {
         return ConstVectorPtr(new Vector(get_data_storage(), beginIndex, endIndex));
     }

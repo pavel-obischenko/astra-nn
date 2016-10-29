@@ -36,6 +36,7 @@ namespace math {
         Matrix(const std::initializer_list<std::initializer_list<double>>& init);
         Matrix(const Matrix& other);
         Matrix(const StdVectorPtr& data, unsigned long x, unsigned long y, unsigned long width, unsigned long height, unsigned long parentWidth);
+        Matrix(const StdVectorPtr& data, unsigned long width, unsigned long height);
     
     public:
         static Matrix zero(unsigned long width, unsigned long height);
@@ -57,8 +58,9 @@ namespace math {
         Vector toVector() const;
         
         Matrix element_wise_mul(double arg) const;
-        double dot_product(const Matrix& mat) const;
+        Matrix element_wise_mul(const Matrix& mat) const;
 
+        double dot_product(const Matrix& mat) const;
         Matrix transpose() const;
         
         friend Matrix operator*(const Matrix& left, const Matrix& right);

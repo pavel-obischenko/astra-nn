@@ -4,7 +4,6 @@
 //
 
 #include "ConvLayer.h"
-#include "../Math/Math.h"
 #include "../Algorithms/Image2Cols.h"
 #include "../Trainers/ConvLayerTrainer.h"
 
@@ -19,9 +18,9 @@ namespace astra {
 
         setInput(Vector(kernelsCountH * kernelsCountV * nChannels));
 
-        // width = filter size + bias
+        // width = channels * filter_size + bias
         // height = filters qty
-        setWeights(Matrix::rnd(filterWidth * filterHeight + 1, nFilters));
+        setWeights(Matrix::rnd(nChannels * filterWidth * filterHeight + 1, nFilters));
     }
 
     LayerTrainerPtr ConvLayer::createTrainer() {
@@ -30,9 +29,11 @@ namespace astra {
 
     const Vector& ConvLayer::process(const Vector& input) {
         setInput(input);
-        MatrixPtr inputCols = Image2Cols::convertToCols(input, nChannels, filterWidth, filterHeight, true);
+        Matrix inputCols = *Image2Cols::convertToCols(input, nChannels, filterWidth, filterHeight, true);
+        setInputCols(inputCols);
 
-        auto result = getWeights() * (*inputCols);
+        auto result = getWeights() * inputCols;
+        setLinearMultiplicationResult(result);
         setOutput(getActivationFunc()->value(result).toVector());
 
         return Layer::getOutput();

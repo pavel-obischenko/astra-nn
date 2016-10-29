@@ -21,5 +21,4 @@ namespace astra {
 
 }
 
-
 #endif //ASTRA_NN_CONVLAYERTRAINER_H
