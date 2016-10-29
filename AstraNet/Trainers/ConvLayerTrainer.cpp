@@ -37,7 +37,7 @@ namespace astra {
 
         // error factor
         auto backErrFactorCols =  filters.transpose() * localGradient;
-        // TODO: convert error factor cols to input vector
+        setErrorFactor(*Image2Cols::convertFromColsToVector(backErrFactorCols, convLayerPtr->getWidth(), convLayerPtr->getHeight(), convLayerPtr->getNChannels(), convLayerPtr->getFilterWidth(), convLayerPtr->getFilterHeight(), true));
 
         // save results
         convLayerPtr->setWeights(getNewWeights());
