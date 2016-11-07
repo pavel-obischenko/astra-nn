@@ -72,6 +72,7 @@
 		658289318FA6BFCDC0EEC7B3 /* FullConnLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullConnLayer.h; sourceTree = "<group>"; };
 		658289342837346C968E8562 /* Vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector.cpp; sourceTree = "<group>"; };
 		658289567796926EB33E2693 /* SoftmaxLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoftmaxLayer.cpp; sourceTree = "<group>"; };
+		65828A2DD0E4FC288D1E590A /* SoftmaxActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftmaxActivationFunction.h; sourceTree = "<group>"; };
 		65828A3344C38689EB8299DA /* LayerTrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTrainer.h; sourceTree = "<group>"; };
 		65828A6F0221788990D47534 /* LayerPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerPtr.h; sourceTree = "<group>"; };
 		65828AC1B67C1002240317A5 /* ConvLayerTrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvLayerTrainer.h; sourceTree = "<group>"; };
@@ -199,6 +200,7 @@
 				E9DF75291D9E497600F77E56 /* TanhActivationFunction.h */,
 				6582870C40F866850EF46A12 /* SoftplusActivationFunction.h */,
 				65828BE82DADF11B980E77BD /* ReLUActivationFunction.h */,
+				65828A2DD0E4FC288D1E590A /* SoftmaxActivationFunction.h */,
 			);
 			path = ActivationFunctions;
 			sourceTree = "<group>";

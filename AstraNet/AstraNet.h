@@ -24,6 +24,7 @@ namespace astra {
     public:
         static AstraNetPtr createPtr();
         static AstraNetPtr constructFullConnNet(unsigned int nInputs, const std::vector<int> &layerSizes);
+        static AstraNetPtr constructFullConnSoftmaxNet(unsigned int nInputs, const std::vector<int> &layerSizes);
         
     public:
         Output process(const Input& input);

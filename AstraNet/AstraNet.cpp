@@ -8,6 +8,7 @@
 
 #include "AstraNet.h"
 #include "Layers/FullConnLayer.h"
+#include "Layers/SoftmaxLayer.h"
 #include "Math/Math.h"
 
 using namespace astra::math;
@@ -29,6 +30,24 @@ namespace astra {
             currentInputsCount = layerSize;
         });
                 
+        return netPtr;
+    }
+
+    AstraNetPtr AstraNet::constructFullConnSoftmaxNet(unsigned int nInputs, const std::vector<int> &layerSizes) {
+        AstraNetPtr netPtr = AstraNet::createPtr();
+
+        int currentInputsCount = nInputs;
+        auto lastLayer = layerSizes.end() - 1;
+        std::for_each(layerSizes.begin(), lastLayer, [&netPtr, &currentInputsCount](int layerSize) {
+            LayerPtr layerPtr = FullConnLayer::createTanhLayerPtr(currentInputsCount, layerSize, 1.);
+            netPtr->addLayer(layerPtr);
+
+            currentInputsCount = layerSize;
+        });
+
+        LayerPtr layerPtr = SoftmaxLayer::createSoftmaxLayerPtr(currentInputsCount, *lastLayer);
+        netPtr->addLayer(layerPtr);
+
         return netPtr;
     }
     

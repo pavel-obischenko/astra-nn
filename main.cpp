@@ -30,16 +30,17 @@ using namespace astra;
 using namespace astra::math;
 
 int main(int argc, const char * argv[]) {
-    AstraNetPtr net = AstraNet::constructFullConnNet(1, {4, 4, 1});
+    AstraNetPtr net = AstraNet::constructFullConnSoftmaxNet(2, {4, 3});
     
     int count = 1000;
     int epochCount = 50000;
     //TrainDataPtr trainData = TrainDataGenerator::firstRegression(count);
-    TrainDataPtr trainData = TrainDataGenerator::xSinXRegression(count, 0, 1, 1, 12, 0);
+    //TrainDataPtr trainData = TrainDataGenerator::xSinXRegression(count, 0, 1, 1, 12, 0);
     //TrainDataPtr trainData = TrainDataGenerator::twoClassesClassification(count);
+    TrainDataPtr trainData = TrainDataGenerator::threeClassesClassification(count);
     
     double errorSum = 0;
-    double epsilon = 0.15;
+    double epsilon = 0.2;
     double momentum = 0.5;
 
     double minError = 999999999999.;
@@ -49,7 +50,7 @@ int main(int argc, const char * argv[]) {
         double  err = trainer->runTrainEpoch(epsilon, momentum).length();
         errorSum += err;
 
-        int errCount = 500;
+        int errCount = 100;
         bool lastIteration = i == epochCount-1;
         if ((i > 0 && i % errCount == 0) || lastIteration) {
             double err = errorSum / errCount;
@@ -57,7 +58,7 @@ int main(int argc, const char * argv[]) {
             std::cout << (lastIteration ? i+1 : i) << " error: " << err << std::endl;
             errorSum = 0;
 
-            if (err < 0.05) {
+            if (err < 0.015) {
                 std::cout << "training breaked" << std::endl;
                 break;
             }

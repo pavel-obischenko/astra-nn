@@ -12,14 +12,13 @@ namespace astra {
 
     class SoftmaxLayer : public FullConnLayer {
     public:
-        static LayerPtr createSoftmaxLayerPtr(unsigned int nInputs, unsigned int nOutputs, double activationAlpha);
+        static LayerPtr createSoftmaxLayerPtr(unsigned int nInputs, unsigned int nOutputs);
 
     public:
-        SoftmaxLayer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc);
+        SoftmaxLayer(unsigned int nInputs, unsigned int nOutputs);
 
     public:
-        virtual LayerTrainerPtr createTrainer();
-        virtual const math::Vector& process(const math::Vector& input);
+        //virtual LayerTrainerPtr createTrainer();
     };
 
 }
