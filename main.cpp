@@ -6,6 +6,8 @@
 //  Copyright © 2016 Pavel. All rights reserved.
 //
 
+#include "AstraNet/Trainers/TrainDataGenerator.h"
+
 #include <iostream>
 #include <random>
 #include <cmath>
@@ -23,59 +25,45 @@
 
 #include "AstraNet/ActivationFunctions/SigActivationFunction.h"
 
+
 using namespace astra;
 using namespace astra::math;
 
 int main(int argc, const char * argv[]) {
-    AstraNetPtr net = AstraNet::constructFullConnNet(2, {8, 4, 2, 4, 8, 1});
+    AstraNetPtr net = AstraNet::constructFullConnNet(1, {4, 4, 1});
     
-    int count = 20000;
+    int count = 1000;
+    int epochCount = 50000;
+    //TrainDataPtr trainData = TrainDataGenerator::firstRegression(count);
+    TrainDataPtr trainData = TrainDataGenerator::xSinXRegression(count, 0, 1, 1, 12, 0);
+    //TrainDataPtr trainData = TrainDataGenerator::twoClassesClassification(count);
     
-    Vector posVec = {.5, .5};
-    Vector negVec = {-.5, -.5};
-    
-    std::default_random_engine generator;
-    std::uniform_real_distribution<double> distribution(-.2, .2);
-    auto rnd = std::bind(distribution, generator);
-    
-    TrainDataPtr trainData = TrainData::createPtr();
-    
-    for (int i = 0; i < count; i++) {
-        bool outValue = rnd() > 0;
-        Vector noiseVec = {rnd(), rnd()};
-        
-        Vector inputVec = outValue ? posVec : negVec;
-        inputVec += noiseVec;
-        
-        Vector outVec = {outValue ? .5 : -.5};
-        
-        trainData->addTrainPair(*inputVec.get_data_storage(), *outVec.get_data_storage());
-    }
-    
-    double error = 0;
-    double epsilon = 0.5;
+    double errorSum = 0;
+    double epsilon = 0.15;
+    double momentum = 0.5;
+
+    double minError = 999999999999.;
     
     TrainerPtr trainer = std::make_shared<Trainer>(net, trainData);
-    for (int i = 0; i < count; i++) {
-        trainer->runTrainEpoch(epsilon);
-        
-        TrainDataPairPtr pairPtr = trainData->currentPair();
-        const std::vector<double>& input = *pairPtr->first;
-        const std::vector<double>& dOut = *pairPtr->second
-        ;
-        auto out = net->process(input);
+    for (int i = 0; i < epochCount; i++) {
+        double  err = trainer->runTrainEpoch(epsilon, momentum).length();
+        errorSum += err;
 
         int errCount = 500;
-        bool lastIteration = i == count-1;
+        bool lastIteration = i == epochCount-1;
         if ((i > 0 && i % errCount == 0) || lastIteration) {
-            error *= 100. / errCount;
-            std::cout << (lastIteration ? i+1 : i) << " error: " << error << std::endl;
-            
-            error = 0;
-        }
-        else {
-            error += fabs(trainer->errorFactor(Vector(out), Vector(dOut)).sum());
+            double err = errorSum / errCount;
+            minError = std::min(err, minError);
+            std::cout << (lastIteration ? i+1 : i) << " error: " << err << std::endl;
+            errorSum = 0;
+
+            if (err < 0.05) {
+                std::cout << "training breaked" << std::endl;
+                break;
+            }
         }
     }
+    std::cout << "min error: " << minError << std::endl;
+
     return 0;
 }

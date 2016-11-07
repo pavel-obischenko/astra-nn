@@ -22,7 +22,7 @@ namespace astra {
     class Layer : public std::enable_shared_from_this<Layer> {
     protected:
         Layer() : nInputs(2), nOutputs(1), input(2), output(1), weights(2, 2), activation(nullptr) {};
-        Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : nInputs(nInputs), nOutputs(nOutputs), input(nInputs), output(nOutputs), weights(math::Matrix::rnd(nInputs + 1, nOutputs, -.5, .5)), activation(activationFunc) {}
+        Layer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : nInputs(nInputs), nOutputs(nOutputs), input(nInputs), output(nOutputs), weights(math::Matrix::rnd(nInputs + 1, nOutputs, -.15, .15)), activation(activationFunc) {}
         virtual ~Layer() {}
         
     public:

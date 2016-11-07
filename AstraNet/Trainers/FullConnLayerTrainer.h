@@ -16,9 +16,8 @@ namespace astra {
         explicit FullConnLayerTrainer(const LayerPtr& layerPtr) : LayerTrainer(layerPtr) {}
 
     public:
-        virtual const math::Vector& backpropagateError(const math::Vector& prevLayerErrorFactor, double epsilon);
+        virtual const math::Vector& backpropagateError(const math::Vector& prevLayerErrorFactor, double epsilon, double momentum);
     };
-
 }
 
 

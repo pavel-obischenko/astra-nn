@@ -27,7 +27,7 @@ namespace astra {
         explicit Trainer(const AstraNetPtr& netPtr, const TrainDataPtr& trainDataPtr);
 
     public:
-        void runTrainEpoch(double epsilon);
+        astra::math::Vector runTrainEpoch(double epsilon, double momentum);
         astra::math::Vector errorFactor(const astra::math::Vector& out, const astra::math::Vector& dOut);
 
     protected:

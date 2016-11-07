@@ -24,17 +24,19 @@ namespace astra {
         });
     }
     
-    void Trainer::runTrainEpoch(double epsilon) {
+    Vector Trainer::runTrainEpoch(double epsilon, double momentum) {
         TrainDataPairPtr currentTrainData = trainDataPtr->nextPair();
         Vector out = Vector(netPtr->process(*currentTrainData->first));
         Vector dOut = Vector(*(currentTrainData->second));
 
         Vector error = errorFactor(out, dOut);
+        Vector lastError = error;
         for(auto trainer = trainers.rbegin(); trainer != trainers.rend(); ++trainer) {
-            error = (*trainer)->backpropagateError(error, epsilon);
+            lastError = (*trainer)->backpropagateError(lastError, epsilon, momentum);
         };
         
         ++currentEpoch;
+        return error;
     }
     
     Vector Trainer::errorFactor(const Vector& out, const Vector& dOut) {

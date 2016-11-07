@@ -61,6 +61,9 @@ namespace astra {
         }
         
         const TrainDataPairPtr& currentPair() {
+            if (currentDataPair == nullptr) {
+                nextPair();
+            }
             return currentDataPair;
         }
         

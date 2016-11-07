@@ -15,7 +15,7 @@ using namespace astra::algorithms;
 
 namespace astra {
 
-    const math::Vector& ConvLayerTrainer::backpropagateError(const math::Vector& prevLayerErrorFactor, double epsilon) {
+    const math::Vector& ConvLayerTrainer::backpropagateError(const math::Vector& prevLayerErrorFactor, double epsilon, double momentum) {
         setPrevLayerErrorFactor(prevLayerErrorFactor);
 
         ConvLayerPtr convLayerPtr = std::dynamic_pointer_cast<ConvLayer>(getLayerPtr());
@@ -33,7 +33,9 @@ namespace astra {
         setLocalGradient(localGradient.toVector());
 
         // new weights
-        setNewWeights(filters + (localGradient * inputCols.transpose()) * epsilon);
+        auto dWeights = (localGradient * inputCols.transpose()) * epsilon;
+        adjustWeights(dWeights, momentum);
+        setDWeights(dWeights);
 
         // error factor
         auto backErrFactorCols =  filters.transpose() * localGradient;

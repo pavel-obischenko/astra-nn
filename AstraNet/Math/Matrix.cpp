@@ -169,7 +169,7 @@ namespace math {
     }
     
     Matrix operator*(const Matrix& left, const Matrix& right) {
-        assert(right.get_height() == left.get_width());
+        assert(left.get_width() == right.get_height());
         
         Matrix result(right.get_width(), left.get_height());
         auto resItr = result.begin();

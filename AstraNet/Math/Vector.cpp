@@ -39,10 +39,21 @@ namespace math {
         return result;
     }
 
+    double Vector::length() const {
+        double result = dot_product(*this);
+        return std::sqrt(result);
+    }
+
     Matrix Vector::toMatrix(unsigned long width, unsigned long height) const {
         assert(width * height == size());
 
         Matrix result(width, height);
+        std::copy(begin(), end(), result.begin());
+        return result;
+    }
+
+    Matrix Vector::toMatrix() const {
+        Matrix result(1, size());
         std::copy(begin(), end(), result.begin());
         return result;
     }
