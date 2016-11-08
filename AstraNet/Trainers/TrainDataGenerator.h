@@ -15,6 +15,7 @@ namespace astra {
         static TrainDataPtr xSinXRegression(unsigned long count, double minX = -1., double maxX = 1., double alpha = 1., double betha = 8., double noise = 0);
         static TrainDataPtr twoClassesClassification(unsigned long count);
         static TrainDataPtr threeClassesClassification(unsigned long count);
+        static TrainDataPtr twoLinesClassesClassification(unsigned long count);
 
     };
 }

@@ -12,12 +12,12 @@ namespace astra {
 
     class FullConnLayer : public Layer {
     public:
-        static LayerPtr createTanhLayerPtr(unsigned int nInputs, unsigned int nOutputs, double activationAlpha);
-        static LayerPtr createSigmoidLayerPtr(unsigned int nInputs, unsigned int nOutputs, double activationAlpha);
-        static LayerPtr createReLULayerPtr(unsigned int nInputs, unsigned int nOutputs);
+        static LayerPtr createTanhLayerPtr(unsigned long nInputs, unsigned long nOutputs, double activationAlpha);
+        static LayerPtr createSigmoidLayerPtr(unsigned long nInputs, unsigned long nOutputs, double activationAlpha);
+        static LayerPtr createReLULayerPtr(unsigned long nInputs, unsigned long nOutputs);
 
     public:
-        FullConnLayer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc);
+        FullConnLayer(unsigned long nInputs, unsigned long nOutputs, const ActivationFunctionPtr& activationFunc);
 
     public:
         virtual LayerTrainerPtr createTrainer();

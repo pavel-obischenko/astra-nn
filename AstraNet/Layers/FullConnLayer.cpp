@@ -19,19 +19,19 @@ using namespace astra::math;
 
 namespace astra {
 
-    LayerPtr FullConnLayer::createTanhLayerPtr(unsigned int nInputs, unsigned int nOutputs, double activationAlpha) {
+    LayerPtr FullConnLayer::createTanhLayerPtr(unsigned long nInputs, unsigned long nOutputs, double activationAlpha) {
         return std::make_shared<FullConnLayer>(nInputs, nOutputs, std::make_shared<TanhActivationFunction>(activationAlpha));
     }
 
-    LayerPtr FullConnLayer::createSigmoidLayerPtr(unsigned int nInputs, unsigned int nOutputs, double activationAlpha) {
+    LayerPtr FullConnLayer::createSigmoidLayerPtr(unsigned long nInputs, unsigned long nOutputs, double activationAlpha) {
         return std::make_shared<FullConnLayer>(nInputs, nOutputs, std::make_shared<SigActivationFunction>(activationAlpha));
     }
 
-    LayerPtr FullConnLayer::createReLULayerPtr(unsigned int nInputs, unsigned int nOutputs) {
+    LayerPtr FullConnLayer::createReLULayerPtr(unsigned long nInputs, unsigned long nOutputs) {
         return std::make_shared<FullConnLayer>(nInputs, nOutputs, std::make_shared<ReLUActivationFunction>());
     }
 
-    FullConnLayer::FullConnLayer(unsigned int nInputs, unsigned int nOutputs, const ActivationFunctionPtr& activationFunc) : Layer(nInputs, nOutputs, activationFunc) {}
+    FullConnLayer::FullConnLayer(unsigned long nInputs, unsigned long nOutputs, const ActivationFunctionPtr& activationFunc) : Layer(nInputs, nOutputs, activationFunc) {}
 
     LayerTrainerPtr FullConnLayer::createTrainer() {
         return std::make_shared<FullConnLayerTrainer>(shared_from_this());

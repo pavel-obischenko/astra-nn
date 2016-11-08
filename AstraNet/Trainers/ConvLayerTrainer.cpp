@@ -25,10 +25,14 @@ namespace astra {
         auto filters = convLayerPtr->getWeights();
         auto linearResult = convLayerPtr->getLinearMultiplicationResult();
 
-        auto errorMat = prevLayerErrorFactor.toMatrix(filters.get_width() - 1, filters.get_height());
+        unsigned long kernelsCountH = Image2Cols::kernelsCount(convLayerPtr->getWidth(), convLayerPtr->getFilterWidth());
+        unsigned long kernelsCountV = Image2Cols::kernelsCount(convLayerPtr->getHeight(), convLayerPtr->getFilterHeight());
+
+        unsigned long filterSize = kernelsCountH * kernelsCountV;
+        auto errorMat = prevLayerErrorFactor.toMatrix(filterSize, convLayerPtr->getNFilters());
 
         // local gradient
-        auto derivatives = activation->derivativeValue(linearResult);
+        auto derivatives = activation != nullptr ? activation->derivativeValue(linearResult) : linearResult;
         auto localGradient = derivatives.element_wise_mul(errorMat);
         setLocalGradient(localGradient.toVector());
 
@@ -43,6 +47,8 @@ namespace astra {
 
         // save results
         convLayerPtr->setWeights(getNewWeights());
+
+        //std::cout << getNewWeights().submatrix(0, 0, 9, 1) ->toVector().toMatrix(3, 3) << std::endl;
 
         // return error factor
         return getErrorFactor();

@@ -3,8 +3,8 @@
 // Copyright (c) 2016 pavel. All rights reserved.
 //
 
-#ifndef ASTRA_NN_RELUACTIVATIONFUNCTION_H
-#define ASTRA_NN_RELUACTIVATIONFUNCTION_H
+#ifndef ASTRA_NN_SOFTPLUSATIONFUNCTION_H
+#define ASTRA_NN_SOFTPLUSATIONFUNCTION_H
 
 #include "ActivationFunction.h"
 #include <cmath>

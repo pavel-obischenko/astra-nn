@@ -12,11 +12,16 @@ using namespace astra::algorithms;
 
 namespace astra {
 
+    LayerPtr ConvLayer::createConvLayerPtr(unsigned long width, unsigned long height, unsigned long nChannels, unsigned long filterWidth, unsigned long filterHeight, unsigned long nFilters) {
+        return std::make_shared<ConvLayer>(width, height, nChannels, filterWidth, filterHeight, nFilters);
+    }
+
     ConvLayer::ConvLayer(unsigned long width, unsigned long height, unsigned long nChannels, unsigned long filterWidth, unsigned long filterHeight, unsigned long nFilters) : width(width), height(height), nChannels(nChannels), filterWidth(filterWidth), filterHeight(filterHeight), nFilters(nFilters) {
         unsigned long kernelsCountH = Image2Cols::kernelsCount(width, filterWidth);
         unsigned long kernelsCountV = Image2Cols::kernelsCount(height, filterHeight);
 
-        setInput(Vector(kernelsCountH * kernelsCountV * nChannels));
+        setInput(Vector(width * height * nChannels));
+        setOutput(Vector(kernelsCountH * kernelsCountV * nFilters));
 
         // width = channels * filter_size + bias
         // height = filters qty
@@ -34,7 +39,10 @@ namespace astra {
 
         auto result = getWeights() * inputCols;
         setLinearMultiplicationResult(result);
-        setOutput(getActivationFunc()->value(result).toVector());
+
+        ActivationFunctionPtr activation = getActivationFunc();
+        auto output = activation != nullptr ? activation->value(result).toVector() : result.toVector();
+        setOutput(output);
 
         return Layer::getOutput();
     }

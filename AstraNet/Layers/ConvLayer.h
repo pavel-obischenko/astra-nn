@@ -13,6 +13,9 @@ namespace astra {
 
     class ConvLayer : public Layer {
     public:
+        static LayerPtr createConvLayerPtr(unsigned long width, unsigned long height, unsigned long nChannels, unsigned long filterWidth, unsigned long filterHeight, unsigned long nFilters);
+
+    public:
         ConvLayer(unsigned long width, unsigned long height, unsigned long nChannels, unsigned long filterWidth, unsigned long filterHeight, unsigned long nFilters);
 
     public:

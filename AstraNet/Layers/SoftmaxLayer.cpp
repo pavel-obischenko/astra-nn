@@ -12,11 +12,11 @@ using namespace astra::math;
 
 namespace astra {
 
-    LayerPtr SoftmaxLayer::createSoftmaxLayerPtr(unsigned int nInputs, unsigned int nOutputs) {
+    LayerPtr SoftmaxLayer::createSoftmaxLayerPtr(unsigned long nInputs, unsigned long nOutputs) {
         return std::make_shared<SoftmaxLayer>(nInputs, nOutputs);
     }
 
-    SoftmaxLayer::SoftmaxLayer(unsigned int nInputs, unsigned int nOutputs) : FullConnLayer(nInputs, nOutputs, std::make_shared<SoftmaxActivationFunction>()) {}
+    SoftmaxLayer::SoftmaxLayer(unsigned long nInputs, unsigned long nOutputs) : FullConnLayer(nInputs, nOutputs, std::make_shared<SoftmaxActivationFunction>()) {}
 
 //    LayerTrainerPtr SoftmaxLayer::createTrainer() {
 //        return std::make_shared<SoftmaxLayerTrainer>(shared_from_this());

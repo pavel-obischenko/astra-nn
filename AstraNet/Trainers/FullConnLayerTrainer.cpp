@@ -33,7 +33,6 @@ namespace astra {
 
         // save results
         layer->setWeights(getNewWeights());
-        //std::cout << getDWeights() << std::endl;
 
         // return error factor
         return getErrorFactor();

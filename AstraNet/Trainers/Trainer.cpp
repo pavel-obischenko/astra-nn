@@ -29,6 +29,8 @@ namespace astra {
         Vector out = Vector(netPtr->process(*currentTrainData->first));
         Vector dOut = Vector(*(currentTrainData->second));
 
+        //std::cout << dOut << "\n" << out << std::endl;
+
         Vector error = errorFactor(out, dOut);
         Vector lastError = error;
         for(auto trainer = trainers.rbegin(); trainer != trainers.rend(); ++trainer) {
