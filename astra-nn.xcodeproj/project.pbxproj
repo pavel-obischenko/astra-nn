@@ -12,15 +12,19 @@
 		6582812047C645F20E82E3DA /* ConvLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828B094AC118C9A0B8F0A7 /* ConvLayerTrainer.cpp */; };
 		65828206761C329C870F7D12 /* TestMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6582892424FE16F43C8E7DA2 /* TestMath.cpp */; };
 		658282224A1F3A27D4407D91 /* Image2Cols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658287711DBAE1EB718313F5 /* Image2Cols.cpp */; };
+		6582823DF9673F4AB3558EAE /* ReLULayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828DF31C65AE090D241094 /* ReLULayer.cpp */; };
 		6582833AD4E7FF1CC47D0D52 /* FullConnLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658286881B7A32AB59694530 /* FullConnLayerTrainer.cpp */; };
+		6582840FDC85F8945327C27B /* ReLULayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658282AF887751A723A859B3 /* ReLULayerTrainer.cpp */; };
 		6582846A2AC9572367728393 /* TrainDataGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658286283A793FAD24A71469 /* TrainDataGenerator.cpp */; };
 		658284F080F6D1D06839C614 /* SoftmaxLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658289567796926EB33E2693 /* SoftmaxLayer.cpp */; };
+		65828568D88C769BA808C82E /* ReLULayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828DF31C65AE090D241094 /* ReLULayer.cpp */; };
 		6582857E30E2CF495BE49E3D /* SoftmaxLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828B04999B2BDC727D9A80 /* SoftmaxLayerTrainer.cpp */; };
 		658285BA7855E3A6FF80D258 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E90B68C91DAE561C00C8292B /* Matrix.cpp */; };
 		658285EAB56B039A24A80B11 /* Vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658289342837346C968E8562 /* Vector.cpp */; };
 		65828624CD1972A299D4D8D4 /* FullConnLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828B67B25FE2B9F0CC311A /* FullConnLayer.cpp */; };
 		658286F1B6D60973A06164BB /* ConvLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828B094AC118C9A0B8F0A7 /* ConvLayerTrainer.cpp */; };
 		658288991BF9A05E215F154F /* ConvLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658284C1059BEA849E7B65EF /* ConvLayer.cpp */; };
+		658289B72C26E5326CEB8534 /* ReLULayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658282AF887751A723A859B3 /* ReLULayerTrainer.cpp */; };
 		65828A300A00D3CCAA7FC462 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6582888D2458F168B6099396 /* main.cpp */; };
 		65828C61BBF0C6B48BEDDBE5 /* Image2Cols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658287711DBAE1EB718313F5 /* Image2Cols.cpp */; };
 		65828CB5255D565CF9D72807 /* FullConnLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658286881B7A32AB59694530 /* FullConnLayerTrainer.cpp */; };
@@ -56,8 +60,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6582807A0B8FEC15BBBB8781 /* ReLULayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReLULayer.h; sourceTree = "<group>"; };
 		658280B31109E27696919D2F /* SoftmaxLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftmaxLayer.h; sourceTree = "<group>"; };
 		6582822687309319022EB9B6 /* FullConnLayerTrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullConnLayerTrainer.h; sourceTree = "<group>"; };
+		658282AB339ABE9371C21279 /* ReLULayerTrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReLULayerTrainer.h; sourceTree = "<group>"; };
+		658282AF887751A723A859B3 /* ReLULayerTrainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReLULayerTrainer.cpp; sourceTree = "<group>"; };
 		658282B945718496ECB7404F /* TrainDataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainDataGenerator.h; sourceTree = "<group>"; };
 		6582843B6380F8ACD13097B5 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		658284C1059BEA849E7B65EF /* ConvLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvLayer.cpp; sourceTree = "<group>"; };
@@ -83,6 +90,7 @@
 		65828BE82DADF11B980E77BD /* ReLUActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReLUActivationFunction.h; sourceTree = "<group>"; };
 		65828C7C0587BB2F8AD90965 /* astra-nn-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "astra-nn-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65828CB991CFA9099621F020 /* SoftmaxLayerTrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftmaxLayerTrainer.h; sourceTree = "<group>"; };
+		65828DF31C65AE090D241094 /* ReLULayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReLULayer.cpp; sourceTree = "<group>"; };
 		65828EDD0BFFD5A4AF308A2E /* ConvLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvLayer.h; sourceTree = "<group>"; };
 		E90B68C91DAE561C00C8292B /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
 		E9AE356D1DA2695900C45683 /* TrainData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrainData.h; sourceTree = "<group>"; };
@@ -154,6 +162,8 @@
 				658282B945718496ECB7404F /* TrainDataGenerator.h */,
 				65828B04999B2BDC727D9A80 /* SoftmaxLayerTrainer.cpp */,
 				65828CB991CFA9099621F020 /* SoftmaxLayerTrainer.h */,
+				658282AF887751A723A859B3 /* ReLULayerTrainer.cpp */,
+				658282AB339ABE9371C21279 /* ReLULayerTrainer.h */,
 			);
 			path = Trainers;
 			sourceTree = "<group>";
@@ -217,6 +227,8 @@
 				65828B2235CB5B272863216F /* ConvLayerPtr.h */,
 				658280B31109E27696919D2F /* SoftmaxLayer.h */,
 				658289567796926EB33E2693 /* SoftmaxLayer.cpp */,
+				65828DF31C65AE090D241094 /* ReLULayer.cpp */,
+				6582807A0B8FEC15BBBB8781 /* ReLULayer.h */,
 			);
 			path = Layers;
 			sourceTree = "<group>";
@@ -347,6 +359,8 @@
 				6582846A2AC9572367728393 /* TrainDataGenerator.cpp in Sources */,
 				65828EBBD43C30C03A10AC70 /* SoftmaxLayer.cpp in Sources */,
 				6582857E30E2CF495BE49E3D /* SoftmaxLayerTrainer.cpp in Sources */,
+				6582823DF9673F4AB3558EAE /* ReLULayer.cpp in Sources */,
+				6582840FDC85F8945327C27B /* ReLULayerTrainer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +381,8 @@
 				65828E7D116551B1F9F4F6BB /* TrainDataGenerator.cpp in Sources */,
 				658284F080F6D1D06839C614 /* SoftmaxLayer.cpp in Sources */,
 				6582809DEFE2FDD64F6591C3 /* SoftmaxLayerTrainer.cpp in Sources */,
+				65828568D88C769BA808C82E /* ReLULayer.cpp in Sources */,
+				658289B72C26E5326CEB8534 /* ReLULayerTrainer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

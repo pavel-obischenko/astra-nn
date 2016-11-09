@@ -28,6 +28,7 @@
 #include "AstraNet/Layers/SoftmaxLayer.h"
 #include "AstraNet/Layers/FullConnLayer.h"
 #include "AstraNet/Layers/ConvLayer.h"
+#include "AstraNet/Layers/ReLULayer.h"
 
 
 using namespace astra;
@@ -53,16 +54,12 @@ void twoLinesClassesClassification() {
     LayerPtr convLayer = ConvLayer::createConvLayerPtr(width, height, channels, filterWidth, filterHeight, filters);
     netPtr->addLayer(convLayer);
 
-//    int fullConnSize = 10;
-//    LayerPtr fullConnLayer = FullConnLayer::createSigmoidLayerPtr(convLayer->getOutput().size(), fullConnSize, 1.);
-//    netPtr->addLayer(fullConnLayer);
-
-//    int softmaxSize = 2;
-//    LayerPtr softmaxLayerPtr = SoftmaxLayer::createSoftmaxLayerPtr(fullConnLayer->getOutput().size(), softmaxSize);
-//    netPtr->addLayer(softmaxLayerPtr);
+    int reluSize = convLayer->getOutput().size();
+    LayerPtr reluLayerPtr = ReLULayer::createReLULayerPtr(reluSize);
+    netPtr->addLayer(reluLayerPtr);
 
     int softmaxSize = 2;
-    LayerPtr softmaxLayerPtr = SoftmaxLayer::createSoftmaxLayerPtr(convLayer->getOutput().size(), softmaxSize);
+    LayerPtr softmaxLayerPtr = SoftmaxLayer::createSoftmaxLayerPtr(reluLayerPtr->getOutput().size(), softmaxSize);
     netPtr->addLayer(softmaxLayerPtr);
 
     int count = 64;

@@ -18,7 +18,7 @@ namespace astra {
         SoftmaxLayer(unsigned long nInputs, unsigned long nOutputs);
 
     public:
-        //virtual LayerTrainerPtr createTrainer();
+        virtual LayerTrainerPtr createTrainer();
     };
 
 }

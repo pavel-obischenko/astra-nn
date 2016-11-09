@@ -18,7 +18,7 @@ namespace astra {
             return std::max(arg, 0.0);
         }
         virtual double derivativeValue(double arg) const {
-            return arg < 0 ? 0 : 1.;
+            return arg < 0 ? 0 : arg;
         }
     };
 

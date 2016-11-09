@@ -11,6 +11,6 @@ namespace astra {
 
     math::Vector SoftmaxLayerTrainer::trainingError(const math::Vector& out, const math::Vector& train) {
         // TODO: add softmax error
-        return Vector();
+        return FullConnLayerTrainer::trainingError(out, train);
     }
 }

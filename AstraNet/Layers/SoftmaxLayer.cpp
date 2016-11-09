@@ -18,7 +18,7 @@ namespace astra {
 
     SoftmaxLayer::SoftmaxLayer(unsigned long nInputs, unsigned long nOutputs) : FullConnLayer(nInputs, nOutputs, std::make_shared<SoftmaxActivationFunction>()) {}
 
-//    LayerTrainerPtr SoftmaxLayer::createTrainer() {
-//        return std::make_shared<SoftmaxLayerTrainer>(shared_from_this());
-//    }
+    LayerTrainerPtr SoftmaxLayer::createTrainer() {
+        return std::make_shared<SoftmaxLayerTrainer>(shared_from_this());
+    }
 }
