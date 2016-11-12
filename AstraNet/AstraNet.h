@@ -25,16 +25,29 @@ namespace astra {
         static AstraNetPtr createPtr();
         static AstraNetPtr constructFullConnNet(unsigned int nInputs, const std::vector<int> &layerSizes);
         static AstraNetPtr constructFullConnSoftmaxNet(unsigned int nInputs, const std::vector<int> &layerSizes);
-        
+
     public:
-        Output process(const Input& input);
-        
         std::vector<LayerPtr>& getLayers() { return layers; }
         void setLayers(const std::vector<LayerPtr>& layers) { this->layers = layers; }
         void addLayer(const LayerPtr& layer) { layers.push_back(layer); }
         
+    public:
+        const Output& process(const Input& input);
+
+    public:
+        const Input &getLastInput() const { return lastInput; }
+        const Output &getLastOutput() const { return lastOutput; }
+        
+    protected:
+        void setLastInput(const Input &lastInput) { AstraNet::lastInput = lastInput; }
+        void setLastOutput(const Output &lastOutput) { AstraNet::lastOutput = lastOutput; }
+
     protected:
         std::vector<LayerPtr> layers;
+
+    protected:
+        Input lastInput;
+        Output lastOutput;
     };
     
 }

@@ -50,8 +50,9 @@ namespace astra {
 
         return netPtr;
     }
-    
-    Output AstraNet::process(const Input& input) {
+
+    const Output& AstraNet::process(const Input& input) {
+        setLastInput(input);
         auto firstLayer = layers.begin();
         
         Vector lastOutput;
@@ -59,7 +60,8 @@ namespace astra {
             const Vector& currentInput = layer == firstLayer ? Vector(input) : lastOutput;
             lastOutput = (*layer)->process(currentInput);
         }
-        
-        return *lastOutput.get_data_storage();
+
+        setLastOutput(*lastOutput.get_data_storage());
+        return getLastOutput();
     }
 }

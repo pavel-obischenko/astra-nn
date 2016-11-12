@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6582805335AE76BF55048411 /* ConvLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658284C1059BEA849E7B65EF /* ConvLayer.cpp */; };
+		65828069CD43229566CBEDD7 /* PoolingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658289D3036EF8F8E2717D5B /* PoolingLayer.cpp */; };
 		6582809DEFE2FDD64F6591C3 /* SoftmaxLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828B04999B2BDC727D9A80 /* SoftmaxLayerTrainer.cpp */; };
 		6582812047C645F20E82E3DA /* ConvLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828B094AC118C9A0B8F0A7 /* ConvLayerTrainer.cpp */; };
 		65828206761C329C870F7D12 /* TestMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6582892424FE16F43C8E7DA2 /* TestMath.cpp */; };
@@ -15,6 +16,7 @@
 		6582823DF9673F4AB3558EAE /* ReLULayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828DF31C65AE090D241094 /* ReLULayer.cpp */; };
 		6582833AD4E7FF1CC47D0D52 /* FullConnLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658286881B7A32AB59694530 /* FullConnLayerTrainer.cpp */; };
 		6582840FDC85F8945327C27B /* ReLULayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658282AF887751A723A859B3 /* ReLULayerTrainer.cpp */; };
+		6582841BD3706B3912A93507 /* PoolingLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658289F5F8AF69DAFCDD4498 /* PoolingLayerTrainer.cpp */; };
 		6582846A2AC9572367728393 /* TrainDataGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658286283A793FAD24A71469 /* TrainDataGenerator.cpp */; };
 		658284F080F6D1D06839C614 /* SoftmaxLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658289567796926EB33E2693 /* SoftmaxLayer.cpp */; };
 		65828568D88C769BA808C82E /* ReLULayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65828DF31C65AE090D241094 /* ReLULayer.cpp */; };
@@ -26,7 +28,9 @@
 		658288991BF9A05E215F154F /* ConvLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658284C1059BEA849E7B65EF /* ConvLayer.cpp */; };
 		658289B72C26E5326CEB8534 /* ReLULayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658282AF887751A723A859B3 /* ReLULayerTrainer.cpp */; };
 		65828A300A00D3CCAA7FC462 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6582888D2458F168B6099396 /* main.cpp */; };
+		65828BB7108CB8AAA992235E /* PoolingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658289D3036EF8F8E2717D5B /* PoolingLayer.cpp */; };
 		65828C61BBF0C6B48BEDDBE5 /* Image2Cols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658287711DBAE1EB718313F5 /* Image2Cols.cpp */; };
+		65828C6F24AA773B959F87DF /* PoolingLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658289F5F8AF69DAFCDD4498 /* PoolingLayerTrainer.cpp */; };
 		65828CB5255D565CF9D72807 /* FullConnLayerTrainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658286881B7A32AB59694530 /* FullConnLayerTrainer.cpp */; };
 		65828E7D116551B1F9F4F6BB /* TrainDataGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658286283A793FAD24A71469 /* TrainDataGenerator.cpp */; };
 		65828EBBD43C30C03A10AC70 /* SoftmaxLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 658289567796926EB33E2693 /* SoftmaxLayer.cpp */; };
@@ -68,17 +72,22 @@
 		658282B945718496ECB7404F /* TrainDataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainDataGenerator.h; sourceTree = "<group>"; };
 		6582843B6380F8ACD13097B5 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		658284C1059BEA849E7B65EF /* ConvLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvLayer.cpp; sourceTree = "<group>"; };
+		658285068734DCD5FB5A8FA6 /* matplotlibcpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matplotlibcpp.h; sourceTree = "<group>"; };
+		658285D605FA29E990449E8A /* PoolingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoolingLayer.h; sourceTree = "<group>"; };
 		658286283A793FAD24A71469 /* TrainDataGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrainDataGenerator.cpp; sourceTree = "<group>"; };
 		658286881B7A32AB59694530 /* FullConnLayerTrainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FullConnLayerTrainer.cpp; sourceTree = "<group>"; };
 		6582870C40F866850EF46A12 /* SoftplusActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftplusActivationFunction.h; sourceTree = "<group>"; };
 		658287711DBAE1EB718313F5 /* Image2Cols.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Image2Cols.cpp; sourceTree = "<group>"; };
 		6582879CFC2C3F5B4FBCF32D /* LayerTrainerPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTrainerPtr.h; sourceTree = "<group>"; };
+		658287C8AA983420A65D7FB2 /* PoolingLayerTrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoolingLayerTrainer.h; sourceTree = "<group>"; };
 		6582888D2458F168B6099396 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		658288ECB3178700513ACE82 /* Image2Cols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image2Cols.h; sourceTree = "<group>"; };
 		6582892424FE16F43C8E7DA2 /* TestMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestMath.cpp; sourceTree = "<group>"; };
 		658289318FA6BFCDC0EEC7B3 /* FullConnLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullConnLayer.h; sourceTree = "<group>"; };
 		658289342837346C968E8562 /* Vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector.cpp; sourceTree = "<group>"; };
 		658289567796926EB33E2693 /* SoftmaxLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoftmaxLayer.cpp; sourceTree = "<group>"; };
+		658289D3036EF8F8E2717D5B /* PoolingLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PoolingLayer.cpp; sourceTree = "<group>"; };
+		658289F5F8AF69DAFCDD4498 /* PoolingLayerTrainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PoolingLayerTrainer.cpp; sourceTree = "<group>"; };
 		65828A2DD0E4FC288D1E590A /* SoftmaxActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftmaxActivationFunction.h; sourceTree = "<group>"; };
 		65828A3344C38689EB8299DA /* LayerTrainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTrainer.h; sourceTree = "<group>"; };
 		65828A6F0221788990D47534 /* LayerPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerPtr.h; sourceTree = "<group>"; };
@@ -146,6 +155,14 @@
 			path = Algorithms;
 			sourceTree = "<group>";
 		};
+		65828A5CAE0027FD185D355E /* External */ = {
+			isa = PBXGroup;
+			children = (
+				658285068734DCD5FB5A8FA6 /* matplotlibcpp.h */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
 		E9D8DBE21D9EA73C00B59CC5 /* Trainers */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +181,8 @@
 				65828CB991CFA9099621F020 /* SoftmaxLayerTrainer.h */,
 				658282AF887751A723A859B3 /* ReLULayerTrainer.cpp */,
 				658282AB339ABE9371C21279 /* ReLULayerTrainer.h */,
+				658289F5F8AF69DAFCDD4498 /* PoolingLayerTrainer.cpp */,
+				658287C8AA983420A65D7FB2 /* PoolingLayerTrainer.h */,
 			);
 			path = Trainers;
 			sourceTree = "<group>";
@@ -175,6 +194,7 @@
 				E9DF75101D9E488C00F77E56 /* main.cpp */,
 				E9DF75071D9E483900F77E56 /* Products */,
 				658284A25CCA58878D5ADD58 /* astra-nn-tests */,
+				65828A5CAE0027FD185D355E /* External */,
 			);
 			sourceTree = "<group>";
 		};
@@ -229,6 +249,8 @@
 				658289567796926EB33E2693 /* SoftmaxLayer.cpp */,
 				65828DF31C65AE090D241094 /* ReLULayer.cpp */,
 				6582807A0B8FEC15BBBB8781 /* ReLULayer.h */,
+				658289D3036EF8F8E2717D5B /* PoolingLayer.cpp */,
+				658285D605FA29E990449E8A /* PoolingLayer.h */,
 			);
 			path = Layers;
 			sourceTree = "<group>";
@@ -361,6 +383,8 @@
 				6582857E30E2CF495BE49E3D /* SoftmaxLayerTrainer.cpp in Sources */,
 				6582823DF9673F4AB3558EAE /* ReLULayer.cpp in Sources */,
 				6582840FDC85F8945327C27B /* ReLULayerTrainer.cpp in Sources */,
+				65828069CD43229566CBEDD7 /* PoolingLayer.cpp in Sources */,
+				6582841BD3706B3912A93507 /* PoolingLayerTrainer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +407,8 @@
 				6582809DEFE2FDD64F6591C3 /* SoftmaxLayerTrainer.cpp in Sources */,
 				65828568D88C769BA808C82E /* ReLULayer.cpp in Sources */,
 				658289B72C26E5326CEB8534 /* ReLULayerTrainer.cpp in Sources */,
+				65828BB7108CB8AAA992235E /* PoolingLayer.cpp in Sources */,
+				65828C6F24AA773B959F87DF /* PoolingLayerTrainer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,6 +559,9 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-lpython",
+				);
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -579,6 +608,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-lpython",
+				);
 				SDKROOT = macosx;
 			};
 			name = Release;
