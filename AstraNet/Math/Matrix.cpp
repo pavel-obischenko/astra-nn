@@ -109,7 +109,15 @@ namespace math {
     double Matrix::sum() const {
         return std::accumulate(begin(), end(), 0.0);
     }
-    
+
+    double Matrix::max_element() const {
+        return *std::max_element(begin(), end());
+    }
+
+    double Matrix::average_value() const {
+        return sum() / (get_width() * get_height());
+    }
+
     Matrix& Matrix::operator=(const Matrix& mat) {
         if (&mat != this) {
             width = mat.get_width();

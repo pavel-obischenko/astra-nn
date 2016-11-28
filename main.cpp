@@ -35,15 +35,16 @@ namespace plt = matplotlibcpp;
 
 using namespace astra;
 using namespace astra::math;
+using namespace astra::algorithms;
 
 void threeClassesClassification();
 void twoLinesClassesClassification();
 void xSinXregression();
 
 int main(int argc, const char * argv[]) {
-    //twoLinesClassesClassification();
+    twoLinesClassesClassification();
     //threeClassesClassification();
-    xSinXregression();
+    //xSinXregression();
     return 0;
 }
 

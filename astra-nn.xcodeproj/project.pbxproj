@@ -75,6 +75,7 @@
 		658285068734DCD5FB5A8FA6 /* matplotlibcpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matplotlibcpp.h; sourceTree = "<group>"; };
 		658285D605FA29E990449E8A /* PoolingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoolingLayer.h; sourceTree = "<group>"; };
 		658286283A793FAD24A71469 /* TrainDataGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrainDataGenerator.cpp; sourceTree = "<group>"; };
+		6582863B8E61E9D6589156CE /* PoolingLayerPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoolingLayerPtr.h; sourceTree = "<group>"; };
 		658286881B7A32AB59694530 /* FullConnLayerTrainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FullConnLayerTrainer.cpp; sourceTree = "<group>"; };
 		6582870C40F866850EF46A12 /* SoftplusActivationFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftplusActivationFunction.h; sourceTree = "<group>"; };
 		658287711DBAE1EB718313F5 /* Image2Cols.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Image2Cols.cpp; sourceTree = "<group>"; };
@@ -251,6 +252,7 @@
 				6582807A0B8FEC15BBBB8781 /* ReLULayer.h */,
 				658289D3036EF8F8E2717D5B /* PoolingLayer.cpp */,
 				658285D605FA29E990449E8A /* PoolingLayer.h */,
+				6582863B8E61E9D6589156CE /* PoolingLayerPtr.h */,
 			);
 			path = Layers;
 			sourceTree = "<group>";

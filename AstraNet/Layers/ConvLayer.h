@@ -27,10 +27,6 @@ namespace astra {
             return width;
         }
 
-        void setWidth(unsigned long width) {
-            ConvLayer::width = width;
-        }
-
         unsigned long getHeight() const {
             return height;
         }

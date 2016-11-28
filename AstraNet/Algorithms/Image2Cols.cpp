@@ -11,8 +11,8 @@ using namespace astra::math;
 namespace astra {
 namespace algorithms {
 
-    MatrixPtr Image2Cols::convertToCols(const math::Vector& src, unsigned long nChannels, unsigned long kernelWidth, unsigned long kernelHeight, bool addBiasInput/* = false*/, unsigned long stride/* = 1*/, unsigned long padWidth/* = 0*/, unsigned long padHeight/* = 0*/) {
-        std::vector<MatrixPtr> srcVec;
+    std::vector<MatrixPtr> Image2Cols::matricesFromVector(const math::Vector& src, unsigned long nChannels) {
+        std::vector<MatrixPtr> resultMatrices;
         unsigned long channelSize = src.size() / nChannels;
         unsigned long width = (unsigned long)std::sqrt(channelSize);
         unsigned long height = (unsigned long)std::sqrt(channelSize);
@@ -25,10 +25,48 @@ namespace algorithms {
             auto end = begin + channelSize;
             std::copy(begin, end, m->begin());
 
-            srcVec.push_back(m);
+            resultMatrices.push_back(m);
+        }
+        return resultMatrices;
+    }
+
+    MatrixPtr Image2Cols::convertToCols(const math::Vector& src, unsigned long nChannels, unsigned long kernelWidth, unsigned long kernelHeight, bool addBiasInput/* = false*/, unsigned long stride/* = 1*/, unsigned long padWidth/* = 0*/, unsigned long padHeight/* = 0*/) {
+        std::vector<MatrixPtr> srcVec = matricesFromVector(src, nChannels);
+        return convertToCols(srcVec, kernelWidth, kernelHeight, addBiasInput, stride, padWidth, padHeight);
+    }
+
+    unsigned long Image2Cols::poolsCount(unsigned long size, unsigned long poolingSize) {
+        return (unsigned long)std::ceil((float)size / (float)poolingSize);
+    }
+
+    MatrixPtr Image2Cols::convertMatrixToColsForPooling(const math::MatrixPtr& src, unsigned long poolingWidth, unsigned long poolingHeight) {
+        unsigned long poolsCountH = poolsCount(src->get_width(), poolingWidth);
+        unsigned long poolsCountV = poolsCount(src->get_height(), poolingHeight);
+
+        unsigned long resultWidth = poolsCountH * poolsCountV;
+        unsigned long resultHeight = poolingWidth * poolingHeight;
+
+        MatrixPtr result = std::make_shared<Matrix>(resultWidth, resultHeight);
+
+        unsigned long y = 0;
+        unsigned long poolCol = 0;
+
+        unsigned long maxX = src->get_width() - poolingWidth;
+        unsigned long maxY = src->get_height() - poolingHeight;
+
+        for (unsigned long row = 0; row < poolsCountV; ++row, y += poolingHeight) {
+            for (unsigned long col = 0, x = 0; col < poolsCountH; ++col, x += poolingWidth, ++poolCol) {
+                MatrixPtr dm = result->submatrix(poolCol, 0, 1, resultHeight);
+
+                unsigned long pWidth = x <= maxX ? poolingWidth : (poolingWidth - (x - maxX));
+                unsigned long pHeight = y <= maxY ? poolingHeight : (poolingHeight - (y - maxY));
+
+                ConstMatrixPtr sm = src->submatrix(x, y, pWidth, pHeight);
+                std::copy(sm->begin(), sm->end(), dm->begin());
+            }
         }
 
-        return convertToCols(srcVec, kernelWidth, kernelHeight, addBiasInput, stride, padWidth, padHeight);
+        return result;
     }
 
     MatrixPtr Image2Cols::convertToCols(const std::vector<MatrixPtr>& src, unsigned long kernelWidth, unsigned long kernelHeight, bool addBiasInput/* = false*/, unsigned long stride/* = 1*/, unsigned long padWidth/* = 0*/, unsigned long padHeight/* = 0*/) {

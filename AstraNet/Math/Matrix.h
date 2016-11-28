@@ -50,6 +50,9 @@ namespace math {
         void rndFill(double min = -1., double max = 1.);
 
         double sum() const;
+        double max_element() const;
+        double average_value() const;
+
         Matrix& operator=(const Matrix& mat);
         
         MatrixPtr submatrix(unsigned long x, unsigned long y, unsigned long width, unsigned long height);

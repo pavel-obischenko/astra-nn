@@ -16,9 +16,13 @@ namespace algorithms {
         static math::MatrixPtr convertToCols(const math::Vector& src, unsigned long nChannels, unsigned long kernelWidth, unsigned long kernelHeight, bool addBiasInput = false, unsigned long stride = 1, unsigned long padWidth = 0, unsigned long padHeight = 0);
         static math::MatrixPtr convertToCols(const std::vector<math::MatrixPtr> &src, unsigned long kernelWidth, unsigned long kernelHeight, bool addBiasInput = false, unsigned long stride = 1, unsigned long padWidth = 0, unsigned long padHeight = 0);
 
+        static unsigned long poolsCount(unsigned long size, unsigned long poolingSize);
+        static math::MatrixPtr convertMatrixToColsForPooling(const math::MatrixPtr& src, unsigned long poolingWidth, unsigned long poolingHeight);
+
         static std::vector<math::MatrixPtr> convertFromColsToArray(const math::Matrix& srcCols, unsigned long width, unsigned long height, unsigned long nChannels, unsigned long kernelWidth, unsigned long kernelHeight, bool cutBiases = false, unsigned long stride = 1);
         static math::VectorPtr convertFromColsToVector(const math::Matrix& srcCols, unsigned long width, unsigned long height, unsigned long nChannels, unsigned long kernelWidth, unsigned long kernelHeight, bool cutBiases = false, unsigned long stride = 1);
 
+        static std::vector<math::MatrixPtr> matricesFromVector(const math::Vector& src, unsigned long nChannels);
         static unsigned long kernelsCount(unsigned long size, unsigned long kernelSize, unsigned long stride = 1, unsigned long padSize = 0);
 
     private:
